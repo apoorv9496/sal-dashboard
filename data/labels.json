@@ -124,7 +124,10 @@
           "name": "KRIVIA CORPORATION",
           "active": false
         }
-      ]
+      ],
+      "currentBoxes": 48,
+      "boxesRequirement": "48 / 95",
+      "rollsPerBox": 24
     },
     {
       "rank": 2,
@@ -159,7 +162,10 @@
           "active": false
         }
       ],
-      "customersBMeta": []
+      "customersBMeta": [],
+      "currentBoxes": 0,
+      "boxesRequirement": "0 / 35",
+      "rollsPerBox": 24
     },
     {
       "rank": 3,
@@ -186,7 +192,10 @@
           "name": "ARIHANT INTERNATIONAL",
           "active": false
         }
-      ]
+      ],
+      "currentBoxes": 5,
+      "boxesRequirement": "5 / 40",
+      "rollsPerBox": 48
     },
     {
       "rank": 4,
@@ -243,7 +252,10 @@
           "name": "KALKA & CO.",
           "active": false
         }
-      ]
+      ],
+      "currentBoxes": 31,
+      "boxesRequirement": "31 / 19",
+      "rollsPerBox": 36
     },
     {
       "rank": 5,
@@ -263,7 +275,10 @@
           "active": true
         }
       ],
-      "customersBMeta": []
+      "customersBMeta": [],
+      "currentBoxes": 30,
+      "boxesRequirement": "30 / 17",
+      "rollsPerBox": 36
     },
     {
       "rank": 6,
@@ -283,7 +298,10 @@
           "active": true
         }
       ],
-      "customersBMeta": []
+      "customersBMeta": [],
+      "currentBoxes": 0,
+      "boxesRequirement": "0 / 12",
+      "rollsPerBox": 36
     },
     {
       "rank": "+1",
@@ -309,7 +327,10 @@
           "active": false
         }
       ],
-      "customersBMeta": []
+      "customersBMeta": [],
+      "currentBoxes": 10,
+      "boxesRequirement": "10 / 17",
+      "rollsPerBox": 24
     }
   ],
   "lost": [

@@ -296,7 +296,7 @@ function renderLabels(data) {
     <section class="panel">
       <div class="panel-head">
         <h2>Planning — 6 + 1</h2>
-        <p class="hint">Current stock = S-19 BOX STOCK rolls (boxes × rolls/box); boxing 4/6÷24, 3/5÷36, 50×30÷48. +1 is DT Label Roll (Y) 4/6. Active buyers = green chips.</p>
+        <p class="hint">Stock / req = current boxes (from S-19 rolls ÷ rolls/box) / avg boxes per month. Boxing 4/6÷24, 3/5÷36, 50×30÷48.</p>
       </div>
       ${table(
         [
@@ -304,8 +304,8 @@ function renderLabels(data) {
           { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
           { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
           { key: "avgQtyPerMo", label: "Avg qty / mo", align: "right", value: (r) => fmt.num(r.avgQtyPerMo) },
-          { key: "avgBoxesPerMo", label: "Avg boxes / mo", align: "right", value: (r) => fmt.num(r.avgBoxesPerMo) },
           { key: "currentStockRolls", label: "Current stock (rolls)", align: "right", value: (r) => fmt.num(r.currentStockRolls) },
+          { key: "boxesRequirement", label: "Stock / req (boxes)", align: "right", value: (r) => escapeHtml(r.boxesRequirement || (r.currentBoxes != null && r.avgBoxesPerMo != null ? `${r.currentBoxes} / ${r.avgBoxesPerMo}` : "—")) },
           { key: "customersA", label: "Customers A", value: (r) => customerPills(r.customersAMeta || r.customersA, activeSet) },
           { key: "customersB", label: "Customers B", value: (r) => customerPills(r.customersBMeta || r.customersB, activeSet) },
         ],
