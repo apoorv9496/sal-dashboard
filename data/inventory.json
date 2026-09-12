@@ -1,0 +1,149 @@
+{
+  "asOf": "2026-09-08",
+  "sample": true,
+  "title": "Inventory management / RM stock",
+  "source": "Dashboard tab 4 — mail dated 8 Sep 2026 (sample placeholder, not live ERP)",
+  "excess": [
+    {
+      "itemName": "Glassine liner",
+      "type": "Liner",
+      "width": 1000,
+      "micron": null,
+      "gsm": 62,
+      "currentStockT": 18.42,
+      "avgConsumedT": 4.10,
+      "pendingPoT": 0,
+      "note": "Two lots landed together after delayed May vessel"
+    },
+    {
+      "itemName": "SC kraft",
+      "type": "Paper",
+      "width": 1070,
+      "micron": null,
+      "gsm": 70,
+      "currentStockT": 7.60,
+      "avgConsumedT": 2.05,
+      "pendingPoT": 0,
+      "note": "Cover for cancelled gumming trial"
+    },
+    {
+      "itemName": "Hotmelt HM-220",
+      "type": "Adhesive",
+      "width": null,
+      "micron": null,
+      "gsm": null,
+      "currentStockT": 2.10,
+      "avgConsumedT": 0.85,
+      "pendingPoT": 0.40,
+      "note": "Within shelf life (use by Jan 2027)"
+    },
+    {
+      "itemName": "DT base paper",
+      "type": "Paper",
+      "width": 1070,
+      "micron": null,
+      "gsm": 80,
+      "currentStockT": 6.25,
+      "avgConsumedT": 2.40,
+      "pendingPoT": 0,
+      "note": "Wide roll — slitting to 330 mm possible"
+    },
+    {
+      "itemName": "Paper cores 76 mm",
+      "type": "Packing",
+      "width": 300,
+      "micron": null,
+      "gsm": null,
+      "currentStockT": 1.85,
+      "avgConsumedT": 0.42,
+      "pendingPoT": 0,
+      "note": "MOQ overbuy; pause next PO"
+    }
+  ],
+  "shortage": [
+    {
+      "itemName": "DT facestock",
+      "type": "Paper",
+      "width": 330,
+      "micron": null,
+      "gsm": 80,
+      "currentStockT": 0.82,
+      "avgConsumedT": 4.50,
+      "pendingPoT": 6.00,
+      "note": "Expedite PO-4412 — ~4 production days cover"
+    },
+    {
+      "itemName": "PE white",
+      "type": "Film",
+      "width": 250,
+      "micron": 85,
+      "gsm": null,
+      "currentStockT": 0.14,
+      "avgConsumedT": 0.90,
+      "pendingPoT": 1.20,
+      "note": "Outdoor SKU on watch — do not promise new jobs"
+    },
+    {
+      "itemName": "Pharma adhesive PH-11",
+      "type": "Adhesive",
+      "width": null,
+      "micron": null,
+      "gsm": null,
+      "currentStockT": 0.05,
+      "avgConsumedT": 0.28,
+      "pendingPoT": 0.30,
+      "note": "Single-source; confirm lot COA before lining"
+    },
+    {
+      "itemName": "PET release liner",
+      "type": "Liner",
+      "width": 250,
+      "micron": 30,
+      "gsm": null,
+      "currentStockT": 0,
+      "avgConsumedT": 0.35,
+      "pendingPoT": 0.80,
+      "note": "Stock-out — glassine substitute only with customer OK"
+    },
+    {
+      "itemName": "TT facestock matte",
+      "type": "Paper",
+      "width": 330,
+      "micron": null,
+      "gsm": 70,
+      "currentStockT": 0.40,
+      "avgConsumedT": 1.60,
+      "pendingPoT": 2.00,
+      "note": "75×50 pharma run depends on this slit"
+    },
+    {
+      "itemName": "Tamper void pigment",
+      "type": "Ink",
+      "width": null,
+      "micron": null,
+      "gsm": null,
+      "currentStockT": 0.01,
+      "avgConsumedT": 0.03,
+      "pendingPoT": 0.02,
+      "note": "Enough for ~9 days at current pharma run"
+    }
+  ],
+  "notes": [
+    {
+      "severity": "urgent",
+      "text": "DT facestock 330 mm / 80 gsm covers ~4 production days at last-4-week average. Friday lining plan is at risk without PO-4412 movement."
+    },
+    {
+      "severity": "watch",
+      "text": "Also watch: PET liner stock-out blocks clear outdoor construction. Two PE outdoor jobs are quoted — hold confirmations."
+    },
+    {
+      "severity": "watch",
+      "text": "Also watch: Glassine 62 gsm is ~4.5× monthly consume. Prefer glassine constructions this week where spec allows."
+    },
+    {
+      "severity": "info",
+      "text": "Quantities in tonnes. Sample snapshot only — replace from Monday Dashboard tab 4 / RM mail. Do not use for purchasing."
+    }
+  ]
+}

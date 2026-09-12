@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c1915">
+  <meta name="description" content="Weekly operations dashboard for SAL Papers / Dubble — labels management and RM inventory.">
+  <title>SAL Papers / Dubble — Weekly ops</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#app">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home">
+        <span class="mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="3" width="14" height="4" rx="1" fill="currentColor"/>
+            <rect x="3" y="8.5" width="14" height="4" rx="1" fill="currentColor" opacity=".7"/>
+            <rect x="3" y="14" width="9" height="3" rx="1" fill="currentColor" opacity=".4"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-kicker">SAL Papers · Dubble</span>
+          <span class="brand-name">Weekly ops</span>
+        </span>
+      </a>
+      <nav aria-label="Reports">
+        <a href="#home" data-nav="home">Home</a>
+        <a href="#label" data-nav="label">Labels</a>
+        <a href="#rm" data-nav="rm">Inventory / RM</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="wrap" id="app">
+      <p class="lede">Loading briefing…</p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>SAL Papers / Dubble · B2B label stock</span>
+      <span>Static briefing · <span id="year"></span></span>
+    </div>
+  </footer>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
