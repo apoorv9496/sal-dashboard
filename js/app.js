@@ -37,6 +37,26 @@ const fmt = {
     if (n == null || n === "") return "—";
     return `${fmt.num(n, 1)}%`;
   },
+  /** Width / GSM / micron: numbers stay formatted; BizSol ranges stay readable strings. */
+  dim(value, suffix = "") {
+    if (value == null || value === "") return "—";
+    if (typeof value === "number") {
+      if (!Number.isFinite(value)) return "—";
+      return `${fmt.num(value)}${suffix}`;
+    }
+    const raw = String(value).trim();
+    if (!raw) return "—";
+    if (/^[+-]?\d+(?:\.\d+)?$/.test(raw) && Number.isFinite(Number(raw))) {
+      return `${fmt.num(raw)}${suffix}`;
+    }
+    const escaped = escapeHtml(raw);
+    if (!suffix) return escaped;
+    const unit = suffix.trim();
+    if (unit && raw.toLowerCase().includes(unit.toLowerCase())) return escaped;
+    // "1001-1030" is numeric-ish → add unit; "1101-Any" / "63g-75g" keep letters as-is.
+    if (/^[\d.\s-]+$/.test(raw)) return `${escaped}${suffix}`;
+    return escaped;
+  },
 };
 
 function trendAmount(row) {
@@ -323,9 +343,9 @@ function rmColumns() {
   return [
     { key: "itemName", label: "Item", value: (r) => escapeHtml(r.itemName) },
     { key: "type", label: "Type", value: (r) => escapeHtml(r.type) },
-    { key: "width", label: "Width", align: "right", value: (r) => (r.width == null || r.width === "" ? "—" : `${fmt.num(r.width)} mm`) },
-    { key: "micron", label: "Micron", align: "right", value: (r) => fmt.num(r.micron) },
-    { key: "gsm", label: "GSM", align: "right", value: (r) => fmt.num(r.gsm) },
+    { key: "width", label: "Width", align: "right", value: (r) => fmt.dim(r.width, " mm") },
+    { key: "micron", label: "Micron", align: "right", value: (r) => fmt.dim(r.micron) },
+    { key: "gsm", label: "GSM", align: "right", value: (r) => fmt.dim(r.gsm) },
     { key: "currentStockT", label: "Stock (T)", align: "right", value: (r) => fmt.tonnes(r.currentStockT) },
     { key: "avgConsumedT", label: "Avg consume (T)", align: "right", value: (r) => fmt.tonnes(r.avgConsumedT) },
     { key: "pendingPoT", label: "Pending PO (T)", align: "right", value: (r) => fmt.tonnes(r.pendingPoT) },
