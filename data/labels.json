@@ -1,197 +1,304 @@
 {
-  "asOf": "2026-09-08",
-  "sample": true,
+  "asOf": "2026-09-12",
+  "sample": false,
   "title": "Labels management report",
   "header": {
     "monthlyTrend": [
-      { "month": "2026-04", "label": "Apr", "amountLakh": 42.3 },
-      { "month": "2026-05", "label": "May", "amountLakh": 38.1 },
-      { "month": "2026-06", "label": "Jun", "amountLakh": 45.6 },
-      { "month": "2026-07", "label": "Jul", "amountLakh": 51.2 },
-      { "month": "2026-08", "label": "Aug", "amountLakh": 48.8 },
-      { "month": "2026-09", "label": "Sep MTD", "amountLakh": 18.4 }
+      {
+        "month": "2026-03",
+        "label": "Mar",
+        "amountLakh": 13.1
+      },
+      {
+        "month": "2026-04",
+        "label": "Apr",
+        "amountLakh": 5.3
+      },
+      {
+        "month": "2026-05",
+        "label": "May",
+        "amountLakh": 7.3
+      },
+      {
+        "month": "2026-06",
+        "label": "Jun",
+        "amountLakh": 12.0
+      },
+      {
+        "month": "2026-07",
+        "label": "Jul",
+        "amountLakh": 12.3
+      },
+      {
+        "month": "2026-08",
+        "label": "Aug",
+        "amountLakh": 7.6
+      }
     ],
     "mtd": {
-      "amountLakh": 18.4,
-      "pctOfAvg": 40.7,
-      "avgMonthlyLakh": 45.2
+      "amountLakh": 7.0,
+      "pctOfAvg": 72.8,
+      "avgMonthlyLakh": 9.6
     },
     "activeInactive": {
-      "active": 24,
-      "inactive": 11,
-      "pool": 35,
+      "active": 9,
+      "inactive": 9,
+      "pool": 18,
       "aovFloor": 50000,
-      "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
+      "note": "Pool = customers with AOV >= INR 50,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
     }
   },
   "planning": [
     {
       "rank": 1,
-      "item": "DT Label Roll",
-      "size": "50×25",
-      "avgQtyPerMo": 18400,
-      "avgBoxesPerMo": 74,
-      "customersA": ["Medico Pack", "Northline Logistics", "Apex Pharma"],
-      "customersB": ["Kiran Labels", "Orbit Retail"]
+      "item": "DT Label Roll (W)",
+      "size": "4/6",
+      "avgQtyPerMo": 2270,
+      "avgBoxesPerMo": 95,
+      "customersA": [
+        "A N PAPERS TRADERS",
+        "BEST BARCODE SYSTEM PRIVATE LIMITED",
+        "BHARATSHIPP BUSINESS SOLUTIONS",
+        "EXL BUSINESS SOLUTIONS",
+        "KANVI TRADERS",
+        "PRINT GLAMOUR INDIA",
+        "SHREE RAM LABELS PVT LTD",
+        "Z TECHNOLOGIES"
+      ],
+      "customersB": [
+        "A.R PACKING SOLUTIONS",
+        "ARIHANT INTERNATIONAL",
+        "HARIOM ENTERPRISES",
+        "KRIVIA CORPORATION"
+      ]
     },
     {
       "rank": 2,
-      "item": "DT Label Roll",
-      "size": "50×30",
-      "avgQtyPerMo": 12600,
-      "avgBoxesPerMo": null,
-      "customersA": ["Shree Warehousing", "BlueCart 3PL"],
-      "customersB": ["Narmada Foods"]
+      "item": "CHROMO Label Roll (W)",
+      "size": "4/6",
+      "avgQtyPerMo": 836,
+      "avgBoxesPerMo": 35,
+      "customersA": [
+        "2D BSC TECHNOLOGIES",
+        "BHAGIRATHI PRINT WAYS",
+        "PRINT GLAMOUR INDIA",
+        "RK BOX MAKER"
+      ],
+      "customersB": []
     },
     {
       "rank": 3,
-      "item": "TT Label Roll",
-      "size": "75×50",
-      "avgQtyPerMo": 9800,
-      "avgBoxesPerMo": 39,
-      "customersA": ["Apex Pharma", "Carewell Labs"],
-      "customersB": ["Medico Pack", "Summit Diagnostics"]
+      "item": "CHROMO Label Roll",
+      "size": "50 MM / 30 MM",
+      "avgQtyPerMo": 1918,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "Z TECHNOLOGIES"
+      ],
+      "customersB": [
+        "ARIHANT INTERNATIONAL"
+      ]
     },
     {
       "rank": 4,
-      "item": "DT Label Roll",
-      "size": "100×50",
-      "avgQtyPerMo": 7200,
-      "avgBoxesPerMo": 36,
-      "customersA": ["Northline Logistics", "Highway Freight"],
-      "customersB": ["BlueCart 3PL"]
+      "item": "DT Label Roll (W)",
+      "size": "3/5",
+      "avgQtyPerMo": 690,
+      "avgBoxesPerMo": 19,
+      "customersA": [
+        "BEST BARCODE SYSTEM PRIVATE LIMITED",
+        "KANVI TRADERS",
+        "SHREE RAM LABELS PVT LTD"
+      ],
+      "customersB": [
+        "A.R PACKING SOLUTIONS",
+        "ARIHANT INTERNATIONAL",
+        "BENTGRASS INTERNATIONAL LLP",
+        "HICHAKI TRADERS",
+        "KALKA & CO."
+      ]
     },
     {
       "rank": 5,
-      "item": "DT Label Roll",
-      "size": "4/6",
-      "avgQtyPerMo": 5100,
-      "avgBoxesPerMo": 20,
-      "customersA": ["Orbit Retail", "Kiran Labels"],
-      "customersB": ["Festive Print Co"]
+      "item": "DT Label Roll (Y)",
+      "size": "3/5",
+      "avgQtyPerMo": 600,
+      "avgBoxesPerMo": 17,
+      "customersA": [
+        "KANVI TRADERS"
+      ],
+      "customersB": []
     },
     {
       "rank": "+1",
       "item": "DT Label Roll (Y)",
       "size": "4/6",
-      "avgQtyPerMo": 2400,
-      "avgBoxesPerMo": 12,
-      "customersA": ["Orbit Retail"],
-      "customersB": ["Festive Print Co"],
+      "avgQtyPerMo": 400,
+      "avgBoxesPerMo": 17,
+      "customersA": [
+        "KANVI TRADERS",
+        "LAXMI SALES AGENCIES"
+      ],
+      "customersB": [],
       "supplementary": true
     }
   ],
   "lost": [
     {
-      "marketingPerson": "Rahul S.",
-      "customer": "Vishal Distributors",
-      "products": ["[DT Label Roll 50×25]", "[TT Label Roll 75×50]"]
+      "marketingPerson": "APOORV",
+      "customer": "P.P. SOURCING",
+      "products": [
+        "[DT (TC) Label Roll 100 MM / 200 MM]"
+      ]
     },
     {
-      "marketingPerson": "Neha M.",
-      "customer": "Sunrise Apparel",
-      "products": ["[DT Label Roll 50×30]", "[DT Label Roll (Y) 4/6]"]
+      "marketingPerson": "JYOTI",
+      "customer": "RK BOX MAKER",
+      "products": [
+        "[CHROMO Label Roll (W) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Amit K.",
-      "customer": "Patel Agro Pack",
-      "products": ["[DT Label Roll 100×50]"]
+      "marketingPerson": "Lokesh Jain",
+      "customer": "BIG BRAIN IDEA MEDIA",
+      "products": [
+        "[CHROMO Label Roll 35 MM / 22 MM]",
+        "[DT Label Roll (W) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Priya D.",
-      "customer": "Jewelmark Tags",
-      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 4/6]"]
+      "marketingPerson": "Lokesh Jain",
+      "customer": "EXL BUSINESS SOLUTIONS",
+      "products": [
+        "[DT Label Roll (W) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Sandeep R.",
-      "customer": "Coastal Cold Chain",
-      "products": ["[TT Label Roll 75×50]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "LAXMI SALES AGENCIES",
+      "products": [
+        "[DT Label Roll (Y) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "BHARATSHIPP BUSINESS SOLUTIONS",
+      "products": [
+        "[CHROMO Label Roll (W) 4/6]",
+        "[DT Label Roll (W) 4/6]",
+        "[DT Label Roll 75 MM / 50 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "GLOBAL PARACHEM LLP",
+      "products": [
+        "[DT Label Roll (W) 4/6]",
+        "[DT Label Roll (Y) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "SG TRADERS",
+      "products": [
+        "[DT Label Roll (W) 4/6]",
+        "[DT Label Roll 50 MM / 25 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "A N PAPERS TRADERS",
+      "products": [
+        "[DT Label Roll (W) 4/6]"
+      ]
     }
   ],
   "active": [
     {
-      "marketingPerson": "Rahul S.",
-      "customer": "Medico Pack",
-      "avgDispatchDays": 11,
-      "avgOrderValue": 186000,
-      "products": ["[DT Label Roll 50×25]", "[TT Label Roll 75×50]"]
-    },
-    {
-      "marketingPerson": "Rahul S.",
-      "customer": "Apex Pharma",
-      "avgDispatchDays": 9,
-      "avgOrderValue": 242000,
-      "products": ["[TT Label Roll 75×50]", "[DT Label Roll 50×25]"]
-    },
-    {
-      "marketingPerson": "Neha M.",
-      "customer": "Northline Logistics",
-      "avgDispatchDays": 14,
-      "avgOrderValue": 128500,
-      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 100×50]"]
-    },
-    {
-      "marketingPerson": "Neha M.",
-      "customer": "BlueCart 3PL",
-      "avgDispatchDays": 16,
-      "avgOrderValue": 97500,
-      "products": ["[DT Label Roll 50×30]", "[DT Label Roll 100×50]"]
-    },
-    {
-      "marketingPerson": "Amit K.",
-      "customer": "Orbit Retail",
-      "avgDispatchDays": 12,
-      "avgOrderValue": 154000,
-      "products": ["[DT Label Roll 4/6]", "[DT Label Roll (Y) 4/6]"]
-    },
-    {
-      "marketingPerson": "Amit K.",
-      "customer": "Kiran Labels",
-      "avgDispatchDays": 18,
-      "avgOrderValue": 72000,
-      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 4/6]"]
-    },
-    {
-      "marketingPerson": "Priya D.",
-      "customer": "Carewell Labs",
+      "marketingPerson": "JYOTI",
+      "customer": "LALITHA ENTERPRISES",
       "avgDispatchDays": 10,
-      "avgOrderValue": 201000,
-      "products": ["[TT Label Roll 75×50]"]
+      "avgOrderValue": 81200,
+      "products": [
+        "[DT Label Roll 100 MM / 125 MM]"
+      ]
     },
     {
-      "marketingPerson": "Priya D.",
-      "customer": "Summit Diagnostics",
-      "avgDispatchDays": 13,
-      "avgOrderValue": 88000,
-      "products": ["[TT Label Roll 75×50]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "2D BSC TECHNOLOGIES",
+      "avgDispatchDays": 10,
+      "avgOrderValue": 84672,
+      "products": [
+        "[CHROMO Label Roll (W) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Sandeep R.",
-      "customer": "Shree Warehousing",
-      "avgDispatchDays": 15,
-      "avgOrderValue": 64500,
-      "products": ["[DT Label Roll 50×30]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "BEST BARCODE SYSTEM PRIVATE LIMITED",
+      "avgDispatchDays": 80.7,
+      "avgOrderValue": 57000,
+      "products": [
+        "[DT Label Roll (W) 3/5]",
+        "[DT Label Roll (W) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Sandeep R.",
-      "customer": "Highway Freight",
-      "avgDispatchDays": 17,
-      "avgOrderValue": 112000,
-      "products": ["[DT Label Roll 100×50]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "KANVI TRADERS",
+      "avgDispatchDays": 27.5,
+      "avgOrderValue": 211953,
+      "products": [
+        "[DT (TC) Label Roll (Y) 3/5]",
+        "[DT Label Roll (W) 3/5]",
+        "[DT Label Roll (W) 4/6]",
+        "[DT Label Roll (Y) 3/5]",
+        "[DT Label Roll (Y) 4/6]"
+      ]
     },
     {
-      "marketingPerson": "Neha M.",
-      "customer": "Narmada Foods",
-      "avgDispatchDays": 21,
-      "avgOrderValue": 56000,
-      "products": ["[DT Label Roll 50×30]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "PRINT GLAMOUR INDIA",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 41347,
+      "products": [
+        "[CHROMO Label Roll 100 MM / 50 MM]"
+      ]
     },
     {
-      "marketingPerson": "Rahul S.",
-      "customer": "Festive Print Co",
-      "avgDispatchDays": 19,
-      "avgOrderValue": 61000,
-      "products": ["[DT Label Roll (Y) 4/6]", "[DT Label Roll 4/6]"]
+      "marketingPerson": "MEENAKSHI",
+      "customer": "SHREE RAM LABELS PVT LTD",
+      "avgDispatchDays": 3,
+      "avgOrderValue": 74400,
+      "products": [
+        "[DT Label Roll (W) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "ATUL PAPER PRIVATE LIMITED",
+      "avgDispatchDays": 1,
+      "avgOrderValue": 12010,
+      "products": [
+        "[DT Label Roll 50 MM / 25 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "BHAGIRATHI PRINT WAYS",
+      "avgDispatchDays": 5.7,
+      "avgOrderValue": 143261,
+      "products": [
+        "[CHROMO Label Roll (W) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "Z TECHNOLOGIES",
+      "avgDispatchDays": 4.3,
+      "avgOrderValue": 85335,
+      "products": [
+        "[CHROMO Label Roll 50 MM / 30 MM]"
+      ]
     }
   ]
 }

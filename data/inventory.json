@@ -1,149 +1,26 @@
 {
-  "asOf": "2026-09-08",
-  "sample": true,
+  "asOf": "2026-09-12",
+  "sample": false,
   "title": "Inventory management / RM stock",
-  "source": "Dashboard tab 4 — mail dated 8 Sep 2026 (sample placeholder, not live ERP)",
+  "source": "RM Consumption Detail Desp Group Wise For Last 6 Months - donotreply@dubble.org (parsed 12 Sep 2026)",
   "excess": [
-    {
-      "itemName": "Glassine liner",
-      "type": "Liner",
-      "width": 1000,
-      "micron": null,
-      "gsm": 62,
-      "currentStockT": 18.42,
-      "avgConsumedT": 4.10,
-      "pendingPoT": 0,
-      "note": "Two lots landed together after delayed May vessel"
-    },
-    {
-      "itemName": "SC kraft",
-      "type": "Paper",
-      "width": 1070,
-      "micron": null,
-      "gsm": 70,
-      "currentStockT": 7.60,
-      "avgConsumedT": 2.05,
-      "pendingPoT": 0,
-      "note": "Cover for cancelled gumming trial"
-    },
-    {
-      "itemName": "Hotmelt HM-220",
-      "type": "Adhesive",
-      "width": null,
-      "micron": null,
-      "gsm": null,
-      "currentStockT": 2.10,
-      "avgConsumedT": 0.85,
-      "pendingPoT": 0.40,
-      "note": "Within shelf life (use by Jan 2027)"
-    },
-    {
-      "itemName": "DT base paper",
-      "type": "Paper",
-      "width": 1070,
-      "micron": null,
-      "gsm": 80,
-      "currentStockT": 6.25,
-      "avgConsumedT": 2.40,
-      "pendingPoT": 0,
-      "note": "Wide roll — slitting to 330 mm possible"
-    },
-    {
-      "itemName": "Paper cores 76 mm",
-      "type": "Packing",
-      "width": 300,
-      "micron": null,
-      "gsm": null,
-      "currentStockT": 1.85,
-      "avgConsumedT": 0.42,
-      "pendingPoT": 0,
-      "note": "MOQ overbuy; pause next PO"
-    }
+    {"itemName": "GLASSINE", "type": "White", "width": "401-480", "micron": null, "gsm": "55g-58g", "currentStockT": 25.691, "avgConsumedT": 0.145, "pendingPoT": 0.0, "note": "~176.9x monthly avg"},
+    {"itemName": "RBP CCK", "type": "White", "width": "811-900", "micron": null, "gsm": "137g-145g", "currentStockT": 8.583, "avgConsumedT": 0.084, "pendingPoT": 5.8, "note": "~101.9x monthly avg"},
+    {"itemName": "GLASSINE", "type": "White", "width": "1101-Any", "micron": null, "gsm": "55g-58g", "currentStockT": 12.382, "avgConsumedT": 0.254, "pendingPoT": 0.0, "note": "~48.8x monthly avg"},
+    {"itemName": "CHROMO", "type": null, "width": "506-600", "micron": null, "gsm": "63g-75g", "currentStockT": 3.393, "avgConsumedT": 0.077, "pendingPoT": 0.0, "note": "~44.0x monthly avg"},
+    {"itemName": "RBP CCK", "type": "White", "width": "1031-1050", "micron": null, "gsm": "59g-62g", "currentStockT": 19.806, "avgConsumedT": 0.466, "pendingPoT": 0.0, "note": "~42.5x monthly avg"}
   ],
   "shortage": [
-    {
-      "itemName": "DT facestock",
-      "type": "Paper",
-      "width": 330,
-      "micron": null,
-      "gsm": 80,
-      "currentStockT": 0.82,
-      "avgConsumedT": 4.50,
-      "pendingPoT": 6.00,
-      "note": "Expedite PO-4412 — ~4 production days cover"
-    },
-    {
-      "itemName": "PE white",
-      "type": "Film",
-      "width": 250,
-      "micron": 85,
-      "gsm": null,
-      "currentStockT": 0.14,
-      "avgConsumedT": 0.90,
-      "pendingPoT": 1.20,
-      "note": "Outdoor SKU on watch — do not promise new jobs"
-    },
-    {
-      "itemName": "Pharma adhesive PH-11",
-      "type": "Adhesive",
-      "width": null,
-      "micron": null,
-      "gsm": null,
-      "currentStockT": 0.05,
-      "avgConsumedT": 0.28,
-      "pendingPoT": 0.30,
-      "note": "Single-source; confirm lot COA before lining"
-    },
-    {
-      "itemName": "PET release liner",
-      "type": "Liner",
-      "width": 250,
-      "micron": 30,
-      "gsm": null,
-      "currentStockT": 0,
-      "avgConsumedT": 0.35,
-      "pendingPoT": 0.80,
-      "note": "Stock-out — glassine substitute only with customer OK"
-    },
-    {
-      "itemName": "TT facestock matte",
-      "type": "Paper",
-      "width": 330,
-      "micron": null,
-      "gsm": 70,
-      "currentStockT": 0.40,
-      "avgConsumedT": 1.60,
-      "pendingPoT": 2.00,
-      "note": "75×50 pharma run depends on this slit"
-    },
-    {
-      "itemName": "Tamper void pigment",
-      "type": "Ink",
-      "width": null,
-      "micron": null,
-      "gsm": null,
-      "currentStockT": 0.01,
-      "avgConsumedT": 0.03,
-      "pendingPoT": 0.02,
-      "note": "Enough for ~9 days at current pharma run"
-    }
+    {"itemName": "CHROMO C2S", "type": null, "width": "1001-1030", "micron": null, "gsm": "76g-83g", "currentStockT": 12.952, "avgConsumedT": 35.702, "pendingPoT": 85.0, "note": "~0.36x monthly cover"},
+    {"itemName": "DIRECT THERMAL", "type": null, "width": "1001-1030", "micron": null, "gsm": "63g-75g", "currentStockT": 3.473, "avgConsumedT": 24.807, "pendingPoT": 0.0, "note": "~0.14x monthly cover"},
+    {"itemName": "CHROMO C2S", "type": null, "width": "506-600", "micron": null, "gsm": "76g-83g", "currentStockT": 1.506, "avgConsumedT": 10.867, "pendingPoT": 0.0, "note": "~0.14x monthly cover"},
+    {"itemName": "CHROMO C2S", "type": null, "width": "401-480", "micron": null, "gsm": "76g-83g", "currentStockT": 4.883, "avgConsumedT": 13.752, "pendingPoT": 0.0, "note": "~0.36x monthly cover"},
+    {"itemName": "RBP CCK", "type": "White", "width": "601-665", "micron": null, "gsm": "133g-145g", "currentStockT": 4.666, "avgConsumedT": 11.705, "pendingPoT": 23.353, "note": "~0.40x monthly cover"}
   ],
   "notes": [
-    {
-      "severity": "urgent",
-      "text": "DT facestock 330 mm / 80 gsm covers ~4 production days at last-4-week average. Friday lining plan is at risk without PO-4412 movement."
-    },
-    {
-      "severity": "watch",
-      "text": "Also watch: PET liner stock-out blocks clear outdoor construction. Two PE outdoor jobs are quoted — hold confirmations."
-    },
-    {
-      "severity": "watch",
-      "text": "Also watch: Glassine 62 gsm is ~4.5× monthly consume. Prefer glassine constructions this week where spec allows."
-    },
-    {
-      "severity": "info",
-      "text": "Quantities in tonnes. Sample snapshot only — replace from Monday Dashboard tab 4 / RM mail. Do not use for purchasing."
-    }
+    {"severity": "urgent", "text": "CHROMO C2S 1001-1030 76g-83g - 12.952t stock vs 35.702t/mo (~0.36x monthly cover). Pending PO 85.0t."},
+    {"severity": "watch", "text": "Also watch: DIRECT THERMAL 1001-1030 63g-75g - ~0.14x monthly cover."},
+    {"severity": "watch", "text": "Excess: GLASSINE White 401-480 at 25.691t (~176.9x monthly avg). Prefer this where spec allows."},
+    {"severity": "info", "text": "Quantities in tonnes from Monday RM Consumption Detail mail (BizSol). Live snapshot - refresh weekly."}
   ]
 }
