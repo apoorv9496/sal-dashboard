@@ -250,6 +250,12 @@ function cardStats(id, data) {
       <div><span class="stat-label">Shortage</span><span class="stat-value">${fmt.num(data.shortage?.length)} lines</span></div>
       <div><span class="stat-label">Excess</span><span class="stat-value">${fmt.num(data.excess?.length)} lines</span></div>`;
   }
+  if (id === "gumming") {
+    const ai = data.header?.activeInactive || {};
+    return `
+      <div><span class="stat-label">MTD</span><span class="stat-value">${fmt.lakh(data.header?.mtd?.amountLakh)}</span></div>
+      <div><span class="stat-label">Active / pool</span><span class="stat-value">${fmt.num(ai.active)} / ${fmt.num(ai.pool)}</span></div>`;
+  }
   return `
     <div><span class="stat-label">As of</span><span class="stat-value">${escapeHtml(fmt.date(data.asOf))}</span></div>`;
 }
@@ -434,9 +440,111 @@ function renderUpcoming(report) {
   `));
 }
 
+function renderGumming(data) {
+  const mtd = data.header?.mtd || {};
+  const ai = data.header?.activeInactive || {};
+  const trend = data.header?.monthlyTrend || [];
+  const amounts = trend.map(trendAmount);
+  const maxAmt = Math.max(...amounts.filter((n) => n != null), 1);
+  const activeSet = new Set(
+    (data.active || []).map((row) => String(row.customer || "").toLowerCase())
+  );
+
+  const bars = trend
+    .map((t) => {
+      const amt = trendAmount(t);
+      const pct = Math.max(6, Math.round(((amt || 0) / maxAmt) * 100));
+      const partial = /mtd/i.test(t.label || "");
+      return `
+        <div class="bar-col ${partial ? "partial" : ""}">
+          <div class="bar" style="--bar:${pct}%" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
+          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
+        </div>`;
+    })
+    .join("");
+
+  app.replaceChildren(el(`
+    ${pageChrome("Gumming sheets", data.title || "Gumming sheets management report", data.asOf)}
+    ${sampleBanner(data.sample)}
+    <section class="kpis">
+      <div class="kpi"><span>MTD</span><strong>${fmt.lakh(mtd.amountLakh)}</strong></div>
+      <div class="kpi"><span>MTD vs avg month</span><strong>${fmt.pct(mtd.pctOfAvg)}</strong></div>
+      <div class="kpi"><span>Avg monthly</span><strong>${fmt.lakh(mtd.avgMonthlyLakh)}</strong></div>
+      <div class="kpi"><span>Active / inactive</span><strong>${fmt.num(ai.active)} / ${fmt.num(ai.inactive)}</strong></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Monthly trend</h2>
+        <p class="hint">Billing in ₹ lakh.</p>
+      </div>
+      <div class="bars">${bars}</div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Planning — top 10</h2>
+        <p class="hint">AOV ≥ ₹1L pool; customers & products lists capped at top 5; Sheet Form category</p>
+      </div>
+      ${table(
+        [
+          { key: "rank", label: "Rank", align: "right", value: rankLabel },
+          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
+          { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
+          { key: "avgQtyPerMo", label: "Avg qty / mo", align: "right", value: (r) => fmt.num(r.avgQtyPerMo) },
+          { key: "customersA", label: "Customers A", value: (r) => customerPills(r.customersAMeta || r.customersA, activeSet) },
+          { key: "customersB", label: "Customers B", value: (r) => customerPills(r.customersBMeta || r.customersB, activeSet) },
+        ],
+        data.planning || [],
+        "gumming-planning-table"
+      )}
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Lost</h2>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="gumming-lost-filter" placeholder="Filter lost accounts…" aria-label="Filter lost accounts">
+      </div>
+      ${table(
+        [
+          { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
+          { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "products", label: "Products", value: (r) => pills(r.products) },
+        ],
+        data.lost || [],
+        "gumming-lost-table"
+      )}
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Active</h2>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, dispatch in last 60 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="gumming-active-filter" placeholder="Filter active accounts…" aria-label="Filter active accounts">
+      </div>
+      ${table(
+        [
+          { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
+          { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "avgDispatchDays", label: "Avg dispatch days", align: "right", value: (r) => fmt.num(r.avgDispatchDays) },
+          { key: "avgOrderValue", label: "Avg order value", align: "right", value: (r) => fmt.inr(r.avgOrderValue) },
+          { key: "products", label: "Products", value: (r) => pills(r.products) },
+        ],
+        data.active || [],
+        "gumming-active-table"
+      )}
+    </section>
+    ${ai.note ? `<p class="source">${escapeHtml(ai.note)}</p>` : ""}
+  `));
+  bindFilter("gumming-lost-filter", "gumming-lost-table");
+  bindFilter("gumming-active-filter", "gumming-active-table");
+}
+
 const renderers = {
   label: renderLabels,
   rm: renderInventory,
+  gumming: renderGumming,
 };
 
 function renderError(err) {

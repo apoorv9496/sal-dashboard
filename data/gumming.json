@@ -1,0 +1,1317 @@
+{
+  "asOf": "2026-09-12",
+  "sample": false,
+  "title": "Gumming sheets management report",
+  "header": {
+    "monthlyTrend": [
+      {
+        "month": "2026-03",
+        "label": "Mar",
+        "amountLakh": 514.1
+      },
+      {
+        "month": "2026-04",
+        "label": "Apr",
+        "amountLakh": 268.5
+      },
+      {
+        "month": "2026-05",
+        "label": "May",
+        "amountLakh": 357.1
+      },
+      {
+        "month": "2026-06",
+        "label": "Jun",
+        "amountLakh": 345.5
+      },
+      {
+        "month": "2026-07",
+        "label": "Jul",
+        "amountLakh": 384.1
+      },
+      {
+        "month": "2026-08",
+        "label": "Aug",
+        "amountLakh": 308.6
+      }
+    ],
+    "mtd": {
+      "amountLakh": 102.3,
+      "pctOfAvg": 28.2,
+      "avgMonthlyLakh": 363.0
+    },
+    "activeInactive": {
+      "active": 33,
+      "inactive": 37,
+      "pool": 70,
+      "aovFloor": 100000,
+      "note": "Pool = customers with AOV ≥ ₹100,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
+    }
+  },
+  "planning": [
+    {
+      "rank": 1,
+      "item": "CALS SHEET",
+      "size": "18×23 inch",
+      "avgQtyPerMo": 8166,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "PAPER COLLECTION",
+        "SATI PAPER TRADER"
+      ],
+      "customersB": [
+        "M/S SHRI GANGA ENTERPRISES",
+        "BAHUBALI DIGIGLAM",
+        "SWASTIK ASSOCIATE"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        },
+        {
+          "name": "SATI PAPER TRADER",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "M/S SHRI GANGA ENTERPRISES",
+          "active": false
+        },
+        {
+          "name": "BAHUBALI DIGIGLAM",
+          "active": false
+        },
+        {
+          "name": "SWASTIK ASSOCIATE",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "item": "CALS SHEET",
+      "size": "20×30 inch",
+      "avgQtyPerMo": 4570,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "A B PAPER CONVERSION PVT. LTD.",
+        "S L TRADING COMPANY",
+        "PAPER COLLECTION"
+      ],
+      "customersB": [
+        "DURGA NATH PRESS",
+        "MEHTA PRINT ARTS PVT LTD",
+        "BAHUBALI DIGIGLAM",
+        "SHRI LUXMI PRINT N PACK",
+        "M/S SHRI GANGA ENTERPRISES"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "A B PAPER CONVERSION PVT. LTD.",
+          "active": false
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "DURGA NATH PRESS",
+          "active": false
+        },
+        {
+          "name": "MEHTA PRINT ARTS PVT LTD",
+          "active": false
+        },
+        {
+          "name": "BAHUBALI DIGIGLAM",
+          "active": false
+        },
+        {
+          "name": "SHRI LUXMI PRINT N PACK",
+          "active": false
+        },
+        {
+          "name": "M/S SHRI GANGA ENTERPRISES",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "item": "DGL CALS SHEET",
+      "size": "12×18 inch",
+      "avgQtyPerMo": 5615,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "CHANDAN COMPUTER AND ART",
+        "PAPER COLLECTION"
+      ],
+      "customersB": [
+        "BASANT",
+        "M/S GODHA STATIONERY MARTS",
+        "PROMISCA LIFECARE LLP",
+        "CHAWLA STORES",
+        "RATAN LAL MOHAN LAL"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "CHANDAN COMPUTER AND ART",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "BASANT",
+          "active": false
+        },
+        {
+          "name": "M/S GODHA STATIONERY MARTS",
+          "active": false
+        },
+        {
+          "name": "PROMISCA LIFECARE LLP",
+          "active": false
+        },
+        {
+          "name": "CHAWLA STORES",
+          "active": false
+        },
+        {
+          "name": "RATAN LAL MOHAN LAL",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "item": "DGL CALS SHEET",
+      "size": "13×19 inch",
+      "avgQtyPerMo": 3076,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "SATI PAPER TRADER",
+        "PAPER POINT"
+      ],
+      "customersB": [
+        "SELEEKA PRINTERS",
+        "RATAN LAL MOHAN LAL",
+        "BAHUBALI DIGIGLAM",
+        "BALI PRINTING ZONE",
+        "K M IMPEX"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "SATI PAPER TRADER",
+          "active": true
+        },
+        {
+          "name": "PAPER POINT",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "SELEEKA PRINTERS",
+          "active": false
+        },
+        {
+          "name": "RATAN LAL MOHAN LAL",
+          "active": false
+        },
+        {
+          "name": "BAHUBALI DIGIGLAM",
+          "active": false
+        },
+        {
+          "name": "BALI PRINTING ZONE",
+          "active": false
+        },
+        {
+          "name": "K M IMPEX",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "item": "CALS SHEET",
+      "size": "18×25 inch",
+      "avgQtyPerMo": 2744,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "PAPER COLLECTION",
+        "PAPER POINT"
+      ],
+      "customersB": [],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        },
+        {
+          "name": "PAPER POINT",
+          "active": true
+        }
+      ],
+      "customersBMeta": []
+    },
+    {
+      "rank": 6,
+      "item": "7128006 NJ MPL 01P 210X288 WS",
+      "size": "210×288 MM",
+      "avgQtyPerMo": 9800,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
+        "POLYPLEX DIGIPRINT PRIVATE LIMITED"
+      ],
+      "customersB": [],
+      "customersAMeta": [
+        {
+          "name": "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
+          "active": false
+        },
+        {
+          "name": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
+          "active": true
+        }
+      ],
+      "customersBMeta": []
+    },
+    {
+      "rank": 7,
+      "item": "CALS SHEET",
+      "size": "12×18 inch",
+      "avgQtyPerMo": 2397,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "PAPER COLLECTION",
+        "SATI PAPER TRADER"
+      ],
+      "customersB": [
+        "M/S GODHA STATIONERY MARTS",
+        "P. P. AGENCIES",
+        "TULSHI GRAPHICS",
+        "PROMISCA LIFECARE LLP"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        },
+        {
+          "name": "SATI PAPER TRADER",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "M/S GODHA STATIONERY MARTS",
+          "active": false
+        },
+        {
+          "name": "P. P. AGENCIES",
+          "active": false
+        },
+        {
+          "name": "TULSHI GRAPHICS",
+          "active": false
+        },
+        {
+          "name": "PROMISCA LIFECARE LLP",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "item": "PAPER",
+      "size": "—",
+      "avgQtyPerMo": 148,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "M/S SHREE ARIHANT LAMINATES",
+        "VARUN MEDIMPEX INC",
+        "PAPER POINT",
+        "MESBOR INTERNATIONAL F.Z.E",
+        "SATYASHILA PUBLICATION PVT LTD"
+      ],
+      "customersB": [
+        "MLJ INDUSTRIES LIMITED"
+      ],
+      "customersAMeta": [
+        {
+          "name": "M/S SHREE ARIHANT LAMINATES",
+          "active": false
+        },
+        {
+          "name": "VARUN MEDIMPEX INC",
+          "active": true
+        },
+        {
+          "name": "PAPER POINT",
+          "active": true
+        },
+        {
+          "name": "MESBOR INTERNATIONAL F.Z.E",
+          "active": true
+        },
+        {
+          "name": "SATYASHILA PUBLICATION PVT LTD",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "MLJ INDUSTRIES LIMITED",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "item": "DGL PET SHEET",
+      "size": "12×18 inch",
+      "avgQtyPerMo": 1438,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "SATI PAPER TRADER",
+        "BALAJEESTICKER LLP",
+        "PAPER POINT"
+      ],
+      "customersB": [
+        "P. P. AGENCIES",
+        "SPICK RITE PRINTERS",
+        "CHAWLA STORES",
+        "NAVEEN TRADING CO.",
+        "NEW KALANGAN TROPHIES"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "SATI PAPER TRADER",
+          "active": true
+        },
+        {
+          "name": "BALAJEESTICKER LLP",
+          "active": true
+        },
+        {
+          "name": "PAPER POINT",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "P. P. AGENCIES",
+          "active": false
+        },
+        {
+          "name": "SPICK RITE PRINTERS",
+          "active": false
+        },
+        {
+          "name": "CHAWLA STORES",
+          "active": false
+        },
+        {
+          "name": "NAVEEN TRADING CO.",
+          "active": false
+        },
+        {
+          "name": "NEW KALANGAN TROPHIES",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "item": "BOPP SHEET",
+      "size": "20×30 inch",
+      "avgQtyPerMo": 776,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "S L TRADING COMPANY",
+        "PAPER POINT",
+        "DEEPAK SALES CORPN.",
+        "MULESH PRINTERS HOUSE"
+      ],
+      "customersB": [
+        "BAHUBALI DIGIGLAM",
+        "CIRRUS GRAPHICS PRIVATE LIMITED"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER POINT",
+          "active": true
+        },
+        {
+          "name": "DEEPAK SALES CORPN.",
+          "active": true
+        },
+        {
+          "name": "MULESH PRINTERS HOUSE",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "BAHUBALI DIGIGLAM",
+          "active": false
+        },
+        {
+          "name": "CIRRUS GRAPHICS PRIVATE LIMITED",
+          "active": false
+        }
+      ]
+    }
+  ],
+  "lost": [
+    {
+      "marketingPerson": "3I Label",
+      "customer": "ABHI ENTERPRISES",
+      "products": [
+        "[CALS SHEET (T) 20×30 inch]",
+        "[CALS SHEET 18×23 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "3I Label",
+      "customer": "GANESH PAPER AGENCIES",
+      "products": [
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "3I Label",
+      "customer": "RAJDHANI PAPERS",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "APOORV",
+      "customer": "M/S SHREE ARIHANT LAMINATES",
+      "products": [
+        "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "AYUSH",
+      "customer": "ABHINAV TRADEX PRIVATE LIMITED",
+      "products": [
+        "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "MEENA ENTERPRISES",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "PRIME PAPER",
+      "products": [
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 21×30 inch]",
+        "[CALS SHEET 23×36 inch]",
+        "[DGL CALS SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "RADHA LABELS & PRINTERS",
+      "products": [
+        "[FOAM TACK SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "RAJHANS MARKETING",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "SHREE BALAJI ENTERPRISES (INDIA)",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "TECHNOVA IMAGING SYSTEMS (P) LTD",
+      "products": [
+        "[7128006 NJ MPL 01P 210X288 WS 210×288 MM]",
+        "[7128490 PLS 220 GSM 305X457 305×457 MM]",
+        "[7128491 PLS 220 GSM 330X482 330×482 MM]",
+        "[7128540 PLG 220 GSM 305X457 305×457 MM]",
+        "[7128541 PLG 220 GSM 330X482 330×482 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "TECHNOVA IMAGING SYSTEMS PVT LTD",
+      "products": [
+        "[7128001 NJ MPL 24L 64X34 WR 64×34 MM]",
+        "[7128006 NJ MPL 01P 210X288 WS 210×288 MM]",
+        "[7128010 NJ MPL 04P 100X145 WR 100×145 MM]",
+        "[7128490 PLS 220 GSM 305X457 305×457 MM]",
+        "[7128540 PLG 220 GSM 305X457 305×457 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
+      "products": [
+        "[7128001 NJ MPL 24L 64X34 WR 64×34 MM]",
+        "[7128006 NJ MPL 01P 210X288 WS 210×288 MM]",
+        "[7128007 NJ MPL 02L 200X146 WR 200×146 MM]",
+        "[7128490 PLS 220 GSM 305X457 305×457 MM]",
+        "[7128540 PLG 220 GSM 305X457 305×457 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "THOMSON PRESS INDIA LTD",
+      "products": [
+        "[CALS SHEET 25×36 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "Lokesh Jain",
+      "customer": "BIG BRAIN IDEA MEDIA",
+      "products": [
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 23×36 inch]",
+        "[CALS SHEET 25×36 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "A B PAPER CONVERSION PVT. LTD.",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×24 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "AAA GLOBAL TRADE LLP",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "CARD MAHAL",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "CLASSIC STICKERS & PRINTERS PVT LTD",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "DESIGN INDIA",
+      "products": [
+        "[BOPP SHEET 22×30 inch]",
+        "[BOPP SHEET 406×707 MM]",
+        "[BOPP SHEET 610×755 MM]",
+        "[BOPP SHEET 660×755 MM]",
+        "[BOPP SHEET 711×755 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "LAXMI TRADING CO.",
+      "products": [
+        "[CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "PAPER COLLECTION",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "SHRI KRISHNA PAPER INDUSTRIES",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×24 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "CHUGH SCREENS",
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 23×36 inch]",
+        "[CALS SHEET 25×36 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "CLASSIC CREATIONS",
+      "products": [
+        "[GLS C2S RP SHEET 18×40 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "M/S RAJDHANI IMPEX",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 500×720 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "M/S SHREE OUT DOOR PRINTING",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "NEW SHAKTI PRINTERS",
+      "products": [
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "SHREE OUT DOOR PRINTING",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "SHREE PAPER AGENCIES",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "TIRUPATI AGENCIES",
+      "products": [
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "WESTERN TRADERS",
+      "products": [
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "Khushi Enterprises",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "RAGHUVEER ENTERPRISES",
+      "products": [
+        "[BOPP SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "RAVI SALES EMPORIUM",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "SIDHI ENTERPRISES",
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "TRUMEN STATIONERY MFG. CO. PVT. LIMITED",
+      "products": [
+        "[PAPER —]"
+      ]
+    }
+  ],
+  "active": [
+    {
+      "marketingPerson": "APOORV",
+      "customer": "MESBOR INTERNATIONAL F.Z.E",
+      "avgDispatchDays": 8,
+      "avgOrderValue": 1016730,
+      "products": [
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 700×1000 MM]",
+        "[MAPLITHO SHEET 20×30 inch]",
+        "[MAPLITHO SHEET —]",
+        "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "AYUSH",
+      "customer": "DEEPAK SALES CORPN.",
+      "avgDispatchDays": 3.5,
+      "avgOrderValue": 345012,
+      "products": [
+        "[BOPP SHEET 20×26 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "AYUSH",
+      "customer": "MAHALAXMI PAPER AGENCY",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 306703,
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[DGL CALS SHEET 13×19 inch]",
+        "[DGL MCC SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "BALAJEESTICKER LLP",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 166338,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL CALS SHEET 12×24 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "DHARMESH TRADING",
+      "avgDispatchDays": 9,
+      "avgOrderValue": 310500,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "MIT MARKETING",
+      "avgDispatchDays": 0,
+      "avgOrderValue": 115095,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]",
+        "[MIRROR COAT CHINA SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "PATNA PAPER CO.",
+      "avgDispatchDays": 3,
+      "avgOrderValue": 396092,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "R N ENTERPRISES",
+      "avgDispatchDays": 28,
+      "avgOrderValue": 299747,
+      "products": [
+        "[BOPP SHEET 13×19 inch]",
+        "[DGL BOPP SHEET 13×19 inch]",
+        "[DGL M-PET SHEET 13×19 inch]",
+        "[M-PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "RAINBOW TRADERS",
+      "avgDispatchDays": null,
+      "avgOrderValue": 254371,
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "SATI PAPER TRADER",
+      "avgDispatchDays": 4,
+      "avgOrderValue": 899289,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "SATYASHILA PUBLICATION PVT LTD",
+      "avgDispatchDays": 0.5,
+      "avgOrderValue": 209333,
+      "products": [
+        "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "SEMATIC ENTERPRISES",
+      "avgDispatchDays": 23.5,
+      "avgOrderValue": 303050,
+      "products": [
+        "[BOPP SHEET 13×19  inch]",
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "SHRINATH PAPERS",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 265618,
+      "products": [
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "ARYAN TRADERS",
+      "avgDispatchDays": 11,
+      "avgOrderValue": 291560,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "CHOPRA ADVERTISERS (INDIA)",
+      "avgDispatchDays": null,
+      "avgOrderValue": 286956,
+      "products": [
+        "[PVC SHEET 25×40 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "DELTA PAPER",
+      "avgDispatchDays": 3.5,
+      "avgOrderValue": 297945,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "GAURAV ENTERPRISES",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 371881,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "MANGALAM AGENCIES",
+      "avgDispatchDays": 97,
+      "avgOrderValue": 469015,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "MANIVEER STICKER SHOPEE",
+      "avgDispatchDays": 5,
+      "avgOrderValue": 218386,
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL BOPP SHEET 12×18 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "MITRA TRADING CO.",
+      "avgDispatchDays": 30.8,
+      "avgOrderValue": 423079,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×24 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "MUKUND ENTERPRISES",
+      "avgDispatchDays": 6,
+      "avgOrderValue": 85500,
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "MULESH PRINTERS HOUSE",
+      "avgDispatchDays": 8.5,
+      "avgOrderValue": 423881,
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "PAPER POINT",
+      "avgDispatchDays": 4.5,
+      "avgOrderValue": 855048,
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "QUALITY PAPER MART",
+      "avgDispatchDays": 13.8,
+      "avgOrderValue": 296875,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 12×18 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "RAJENDRA PROCESS",
+      "avgDispatchDays": 7,
+      "avgOrderValue": 322117,
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 25×36 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "RELEASE TECH PAPER CONVERSION PVT LTD",
+      "avgDispatchDays": 8,
+      "avgOrderValue": 2525472,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 15×20 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×24 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "S L TRADING COMPANY",
+      "avgDispatchDays": 11.5,
+      "avgOrderValue": 1789739,
+      "products": [
+        "[CALS SHEET 13×19 inch]",
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[DGL CALS SHEET 13×19 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "VARUN MEDIMPEX INC",
+      "avgDispatchDays": 0,
+      "avgOrderValue": 943282,
+      "products": [
+        "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "CHANDAN COMPUTER AND ART",
+      "avgDispatchDays": null,
+      "avgOrderValue": 38000,
+      "products": [
+        "[CALS SHEET 20×23 inch]",
+        "[CALS SHEET 20×26 inch]",
+        "[CALS SHEET 20×30 inch]",
+        "[CALS SHEET 20×33 inch]",
+        "[CALS SHEET 20×34 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "SEEMA GRAPHICS",
+      "avgDispatchDays": 27.2,
+      "avgOrderValue": 418510,
+      "products": [
+        "[BOPP SHEET 20×30 inch]",
+        "[BOPP SHEET 20×36 inch]",
+        "[BOPP SHEET 20×37 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
+      "customer": "SHREE RAJENDRA CASH CO.",
+      "avgDispatchDays": 1,
+      "avgOrderValue": 435000,
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "RUCHI",
+      "customer": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
+      "avgDispatchDays": 16.1,
+      "avgOrderValue": 281791,
+      "products": [
+        "[7128001 NJ MPL 24L 64X34 WR 64×34 MM]",
+        "[7128006 NJ MPL 01P 210X288 WS 210×288 MM]",
+        "[7128007 NJ MPL 02L 200X146 WR 200×146 MM]",
+        "[7128490 PLS 220 GSM 305X457 305×457 MM]",
+        "[7128540 PLG 220 GSM 305X457 305×457 MM]"
+      ]
+    },
+    {
+      "marketingPerson": "SK JAIN",
+      "customer": "SHREE CHAMUNDA MULTIMAX",
+      "avgDispatchDays": 14,
+      "avgOrderValue": 1461352,
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL PET SHEET 12×18 inch]",
+        "[DGL PET SHEET 13×19 inch]"
+      ]
+    }
+  ]
+}

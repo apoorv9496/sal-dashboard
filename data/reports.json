@@ -24,11 +24,10 @@
     {
       "id": "gumming",
       "title": "Gumming sheets",
-      "subtitle": "Gumming production & sheet stock",
+      "subtitle": "Gumming sheets management report",
       "hash": "#gumming",
       "dataFile": "data/gumming.json",
-      "status": "upcoming",
-      "note": "Renderer stub is ready. Add data/gumming.json and set status to active."
+      "status": "active"
     }
   ]
 }
