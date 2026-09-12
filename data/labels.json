@@ -45,7 +45,7 @@
       "inactive": 9,
       "pool": 18,
       "aovFloor": 50000,
-      "note": "Pool = customers with AOV >= INR 50,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
+      "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
     }
   },
   "planning": [
@@ -70,6 +70,60 @@
         "ARIHANT INTERNATIONAL",
         "HARIOM ENTERPRISES",
         "KRIVIA CORPORATION"
+      ],
+      "currentStockRolls": 1152,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "A N PAPERS TRADERS",
+          "active": false
+        },
+        {
+          "name": "BEST BARCODE SYSTEM PRIVATE LIMITED",
+          "active": true
+        },
+        {
+          "name": "BHARATSHIPP BUSINESS SOLUTIONS",
+          "active": false
+        },
+        {
+          "name": "EXL BUSINESS SOLUTIONS",
+          "active": false
+        },
+        {
+          "name": "KANVI TRADERS",
+          "active": true
+        },
+        {
+          "name": "PRINT GLAMOUR INDIA",
+          "active": true
+        },
+        {
+          "name": "SHREE RAM LABELS PVT LTD",
+          "active": true
+        },
+        {
+          "name": "Z TECHNOLOGIES",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "A.R PACKING SOLUTIONS",
+          "active": false
+        },
+        {
+          "name": "ARIHANT INTERNATIONAL",
+          "active": false
+        },
+        {
+          "name": "HARIOM ENTERPRISES",
+          "active": false
+        },
+        {
+          "name": "KRIVIA CORPORATION",
+          "active": false
+        }
       ]
     },
     {
@@ -84,19 +138,54 @@
         "PRINT GLAMOUR INDIA",
         "RK BOX MAKER"
       ],
-      "customersB": []
+      "customersB": [],
+      "currentStockRolls": 0,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "2D BSC TECHNOLOGIES",
+          "active": true
+        },
+        {
+          "name": "BHAGIRATHI PRINT WAYS",
+          "active": true
+        },
+        {
+          "name": "PRINT GLAMOUR INDIA",
+          "active": true
+        },
+        {
+          "name": "RK BOX MAKER",
+          "active": false
+        }
+      ],
+      "customersBMeta": []
     },
     {
       "rank": 3,
       "item": "CHROMO Label Roll",
       "size": "50 MM / 30 MM",
       "avgQtyPerMo": 1918,
-      "avgBoxesPerMo": null,
+      "avgBoxesPerMo": 40,
       "customersA": [
         "Z TECHNOLOGIES"
       ],
       "customersB": [
         "ARIHANT INTERNATIONAL"
+      ],
+      "currentStockRolls": 240,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "Z TECHNOLOGIES",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "ARIHANT INTERNATIONAL",
+          "active": false
+        }
       ]
     },
     {
@@ -116,6 +205,44 @@
         "BENTGRASS INTERNATIONAL LLP",
         "HICHAKI TRADERS",
         "KALKA & CO."
+      ],
+      "currentStockRolls": 1116,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "BEST BARCODE SYSTEM PRIVATE LIMITED",
+          "active": true
+        },
+        {
+          "name": "KANVI TRADERS",
+          "active": true
+        },
+        {
+          "name": "SHREE RAM LABELS PVT LTD",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "A.R PACKING SOLUTIONS",
+          "active": false
+        },
+        {
+          "name": "ARIHANT INTERNATIONAL",
+          "active": false
+        },
+        {
+          "name": "BENTGRASS INTERNATIONAL LLP",
+          "active": false
+        },
+        {
+          "name": "HICHAKI TRADERS",
+          "active": false
+        },
+        {
+          "name": "KALKA & CO.",
+          "active": false
+        }
       ]
     },
     {
@@ -127,7 +254,36 @@
       "customersA": [
         "KANVI TRADERS"
       ],
-      "customersB": []
+      "customersB": [],
+      "currentStockRolls": 1080,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "KANVI TRADERS",
+          "active": true
+        }
+      ],
+      "customersBMeta": []
+    },
+    {
+      "rank": 6,
+      "item": "DT (TC) Label Roll (Y)",
+      "size": "3/5",
+      "avgQtyPerMo": 414,
+      "avgBoxesPerMo": 12,
+      "customersA": [
+        "KANVI TRADERS"
+      ],
+      "customersB": [],
+      "currentStockRolls": 0,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "customersAMeta": [
+        {
+          "name": "KANVI TRADERS",
+          "active": true
+        }
+      ],
+      "customersBMeta": []
     },
     {
       "rank": "+1",
@@ -140,7 +296,20 @@
         "LAXMI SALES AGENCIES"
       ],
       "customersB": [],
-      "supplementary": true
+      "currentStockRolls": 240,
+      "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
+      "supplementary": true,
+      "customersAMeta": [
+        {
+          "name": "KANVI TRADERS",
+          "active": true
+        },
+        {
+          "name": "LAXMI SALES AGENCIES",
+          "active": false
+        }
+      ],
+      "customersBMeta": []
     }
   ],
   "lost": [
@@ -300,5 +469,7 @@
         "[CHROMO Label Roll 50 MM / 30 MM]"
       ]
     }
-  ]
+  ],
+  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants",
+  "planningRule": "6+1"
 }

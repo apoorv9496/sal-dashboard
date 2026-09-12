@@ -466,6 +466,12 @@ tr.supplementary td { background: var(--amber-soft); }
   line-height: 1.4;
 }
 
+.pill-active {
+  background: var(--forest-soft);
+  color: var(--forest);
+  border-color: #86c9a4;
+}
+
 .badge {
   display: inline-block;
   padding: 2px 8px;
