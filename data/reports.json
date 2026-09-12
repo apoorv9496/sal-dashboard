@@ -8,7 +8,7 @@
     {
       "id": "label",
       "title": "Labels",
-      "subtitle": "Barcode labels management",
+      "subtitle": "Labels management report",
       "hash": "#label",
       "dataFile": "data/labels.json",
       "status": "active"
@@ -16,7 +16,7 @@
     {
       "id": "rm",
       "title": "Inventory / RM",
-      "subtitle": "Raw material stock snapshot",
+      "subtitle": "Inventory management / RM stock",
       "hash": "#rm",
       "dataFile": "data/inventory.json",
       "status": "active"

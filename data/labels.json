@@ -1,220 +1,197 @@
 {
   "asOf": "2026-09-08",
   "sample": true,
-  "title": "Barcode labels management",
+  "title": "Labels management report",
   "header": {
     "monthlyTrend": [
-      { "month": "2026-04", "label": "Apr", "qty": 214800, "boxes": 862 },
-      { "month": "2026-05", "label": "May", "qty": 198250, "boxes": 791 },
-      { "month": "2026-06", "label": "Jun", "qty": 231400, "boxes": 926 },
-      { "month": "2026-07", "label": "Jul", "qty": 246900, "boxes": 988 },
-      { "month": "2026-08", "label": "Aug", "qty": 238150, "boxes": 953 },
-      { "month": "2026-09", "label": "Sep MTD", "qty": 86420, "boxes": 346 }
+      { "month": "2026-04", "label": "Apr", "amountLakh": 42.3 },
+      { "month": "2026-05", "label": "May", "amountLakh": 38.1 },
+      { "month": "2026-06", "label": "Jun", "amountLakh": 45.6 },
+      { "month": "2026-07", "label": "Jul", "amountLakh": 51.2 },
+      { "month": "2026-08", "label": "Aug", "amountLakh": 48.8 },
+      { "month": "2026-09", "label": "Sep MTD", "amountLakh": 18.4 }
     ],
     "mtd": {
-      "qty": 86420,
-      "boxes": 346,
-      "skus": 41,
-      "customers": 28,
-      "avgBoxFill": 250
+      "amountLakh": 18.4,
+      "pctOfAvg": 40.7,
+      "avgMonthlyLakh": 45.2
     },
     "activeInactive": {
-      "active": 41,
-      "inactive": 14,
-      "newThisMonth": 2,
-      "reactivated": 1
+      "active": 24,
+      "inactive": 11,
+      "pool": 35,
+      "aovFloor": 50000,
+      "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
     }
   },
   "planning": [
     {
       "rank": 1,
-      "item": "DT White 80 gsm",
-      "size": "50 × 25 mm",
-      "avgQty": 18400,
-      "avgBoxes": 74,
-      "customersA": 9,
-      "customersB": 6
+      "item": "DT Label Roll",
+      "size": "50×25",
+      "avgQtyPerMo": 18400,
+      "avgBoxesPerMo": 74,
+      "customersA": ["Medico Pack", "Northline Logistics", "Apex Pharma"],
+      "customersB": ["Kiran Labels", "Orbit Retail"]
     },
     {
       "rank": 2,
-      "item": "TT Matte coated",
-      "size": "70 × 50 mm",
-      "avgQty": 12600,
-      "avgBoxes": 50,
-      "customersA": 7,
-      "customersB": 5
+      "item": "DT Label Roll",
+      "size": "50×30",
+      "avgQtyPerMo": 12600,
+      "avgBoxesPerMo": null,
+      "customersA": ["Shree Warehousing", "BlueCart 3PL"],
+      "customersB": ["Narmada Foods"]
     },
     {
       "rank": 3,
-      "item": "Pharma 38 × 25 tamper",
-      "size": "38 × 25 mm",
-      "avgQty": 9800,
-      "avgBoxes": 39,
-      "customersA": 4,
-      "customersB": 3
+      "item": "TT Label Roll",
+      "size": "75×50",
+      "avgQtyPerMo": 9800,
+      "avgBoxesPerMo": 39,
+      "customersA": ["Apex Pharma", "Carewell Labs"],
+      "customersB": ["Medico Pack", "Summit Diagnostics"]
     },
     {
       "rank": 4,
-      "item": "Logistics 100 × 150",
-      "size": "100 × 150 mm",
-      "avgQty": 7200,
-      "avgBoxes": 36,
-      "customersA": 6,
-      "customersB": 8
+      "item": "DT Label Roll",
+      "size": "100×50",
+      "avgQtyPerMo": 7200,
+      "avgBoxesPerMo": 36,
+      "customersA": ["Northline Logistics", "Highway Freight"],
+      "customersB": ["BlueCart 3PL"]
     },
     {
       "rank": 5,
-      "item": "Apparel hang ticket",
-      "size": "30 × 50 mm",
-      "avgQty": 6400,
-      "avgBoxes": 26,
-      "customersA": 5,
-      "customersB": 4
+      "item": "DT Label Roll",
+      "size": "4/6",
+      "avgQtyPerMo": 5100,
+      "avgBoxesPerMo": 20,
+      "customersA": ["Orbit Retail", "Kiran Labels"],
+      "customersB": ["Festive Print Co"]
     },
     {
-      "rank": 6,
-      "item": "FMCG wraparound",
-      "size": "80 × 60 mm",
-      "avgQty": 5100,
-      "avgBoxes": 20,
-      "customersA": 3,
-      "customersB": 2
-    },
-    {
-      "rank": 7,
-      "item": "A4 sheet laser 24-up",
-      "size": "210 × 297 mm",
-      "avgQty": 1850,
-      "avgBoxes": 37,
-      "customersA": 8,
-      "customersB": 7
-    },
-    {
-      "rank": 8,
-      "item": "PE White 85 µ outdoor",
-      "size": "100 × 50 mm",
-      "avgQty": 2400,
-      "avgBoxes": 12,
-      "customersA": 2,
-      "customersB": 1
+      "rank": "+1",
+      "item": "DT Label Roll (Y)",
+      "size": "4/6",
+      "avgQtyPerMo": 2400,
+      "avgBoxesPerMo": 12,
+      "customersA": ["Orbit Retail"],
+      "customersB": ["Festive Print Co"],
+      "supplementary": true
     }
   ],
   "lost": [
     {
-      "item": "TT Gloss 60 × 40",
-      "size": "60 × 40 mm",
-      "reason": "No repeat in 6 weeks — buyer shifted to imported roll",
-      "lastQty": 3200,
-      "customersLost": 2,
-      "weeksInactive": 6
+      "marketingPerson": "Rahul S.",
+      "customer": "Vishal Distributors",
+      "products": ["[DT Label Roll 50×25]", "[TT Label Roll 75×50]"]
     },
     {
-      "item": "DT Eco 40 × 20",
-      "size": "40 × 20 mm",
-      "reason": "Price hold rejected; parked pending revision",
-      "lastQty": 1500,
-      "customersLost": 1,
-      "weeksInactive": 4
+      "marketingPerson": "Neha M.",
+      "customer": "Sunrise Apparel",
+      "products": ["[DT Label Roll 50×30]", "[DT Label Roll (Y) 4/6]"]
     },
     {
-      "item": "Jewellery foil 25 × 15",
-      "size": "25 × 15 mm",
-      "reason": "Seasonal SKU — revisit Oct festival bookings",
-      "lastQty": 800,
-      "customersLost": 3,
-      "weeksInactive": 8
+      "marketingPerson": "Amit K.",
+      "customer": "Patel Agro Pack",
+      "products": ["[DT Label Roll 100×50]"]
+    },
+    {
+      "marketingPerson": "Priya D.",
+      "customer": "Jewelmark Tags",
+      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 4/6]"]
+    },
+    {
+      "marketingPerson": "Sandeep R.",
+      "customer": "Coastal Cold Chain",
+      "products": ["[TT Label Roll 75×50]"]
     }
   ],
   "active": [
     {
-      "item": "DT White 80 gsm",
-      "size": "50 × 25 mm",
-      "status": "running",
-      "mtdQty": 21200,
-      "mtdBoxes": 85,
-      "customers": 9,
-      "notes": "Core runner — keep 10-day FG"
+      "marketingPerson": "Rahul S.",
+      "customer": "Medico Pack",
+      "avgDispatchDays": 11,
+      "avgOrderValue": 186000,
+      "products": ["[DT Label Roll 50×25]", "[TT Label Roll 75×50]"]
     },
     {
-      "item": "TT Matte coated",
-      "size": "70 × 50 mm",
-      "status": "running",
-      "mtdQty": 14100,
-      "mtdBoxes": 56,
-      "customers": 7,
-      "notes": "Two contract accounts on weekly call-off"
+      "marketingPerson": "Rahul S.",
+      "customer": "Apex Pharma",
+      "avgDispatchDays": 9,
+      "avgOrderValue": 242000,
+      "products": ["[TT Label Roll 75×50]", "[DT Label Roll 50×25]"]
     },
     {
-      "item": "Pharma 38 × 25 tamper",
-      "size": "38 × 25 mm",
-      "status": "running",
-      "mtdQty": 10600,
-      "mtdBoxes": 42,
-      "customers": 4,
-      "notes": "Batch-coded; extra QC hold"
+      "marketingPerson": "Neha M.",
+      "customer": "Northline Logistics",
+      "avgDispatchDays": 14,
+      "avgOrderValue": 128500,
+      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 100×50]"]
     },
     {
-      "item": "Logistics 100 × 150",
-      "size": "100 × 150 mm",
-      "status": "watch",
-      "mtdQty": 4800,
-      "mtdBoxes": 24,
-      "customers": 6,
-      "notes": "Spot mix up; liner change mid-week"
+      "marketingPerson": "Neha M.",
+      "customer": "BlueCart 3PL",
+      "avgDispatchDays": 16,
+      "avgOrderValue": 97500,
+      "products": ["[DT Label Roll 50×30]", "[DT Label Roll 100×50]"]
     },
     {
-      "item": "Apparel hang ticket",
-      "size": "30 × 50 mm",
-      "status": "running",
-      "mtdQty": 7100,
-      "mtdBoxes": 28,
-      "customers": 5,
-      "notes": "New punch tool approved 4 Sep"
+      "marketingPerson": "Amit K.",
+      "customer": "Orbit Retail",
+      "avgDispatchDays": 12,
+      "avgOrderValue": 154000,
+      "products": ["[DT Label Roll 4/6]", "[DT Label Roll (Y) 4/6]"]
     },
     {
-      "item": "FMCG wraparound",
-      "size": "80 × 60 mm",
-      "status": "running",
-      "mtdQty": 3900,
-      "mtdBoxes": 16,
-      "customers": 3,
-      "notes": ""
+      "marketingPerson": "Amit K.",
+      "customer": "Kiran Labels",
+      "avgDispatchDays": 18,
+      "avgOrderValue": 72000,
+      "products": ["[DT Label Roll 50×25]", "[DT Label Roll 4/6]"]
     },
     {
-      "item": "A4 sheet laser 24-up",
-      "size": "210 × 297 mm",
-      "status": "running",
-      "mtdQty": 920,
-      "mtdBoxes": 18,
-      "customers": 8,
-      "notes": "Sheet line booked Thu–Fri"
+      "marketingPerson": "Priya D.",
+      "customer": "Carewell Labs",
+      "avgDispatchDays": 10,
+      "avgOrderValue": 201000,
+      "products": ["[TT Label Roll 75×50]"]
     },
     {
-      "item": "PE White 85 µ outdoor",
-      "size": "100 × 50 mm",
-      "status": "watch",
-      "mtdQty": 1100,
-      "mtdBoxes": 6,
-      "customers": 2,
-      "notes": "Adhesive lot pending incoming"
+      "marketingPerson": "Priya D.",
+      "customer": "Summit Diagnostics",
+      "avgDispatchDays": 13,
+      "avgOrderValue": 88000,
+      "products": ["[TT Label Roll 75×50]"]
     },
     {
-      "item": "Cold-chain TT 75 × 50",
-      "size": "75 × 50 mm",
-      "status": "new",
-      "mtdQty": 2600,
-      "mtdBoxes": 10,
-      "customers": 1,
-      "notes": "Trial converted — first repeat due 15 Sep"
+      "marketingPerson": "Sandeep R.",
+      "customer": "Shree Warehousing",
+      "avgDispatchDays": 15,
+      "avgOrderValue": 64500,
+      "products": ["[DT Label Roll 50×30]"]
     },
     {
-      "item": "Warehouse 50 × 80",
-      "size": "50 × 80 mm",
-      "status": "running",
-      "mtdQty": 3400,
-      "mtdBoxes": 17,
-      "customers": 4,
-      "notes": ""
+      "marketingPerson": "Sandeep R.",
+      "customer": "Highway Freight",
+      "avgDispatchDays": 17,
+      "avgOrderValue": 112000,
+      "products": ["[DT Label Roll 100×50]"]
+    },
+    {
+      "marketingPerson": "Neha M.",
+      "customer": "Narmada Foods",
+      "avgDispatchDays": 21,
+      "avgOrderValue": 56000,
+      "products": ["[DT Label Roll 50×30]"]
+    },
+    {
+      "marketingPerson": "Rahul S.",
+      "customer": "Festive Print Co",
+      "avgDispatchDays": 19,
+      "avgOrderValue": 61000,
+      "products": ["[DT Label Roll (Y) 4/6]", "[DT Label Roll 4/6]"]
     }
   ]
 }

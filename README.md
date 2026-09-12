@@ -6,8 +6,8 @@ Home plus two live reports:
 | Route | Report | Data file |
 | --- | --- | --- |
 | `#home` | Overview cards + last updated | `data/reports.json` |
-| `#label` | Barcode labels management | `data/labels.json` |
-| `#rm` | Inventory / RM stock snapshot | `data/inventory.json` |
+| `#label` | Labels management report | `data/labels.json` |
+| `#rm` | Inventory management / RM stock | `data/inventory.json` |
 
 Gumming sheets is registered as **upcoming** in `data/reports.json` so the next report can land without a layout rewrite.
 
@@ -79,7 +79,7 @@ Registry + home-page last-updated. Upcoming rows appear as disabled cards.
     {
       "id": "label",
       "title": "Labels",
-      "subtitle": "Barcode labels management",
+      "subtitle": "Labels management report",
       "hash": "#label",
       "dataFile": "data/labels.json",
       "status": "active"
@@ -92,107 +92,125 @@ Registry + home-page last-updated. Upcoming rows appear as disabled cards.
 
 ### `data/labels.json`
 
+Matches the weekly **labels management** report. Amounts are ₹ lakh.
+
 ```json
 {
   "asOf": "2026-09-08",
   "sample": true,
-  "title": "Barcode labels management",
+  "title": "Labels management report",
   "header": {
     "monthlyTrend": [
-      { "month": "2026-08", "label": "Aug", "qty": 238150, "boxes": 953 }
+      { "month": "2026-08", "label": "Aug", "amountLakh": 48.8 }
     ],
     "mtd": {
-      "qty": 86420,
-      "boxes": 346,
-      "skus": 41,
-      "customers": 28,
-      "avgBoxFill": 250
+      "amountLakh": 18.4,
+      "pctOfAvg": 40.7,
+      "avgMonthlyLakh": 45.2
     },
     "activeInactive": {
-      "active": 41,
-      "inactive": 14,
-      "newThisMonth": 2,
-      "reactivated": 1
+      "active": 24,
+      "inactive": 11,
+      "pool": 35,
+      "aovFloor": 50000,
+      "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 60 days."
     }
   },
   "planning": [
     {
       "rank": 1,
-      "item": "DT White 80 gsm",
-      "size": "50 × 25 mm",
-      "avgQty": 18400,
-      "avgBoxes": 74,
-      "customersA": 9,
-      "customersB": 6
+      "item": "DT Label Roll",
+      "size": "50×25",
+      "avgQtyPerMo": 18400,
+      "avgBoxesPerMo": 74,
+      "customersA": ["Medico Pack"],
+      "customersB": ["Kiran Labels"]
+    },
+    {
+      "rank": "+1",
+      "item": "DT Label Roll (Y)",
+      "size": "4/6",
+      "avgQtyPerMo": 2400,
+      "avgBoxesPerMo": 12,
+      "customersA": ["Orbit Retail"],
+      "customersB": ["Festive Print Co"],
+      "supplementary": true
     }
   ],
   "lost": [
     {
-      "item": "TT Gloss 60 × 40",
-      "size": "60 × 40 mm",
-      "reason": "No repeat in 6 weeks",
-      "lastQty": 3200,
-      "customersLost": 2,
-      "weeksInactive": 6
+      "marketingPerson": "Rahul S.",
+      "customer": "Vishal Distributors",
+      "products": ["[DT Label Roll 50×25]", "[TT Label Roll 75×50]"]
     }
   ],
   "active": [
     {
-      "item": "DT White 80 gsm",
-      "size": "50 × 25 mm",
-      "status": "running",
-      "mtdQty": 21200,
-      "mtdBoxes": 85,
-      "customers": 9,
-      "notes": "Core runner"
+      "marketingPerson": "Rahul S.",
+      "customer": "Medico Pack",
+      "avgDispatchDays": 11,
+      "avgOrderValue": 186000,
+      "products": ["[DT Label Roll 50×25]"]
     }
   ]
 }
 ```
 
-- `customersA` — contract / regular accounts buying the SKU.  
-- `customersB` — spot / trade accounts.  
-- `active[].status` — `running` | `watch` | `new`.
+| Field | Meaning |
+| --- | --- |
+| `monthlyTrend[].amountLakh` | Billing that month in ₹ lakh. `amount` is also accepted. |
+| `mtd.pctOfAvg` | MTD billing as % of `avgMonthlyLakh`. |
+| `activeInactive.pool` | Customers with AOV ≥ `aovFloor` (₹50,000). |
+| `planning` | Top 5 movers plus optional `+1` (`supplementary: true`) — sample uses **DT Label Roll (Y) 4/6**. |
+| `avgBoxesPerMo` | `null` renders as —. Used for 50×30 in the sample. |
+| `customersA` / `customersB` | Arrays of customer **names** (two columns on the weekly sheet). |
+| `lost` | AOV ≥ ₹50K and no dispatch in 60+ days. |
+| `active` | AOV ≥ ₹50K and dispatch in the last 60 days. `avgDispatchDays` / `avgOrderValue` are past-2-month averages. |
+| `products` | Strings like `"[ITEM SIZE]"`. |
 
 ### `data/inventory.json`
+
+Matches the weekly **inventory management** report (Dashboard tab 4 / RM mail). Quantities are **tonnes**.
 
 ```json
 {
   "asOf": "2026-09-08",
   "sample": true,
-  "title": "Inventory / RM stock snapshot",
-  "source": "Weekly RM desk close — 8 Sep 2026 (sample)",
+  "title": "Inventory management / RM stock",
+  "source": "Dashboard tab 4 — mail dated 8 Sep 2026 (sample)",
   "excess": [
     {
-      "item": "Glassine liner 62 gsm",
-      "grade": "White / 1000 mm",
-      "uom": "kg",
-      "onHand": 18420,
-      "norm": 9000,
-      "excessQty": 9420,
-      "location": "RM-2 / Bay C",
+      "itemName": "Glassine liner",
+      "type": "Liner",
+      "width": 1000,
+      "micron": null,
+      "gsm": 62,
+      "currentStockT": 18.42,
+      "avgConsumedT": 4.10,
+      "pendingPoT": 0,
       "note": "Two lots landed together"
     }
   ],
   "shortage": [
     {
-      "item": "Direct thermal facestock 80 gsm",
-      "grade": "Top-coated / 330 mm",
-      "uom": "kg",
-      "onHand": 820,
-      "reorder": 2500,
-      "shortQty": 1680,
-      "leadDays": 18,
-      "action": "Expedite PO-4412"
+      "itemName": "DT facestock",
+      "type": "Paper",
+      "width": 330,
+      "micron": null,
+      "gsm": 80,
+      "currentStockT": 0.82,
+      "avgConsumedT": 4.50,
+      "pendingPoT": 6.00,
+      "note": "Expedite PO-4412"
     }
   ],
   "notes": [
-    { "severity": "urgent", "text": "DT 80 gsm covers ~4 production days." }
+    { "severity": "watch", "text": "Also watch: PET liner stock-out." }
   ]
 }
 ```
 
-`notes[].severity` — `urgent` | `watch` | `info`.
+`excess` and `shortage` share the same row shape. `width` is mm; use `null` when the spec is not a slit width. `micron` (films) and `gsm` (papers) are optional. `notes` is optional — use it for **Also watch** lines. `severity` is `urgent` | `watch` | `info`.
 
 ## Layout
 

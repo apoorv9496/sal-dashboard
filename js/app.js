@@ -14,11 +14,48 @@ const fmt = {
       timeZone: "UTC",
     });
   },
-  num(n) {
+  num(n, digits = 0) {
     if (n == null || n === "") return "—";
-    return Number(n).toLocaleString("en-IN");
+    return Number(n).toLocaleString("en-IN", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    });
+  },
+  lakh(n) {
+    if (n == null || n === "") return "—";
+    return `₹ ${fmt.num(n, 1)} L`;
+  },
+  inr(n) {
+    if (n == null || n === "") return "—";
+    return `₹ ${Number(n).toLocaleString("en-IN")}`;
+  },
+  tonnes(n) {
+    if (n == null || n === "") return "—";
+    return `${fmt.num(n, 2)} T`;
+  },
+  pct(n) {
+    if (n == null || n === "") return "—";
+    return `${fmt.num(n, 1)}%`;
   },
 };
+
+function trendAmount(row) {
+  if (row?.amountLakh != null && row.amountLakh !== "") return Number(row.amountLakh);
+  if (row?.amount != null && row.amount !== "") return Number(row.amount);
+  return null;
+}
+
+function pills(items) {
+  if (!items || !items.length) return "—";
+  return `<span class="pills">${items
+    .map((item) => `<span class="pill">${escapeHtml(item)}</span>`)
+    .join("")}</span>`;
+}
+
+function rankLabel(row) {
+  if (row.supplementary || row.rank === "+1") return "+1";
+  return escapeHtml(row.rank);
+}
 
 async function loadJSON(path) {
   const res = await fetch(path, { cache: "no-cache" });
@@ -45,7 +82,7 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function table(columns, rows, tableId) {
+function table(columns, rows, tableId, rowClass) {
   if (!rows.length) return `<p class="empty">No rows in this snapshot.</p>`;
   const head = columns
     .map((c) => `<th class="${c.align === "right" ? "num" : ""}">${escapeHtml(c.label)}</th>`)
@@ -59,7 +96,8 @@ function table(columns, rows, tableId) {
           return `<td class="${cls}">${raw}</td>`;
         })
         .join("");
-      return `<tr>${cells}</tr>`;
+      const extra = rowClass ? rowClass(row) : "";
+      return `<tr class="${extra}">${cells}</tr>`;
     })
     .join("");
   return `
@@ -167,14 +205,15 @@ function cardStats(id, data) {
     return `<div><span class="stat-label">Data</span><span class="stat-value">Missing</span></div>`;
   }
   if (id === "label") {
+    const ai = data.header?.activeInactive || {};
     return `
-      <div><span class="stat-label">MTD labels</span><span class="stat-value">${fmt.num(data.header?.mtd?.qty)}</span></div>
-      <div><span class="stat-label">Active SKUs</span><span class="stat-value">${fmt.num(data.header?.activeInactive?.active)}</span></div>`;
+      <div><span class="stat-label">MTD</span><span class="stat-value">${fmt.lakh(data.header?.mtd?.amountLakh)}</span></div>
+      <div><span class="stat-label">Active / pool</span><span class="stat-value">${fmt.num(ai.active)} / ${fmt.num(ai.pool)}</span></div>`;
   }
   if (id === "rm") {
     return `
-      <div><span class="stat-label">Shortages</span><span class="stat-value">${fmt.num(data.shortage?.length)}</span></div>
-      <div><span class="stat-label">Excess lines</span><span class="stat-value">${fmt.num(data.excess?.length)}</span></div>`;
+      <div><span class="stat-label">Shortage</span><span class="stat-value">${fmt.num(data.shortage?.length)} lines</span></div>
+      <div><span class="stat-label">Excess</span><span class="stat-value">${fmt.num(data.excess?.length)} lines</span></div>`;
   }
   return `
     <div><span class="stat-label">As of</span><span class="stat-value">${escapeHtml(fmt.date(data.asOf))}</span></div>`;
@@ -184,68 +223,71 @@ function renderLabels(data) {
   const mtd = data.header?.mtd || {};
   const ai = data.header?.activeInactive || {};
   const trend = data.header?.monthlyTrend || [];
-  const maxQty = Math.max(...trend.map((t) => t.qty), 1);
+  const amounts = trend.map(trendAmount);
+  const maxAmt = Math.max(...amounts.filter((n) => n != null), 1);
 
   const bars = trend
     .map((t) => {
-      const h = Math.max(8, Math.round((t.qty / maxQty) * 140));
+      const amt = trendAmount(t);
+      const h = Math.max(8, Math.round(((amt || 0) / maxAmt) * 140));
       const partial = /mtd/i.test(t.label || "");
       return `
         <div class="bar-col ${partial ? "partial" : ""}">
-          <div class="bar" style="height:${h}px" title="${escapeHtml(t.label)}: ${fmt.num(t.qty)}"></div>
-          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.num(t.qty)}</div>
+          <div class="bar" style="height:${h}px" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
+          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
         </div>`;
     })
     .join("");
 
   app.replaceChildren(el(`
-    ${pageChrome("Labels", data.title || "Barcode labels management", data.asOf)}
+    ${pageChrome("Labels", data.title || "Labels management report", data.asOf)}
     ${sampleBanner(data.sample)}
     <section class="kpis">
-      <div class="kpi"><span>MTD quantity</span><strong>${fmt.num(mtd.qty)}</strong></div>
-      <div class="kpi"><span>MTD boxes</span><strong>${fmt.num(mtd.boxes)}</strong></div>
-      <div class="kpi"><span>Active SKUs</span><strong>${fmt.num(ai.active)}</strong></div>
-      <div class="kpi"><span>Inactive / lost watch</span><strong>${fmt.num(ai.inactive)}</strong></div>
+      <div class="kpi"><span>MTD</span><strong>${fmt.lakh(mtd.amountLakh)}</strong></div>
+      <div class="kpi"><span>MTD vs avg month</span><strong>${fmt.pct(mtd.pctOfAvg)}</strong></div>
+      <div class="kpi"><span>Avg monthly</span><strong>${fmt.lakh(mtd.avgMonthlyLakh)}</strong></div>
+      <div class="kpi"><span>Active / inactive</span><strong>${fmt.num(ai.active)} / ${fmt.num(ai.inactive)}</strong></div>
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Monthly trend</h2>
-        <p class="hint">Quantity (labels). Sep is month-to-date.</p>
+        <p class="hint">Billing in ₹ lakh. Sep is month-to-date.</p>
       </div>
       <div class="bars">${bars}</div>
     </section>
     <section class="panel">
       <div class="panel-head">
-        <h2>Planning — average movers</h2>
-        <p class="hint">customersA = contract / regular · customersB = spot / trade</p>
+        <h2>Planning — 5 + 1</h2>
+        <p class="hint">Avg qty / boxes per month. 50×30 boxes shown as —. +1 is DT Label Roll (Y) 4/6.</p>
       </div>
       ${table(
         [
-          { key: "rank", label: "Rank", align: "right", value: (r) => fmt.num(r.rank) },
+          { key: "rank", label: "Rank", align: "right", value: rankLabel },
           { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
           { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
-          { key: "avgQty", label: "Avg qty", align: "right", value: (r) => fmt.num(r.avgQty) },
-          { key: "avgBoxes", label: "Avg boxes", align: "right", value: (r) => fmt.num(r.avgBoxes) },
-          { key: "customersA", label: "Cust. A", align: "right", value: (r) => fmt.num(r.customersA) },
-          { key: "customersB", label: "Cust. B", align: "right", value: (r) => fmt.num(r.customersB) },
+          { key: "avgQtyPerMo", label: "Avg qty / mo", align: "right", value: (r) => fmt.num(r.avgQtyPerMo) },
+          { key: "avgBoxesPerMo", label: "Avg boxes / mo", align: "right", value: (r) => fmt.num(r.avgBoxesPerMo) },
+          { key: "customersA", label: "Customers A", value: (r) => pills(r.customersA) },
+          { key: "customersB", label: "Customers B", value: (r) => pills(r.customersB) },
         ],
         data.planning || [],
-        "planning-table"
+        "planning-table",
+        (r) => (r.supplementary || r.rank === "+1" ? "supplementary" : "")
       )}
     </section>
     <section class="panel">
       <div class="panel-head">
-        <h2>Lost / quiet</h2>
-        <p class="hint">${fmt.num((data.lost || []).length)} items without recent repeats</p>
+        <h2>Lost</h2>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="lost-filter" placeholder="Filter lost accounts…" aria-label="Filter lost accounts">
       </div>
       ${table(
         [
-          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
-          { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
-          { key: "lastQty", label: "Last qty", align: "right", value: (r) => fmt.num(r.lastQty) },
-          { key: "customersLost", label: "Cust. lost", align: "right", value: (r) => fmt.num(r.customersLost) },
-          { key: "weeksInactive", label: "Weeks quiet", align: "right", value: (r) => fmt.num(r.weeksInactive) },
-          { key: "reason", label: "Reason", value: (r) => escapeHtml(r.reason) },
+          { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
+          { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "products", label: "Products", value: (r) => pills(r.products) },
         ],
         data.lost || [],
         "lost-table"
@@ -253,96 +295,93 @@ function renderLabels(data) {
     </section>
     <section class="panel">
       <div class="panel-head">
-        <h2>Active SKUs</h2>
-        <p class="hint">${fmt.num(ai.newThisMonth)} new this month · ${fmt.num(ai.reactivated)} reactivated</p>
+        <h2>Active</h2>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, dispatch in last 60 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
       </div>
       <div class="toolbar">
-        <input type="search" id="active-filter" placeholder="Filter active SKUs…" aria-label="Filter active SKUs">
+        <input type="search" id="active-filter" placeholder="Filter active accounts…" aria-label="Filter active accounts">
       </div>
       ${table(
         [
-          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
-          { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
-          { key: "status", label: "Status", value: (r) => badge(r.status) },
-          { key: "mtdQty", label: "MTD qty", align: "right", value: (r) => fmt.num(r.mtdQty) },
-          { key: "mtdBoxes", label: "MTD boxes", align: "right", value: (r) => fmt.num(r.mtdBoxes) },
-          { key: "customers", label: "Customers", align: "right", value: (r) => fmt.num(r.customers) },
-          { key: "notes", label: "Notes", value: (r) => escapeHtml(r.notes) },
+          { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
+          { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "avgDispatchDays", label: "Avg dispatch days", align: "right", value: (r) => fmt.num(r.avgDispatchDays) },
+          { key: "avgOrderValue", label: "Avg order value", align: "right", value: (r) => fmt.inr(r.avgOrderValue) },
+          { key: "products", label: "Products", value: (r) => pills(r.products) },
         ],
         data.active || [],
         "active-table"
       )}
     </section>
+    ${ai.note ? `<p class="source">${escapeHtml(ai.note)}</p>` : ""}
   `));
+  bindFilter("lost-filter", "lost-table");
   bindFilter("active-filter", "active-table");
 }
 
+function rmColumns() {
+  return [
+    { key: "itemName", label: "Item", value: (r) => escapeHtml(r.itemName) },
+    { key: "type", label: "Type", value: (r) => escapeHtml(r.type) },
+    { key: "width", label: "Width", align: "right", value: (r) => (r.width == null || r.width === "" ? "—" : `${fmt.num(r.width)} mm`) },
+    { key: "micron", label: "Micron", align: "right", value: (r) => fmt.num(r.micron) },
+    { key: "gsm", label: "GSM", align: "right", value: (r) => fmt.num(r.gsm) },
+    { key: "currentStockT", label: "Stock (T)", align: "right", value: (r) => fmt.tonnes(r.currentStockT) },
+    { key: "avgConsumedT", label: "Avg consume (T)", align: "right", value: (r) => fmt.tonnes(r.avgConsumedT) },
+    { key: "pendingPoT", label: "Pending PO (T)", align: "right", value: (r) => fmt.tonnes(r.pendingPoT) },
+    { key: "note", label: "Note", value: (r) => escapeHtml(r.note) },
+  ];
+}
+
 function renderInventory(data) {
+  const stockouts = (data.shortage || []).filter((r) => !r.currentStockT).length;
   app.replaceChildren(el(`
-    ${pageChrome("Inventory / RM", data.title || "Raw material stock snapshot", data.asOf)}
+    ${pageChrome("Inventory / RM", data.title || "Inventory management / RM stock", data.asOf)}
     ${sampleBanner(data.sample)}
     <p class="source">${escapeHtml(data.source || "")}</p>
     <section class="kpis">
       <div class="kpi"><span>Shortage lines</span><strong>${fmt.num((data.shortage || []).length)}</strong></div>
       <div class="kpi"><span>Excess lines</span><strong>${fmt.num((data.excess || []).length)}</strong></div>
+      <div class="kpi"><span>Stock-outs</span><strong>${fmt.num(stockouts)}</strong></div>
       <div class="kpi"><span>Notes</span><strong>${fmt.num((data.notes || []).length)}</strong></div>
-      <div class="kpi"><span>Stock-outs</span><strong>${fmt.num((data.shortage || []).filter((r) => r.onHand === 0).length)}</strong></div>
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Shortage</h2>
-        <p class="hint">Below reorder — action this week</p>
+        <p class="hint">Top short items · quantities in tonnes</p>
       </div>
       <div class="toolbar">
         <input type="search" id="short-filter" placeholder="Filter shortages…" aria-label="Filter shortages">
       </div>
-      ${table(
-        [
-          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
-          { key: "grade", label: "Grade", value: (r) => escapeHtml(r.grade) },
-          { key: "uom", label: "UOM", value: (r) => escapeHtml(r.uom) },
-          { key: "onHand", label: "On hand", align: "right", value: (r) => fmt.num(r.onHand) },
-          { key: "reorder", label: "Reorder", align: "right", value: (r) => fmt.num(r.reorder) },
-          { key: "shortQty", label: "Short", align: "right", value: (r) => fmt.num(r.shortQty) },
-          { key: "leadDays", label: "Lead (d)", align: "right", value: (r) => fmt.num(r.leadDays) },
-          { key: "action", label: "Action", value: (r) => escapeHtml(r.action) },
-        ],
-        data.shortage || [],
-        "short-table"
-      )}
+      ${table(rmColumns(), data.shortage || [], "short-table")}
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Excess</h2>
-        <p class="hint">Above norm — use or pause buying</p>
+        <p class="hint">Top excess items · quantities in tonnes</p>
       </div>
-      ${table(
-        [
-          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
-          { key: "grade", label: "Grade", value: (r) => escapeHtml(r.grade) },
-          { key: "uom", label: "UOM", value: (r) => escapeHtml(r.uom) },
-          { key: "onHand", label: "On hand", align: "right", value: (r) => fmt.num(r.onHand) },
-          { key: "norm", label: "Norm", align: "right", value: (r) => fmt.num(r.norm) },
-          { key: "excessQty", label: "Excess", align: "right", value: (r) => fmt.num(r.excessQty) },
-          { key: "location", label: "Location", value: (r) => escapeHtml(r.location) },
-          { key: "note", label: "Note", value: (r) => escapeHtml(r.note) },
-        ],
-        data.excess || [],
-        "excess-table"
-      )}
+      <div class="toolbar">
+        <input type="search" id="excess-filter" placeholder="Filter excess…" aria-label="Filter excess">
+      </div>
+      ${table(rmColumns(), data.excess || [], "excess-table")}
     </section>
-    <section class="panel">
-      <h2>Notes</h2>
+    ${
+      (data.notes || []).length
+        ? `<section class="panel">
+      <div class="panel-head">
+        <h2>Notes / also watch</h2>
+      </div>
       <ul class="notes">
-        ${(data.notes || [])
-          .map(
-            (n) => `<li>${badge(n.severity)}<span>${escapeHtml(n.text)}</span></li>`
-          )
+        ${data.notes
+          .map((n) => `<li>${badge(n.severity)}<span>${escapeHtml(n.text)}</span></li>`)
           .join("")}
       </ul>
-    </section>
+    </section>`
+        : ""
+    }
   `));
   bindFilter("short-filter", "short-table");
+  bindFilter("excess-filter", "excess-table");
 }
 
 function renderUpcoming(report) {
