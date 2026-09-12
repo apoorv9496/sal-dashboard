@@ -2,25 +2,141 @@
   "asOf": "2026-09-12",
   "sample": false,
   "title": "Inventory management / RM stock",
-  "source": "RM Consumption Detail Desp Group Wise For Last 6 Months - donotreply@dubble.org (parsed 12 Sep 2026)",
+  "source": "RM Consumption Detail Desp Group Wise For Last 6 Months - donotreply@dubble.org (matched to emailed inventory management report)",
   "excess": [
-    {"itemName": "GLASSINE", "type": "White", "width": "401-480", "micron": null, "gsm": "55g-58g", "currentStockT": 25.691, "avgConsumedT": 0.145, "pendingPoT": 0.0, "note": "~176.9x monthly avg"},
-    {"itemName": "RBP CCK", "type": "White", "width": "811-900", "micron": null, "gsm": "137g-145g", "currentStockT": 8.583, "avgConsumedT": 0.084, "pendingPoT": 5.8, "note": "~101.9x monthly avg"},
-    {"itemName": "GLASSINE", "type": "White", "width": "1101-Any", "micron": null, "gsm": "55g-58g", "currentStockT": 12.382, "avgConsumedT": 0.254, "pendingPoT": 0.0, "note": "~48.8x monthly avg"},
-    {"itemName": "CHROMO", "type": null, "width": "506-600", "micron": null, "gsm": "63g-75g", "currentStockT": 3.393, "avgConsumedT": 0.077, "pendingPoT": 0.0, "note": "~44.0x monthly avg"},
-    {"itemName": "RBP CCK", "type": "White", "width": "1031-1050", "micron": null, "gsm": "59g-62g", "currentStockT": 19.806, "avgConsumedT": 0.466, "pendingPoT": 0.0, "note": "~42.5x monthly avg"}
+    {
+      "itemName": "RBP CCK",
+      "type": "White",
+      "width": "401-480",
+      "micron": null,
+      "gsm": "133g-145g",
+      "currentStockT": 120.238,
+      "avgConsumedT": 5.046,
+      "pendingPoT": 42.008,
+      "note": "Idle over 3x: 105.101 t / cover 24 mo / PO 42.008t flag"
+    },
+    {
+      "itemName": "RBP CCK",
+      "type": "White",
+      "width": "506-600",
+      "micron": null,
+      "gsm": "133g-145g",
+      "currentStockT": 50.581,
+      "avgConsumedT": 1.481,
+      "pendingPoT": 37.336,
+      "note": "Idle over 3x: 46.139 t / cover 34 mo / PO 37.336t flag"
+    },
+    {
+      "itemName": "GLASSINE",
+      "type": "White",
+      "width": "401-480",
+      "micron": null,
+      "gsm": "55g-58g",
+      "currentStockT": 25.691,
+      "avgConsumedT": 0.145,
+      "pendingPoT": 0.0,
+      "note": "Idle over 3x: 25.255 t / cover 177 mo"
+    },
+    {
+      "itemName": "RBP CCK",
+      "type": "White",
+      "width": "1031-1050",
+      "micron": null,
+      "gsm": "59g-62g",
+      "currentStockT": 19.806,
+      "avgConsumedT": 0.466,
+      "pendingPoT": 0.0,
+      "note": "Idle over 3x: 18.408 t / cover 43 mo"
+    },
+    {
+      "itemName": "GLASSINE",
+      "type": "White",
+      "width": "1051-1100",
+      "micron": null,
+      "gsm": "76g-83g",
+      "currentStockT": 31.751,
+      "avgConsumedT": 1.306,
+      "pendingPoT": 25.0,
+      "note": "Idle over 3x: 27.832 t / cover 24 mo / PO 25.0t flag"
+    }
   ],
   "shortage": [
-    {"itemName": "CHROMO C2S", "type": null, "width": "1001-1030", "micron": null, "gsm": "76g-83g", "currentStockT": 12.952, "avgConsumedT": 35.702, "pendingPoT": 85.0, "note": "~0.36x monthly cover"},
-    {"itemName": "DIRECT THERMAL", "type": null, "width": "1001-1030", "micron": null, "gsm": "63g-75g", "currentStockT": 3.473, "avgConsumedT": 24.807, "pendingPoT": 0.0, "note": "~0.14x monthly cover"},
-    {"itemName": "CHROMO C2S", "type": null, "width": "506-600", "micron": null, "gsm": "76g-83g", "currentStockT": 1.506, "avgConsumedT": 10.867, "pendingPoT": 0.0, "note": "~0.14x monthly cover"},
-    {"itemName": "CHROMO C2S", "type": null, "width": "401-480", "micron": null, "gsm": "76g-83g", "currentStockT": 4.883, "avgConsumedT": 13.752, "pendingPoT": 0.0, "note": "~0.36x monthly cover"},
-    {"itemName": "RBP CCK", "type": "White", "width": "601-665", "micron": null, "gsm": "133g-145g", "currentStockT": 4.666, "avgConsumedT": 11.705, "pendingPoT": 23.353, "note": "~0.40x monthly cover"}
+    {
+      "itemName": "DIRECT THERMAL",
+      "type": null,
+      "width": "1001-1030",
+      "micron": null,
+      "gsm": "63g-75g",
+      "currentStockT": 3.473,
+      "avgConsumedT": 24.807,
+      "pendingPoT": 0.0,
+      "note": "Heavy use, almost empty / cover 0.1 mo"
+    },
+    {
+      "itemName": "CHROMO C2S",
+      "type": null,
+      "width": "506-600",
+      "micron": null,
+      "gsm": "76g-83g",
+      "currentStockT": 1.506,
+      "avgConsumedT": 10.867,
+      "pendingPoT": 0.0,
+      "note": "Thin cover, no PO / cover 0.1 mo"
+    },
+    {
+      "itemName": "RBP CCK",
+      "type": "White",
+      "width": "401-480",
+      "micron": null,
+      "gsm": "63g-75g",
+      "currentStockT": 0.95,
+      "avgConsumedT": 7.615,
+      "pendingPoT": 0.0,
+      "note": "Regular use, nearly gone / cover 0.1 mo"
+    },
+    {
+      "itemName": "RBP CCK",
+      "type": "White",
+      "width": "901-960",
+      "micron": null,
+      "gsm": "85g-95g",
+      "currentStockT": 0.5,
+      "avgConsumedT": 7.441,
+      "pendingPoT": 0.0,
+      "note": "Same pattern / cover 0.1 mo"
+    },
+    {
+      "itemName": "MIRROR COAT CHINA",
+      "type": null,
+      "width": "1101-Any",
+      "micron": null,
+      "gsm": "76g-83g",
+      "currentStockT": 0.0,
+      "avgConsumedT": 3.418,
+      "pendingPoT": 0.0,
+      "note": "Zero stock, still used ~3.418 t/mo"
+    }
   ],
   "notes": [
-    {"severity": "urgent", "text": "CHROMO C2S 1001-1030 76g-83g - 12.952t stock vs 35.702t/mo (~0.36x monthly cover). Pending PO 85.0t."},
-    {"severity": "watch", "text": "Also watch: DIRECT THERMAL 1001-1030 63g-75g - ~0.14x monthly cover."},
-    {"severity": "watch", "text": "Excess: GLASSINE White 401-480 at 25.691t (~176.9x monthly avg). Prefer this where spec allows."},
-    {"severity": "info", "text": "Quantities in tonnes from Monday RM Consumption Detail mail (BizSol). Live snapshot - refresh weekly."}
+    {
+      "severity": "urgent",
+      "text": "DIRECT THERMAL 1001-1030 63g-75g - 3.473t vs 24.807t/mo. Heavy use, almost empty / cover 0.1 mo"
+    },
+    {
+      "severity": "watch",
+      "text": "Also watch: RBP CCK White 1001-1030 133g-145g - 0 stock, ~3.049 t/mo, only 1.76t on PO"
+    },
+    {
+      "severity": "watch",
+      "text": "Also watch: CHROMO C2S 1001-1030 - floor short (12.952t vs 35.702t/mo) but 85.0t already on PO"
+    },
+    {
+      "severity": "watch",
+      "text": "Excess: RBP CCK 401-480 - Idle over 3x: 105.101 t / cover 24 mo / PO 42.008t flag"
+    },
+    {
+      "severity": "info",
+      "text": "Same top-5 shortage/excess as the emailed inventory management report (Monday RM Consumption Detail mail)."
+    }
   ]
 }
