@@ -1,0 +1,132 @@
+{
+  "asOf": "2026-09-08",
+  "sample": true,
+  "title": "Inventory / RM stock snapshot",
+  "source": "Weekly RM desk close — 8 Sep 2026, 18:00 IST (sample placeholder, not live ERP)",
+  "excess": [
+    {
+      "item": "Glassine liner 62 gsm",
+      "grade": "White / 1000 mm",
+      "uom": "kg",
+      "onHand": 18420,
+      "norm": 9000,
+      "excessQty": 9420,
+      "location": "RM-2 / Bay C",
+      "note": "Two lots landed together after delayed May vessel"
+    },
+    {
+      "item": "SC kraft 70 gsm",
+      "grade": "Honey / 1070 mm",
+      "uom": "kg",
+      "onHand": 7600,
+      "norm": 4000,
+      "excessQty": 3600,
+      "location": "RM-1 / Bay A",
+      "note": "Cover for cancelled gumming trial — reallocate or job out"
+    },
+    {
+      "item": "Paper cores 76 mm",
+      "grade": "ID 76 / 300 mm",
+      "uom": "pcs",
+      "onHand": 12500,
+      "norm": 6000,
+      "excessQty": 6500,
+      "location": "Pack store",
+      "note": "MOQ overbuy; pause next PO"
+    },
+    {
+      "item": "Hotmelt adhesive HM-220",
+      "grade": "General purpose",
+      "uom": "kg",
+      "onHand": 2100,
+      "norm": 1400,
+      "excessQty": 700,
+      "location": "Adhesive cage",
+      "note": "Within shelf life (use by Jan 2027)"
+    }
+  ],
+  "shortage": [
+    {
+      "item": "Direct thermal facestock 80 gsm",
+      "grade": "Top-coated / 330 mm",
+      "uom": "kg",
+      "onHand": 820,
+      "reorder": 2500,
+      "shortQty": 1680,
+      "leadDays": 18,
+      "action": "Expedite PO-4412; partial air-lot if Friday gap holds"
+    },
+    {
+      "item": "PE white 85 µ",
+      "grade": "Corona / 250 mm",
+      "uom": "kg",
+      "onHand": 140,
+      "reorder": 800,
+      "shortQty": 660,
+      "leadDays": 24,
+      "action": "Outdoor SKU on watch — do not promise new jobs"
+    },
+    {
+      "item": "Pharma adhesive PH-11",
+      "grade": "Low-migration",
+      "uom": "kg",
+      "onHand": 45,
+      "reorder": 300,
+      "shortQty": 255,
+      "leadDays": 21,
+      "action": "Single-source; confirm lot COA before lining"
+    },
+    {
+      "item": "Release liner 30 µ PET",
+      "grade": "Clear / 250 mm",
+      "uom": "kg",
+      "onHand": 0,
+      "reorder": 400,
+      "shortQty": 400,
+      "leadDays": 30,
+      "action": "Stock-out — substitute glassine only with customer OK"
+    },
+    {
+      "item": "Black thermal ribbon TTR-110",
+      "grade": "Wax-resin 110 mm",
+      "uom": "rolls",
+      "onHand": 36,
+      "reorder": 120,
+      "shortQty": 84,
+      "leadDays": 10,
+      "action": "Local buy 40 rolls to bridge"
+    },
+    {
+      "item": "Tamper void pigment",
+      "grade": "Red / batch dye",
+      "uom": "kg",
+      "onHand": 8,
+      "reorder": 25,
+      "shortQty": 17,
+      "leadDays": 14,
+      "action": "Enough for ~9 days at current pharma run"
+    }
+  ],
+  "notes": [
+    {
+      "severity": "urgent",
+      "text": "DT 80 gsm facestock covers ~4 production days at last-4-week average. Friday lining plan is at risk without PO-4412 movement."
+    },
+    {
+      "severity": "watch",
+      "text": "PET liner stock-out blocks clear outdoor construction. Two PE outdoor jobs are quoted — hold confirmations."
+    },
+    {
+      "severity": "watch",
+      "text": "Glassine 62 gsm is 2.0× norm. Prefer glassine constructions this week where spec allows."
+    },
+    {
+      "severity": "info",
+      "text": "Cycle count of adhesive cage completed 6 Sep. No variance above 1%."
+    },
+    {
+      "severity": "info",
+      "text": "Sample snapshot only — replace with Monday ERP extract. Do not use these quantities for purchasing."
+    }
+  ]
+}
