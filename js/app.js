@@ -113,7 +113,7 @@ function table(columns, rows, tableId, rowClass) {
         .map((c) => {
           const raw = c.value ? c.value(row) : row[c.key];
           const cls = c.align === "right" ? "num" : "";
-          return `<td class="${cls}">${raw}</td>`;
+          return `<td class="${cls}" data-label="${escapeHtml(c.label)}">${raw}</td>`;
         })
         .join("");
       const extra = rowClass ? rowClass(row) : "";
@@ -249,11 +249,11 @@ function renderLabels(data) {
   const bars = trend
     .map((t) => {
       const amt = trendAmount(t);
-      const h = Math.max(8, Math.round(((amt || 0) / maxAmt) * 140));
+      const pct = Math.max(6, Math.round(((amt || 0) / maxAmt) * 100));
       const partial = /mtd/i.test(t.label || "");
       return `
         <div class="bar-col ${partial ? "partial" : ""}">
-          <div class="bar" style="height:${h}px" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
+          <div class="bar" style="--bar:${pct}%" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
           <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
         </div>`;
     })
