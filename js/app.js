@@ -601,5 +601,55 @@ async function route() {
   document.getElementById("print-btn")?.addEventListener("click", () => window.print());
 }
 
-window.addEventListener("hashchange", route);
-route();
+const UNLOCK_KEY = "salDashUnlocked";
+const PASS_HASH = "cfe9e7f9b8631de788bd3f8e1f1a6de4c184eabe9c3fb589aa6490c3937ae638";
+
+async function sha256Hex(code) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(code));
+  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function startApp() {
+  window.addEventListener("hashchange", route);
+  route();
+}
+
+function removeGate() {
+  document.documentElement.classList.remove("is-locked");
+  document.getElementById("gate")?.remove();
+}
+
+async function onGateSubmit(event) {
+  event.preventDefault();
+  const input = document.getElementById("gate-code");
+  const error = document.getElementById("gate-error");
+  if (!input) return;
+  const hex = await sha256Hex(input.value);
+  if (hex === PASS_HASH) {
+    sessionStorage.setItem(UNLOCK_KEY, "1");
+    removeGate();
+    startApp();
+    return;
+  }
+  if (error) {
+    error.hidden = false;
+    error.textContent = "Wrong passcode";
+  }
+  input.value = "";
+  input.focus();
+}
+
+function initGate() {
+  if (sessionStorage.getItem(UNLOCK_KEY) === "1") {
+    removeGate();
+    startApp();
+    return;
+  }
+  document.documentElement.classList.add("is-locked");
+  const form = document.getElementById("gate-form");
+  const input = document.getElementById("gate-code");
+  form?.addEventListener("submit", onGateSubmit);
+  input?.focus();
+}
+
+initGate();

@@ -44,6 +44,102 @@ body {
 
 a { color: var(--kraft-deep); }
 
+.gate {
+  display: none;
+}
+
+html.is-locked,
+html.is-locked body {
+  overflow: hidden;
+}
+
+html.is-locked .gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 20px;
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #fff8ee 0%, transparent 55%),
+    radial-gradient(900px 400px at 110% 0%, #efe6d8 0%, transparent 50%),
+    var(--paper);
+}
+
+.gate-card {
+  width: min(380px, 100%);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 24px 22px;
+  text-align: center;
+}
+
+.gate-card h1 {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 5vw, 28px);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.gate-lede {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.gate-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gate-card input[type="password"] {
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.gate-card input[type="password"]:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.gate-card button[type="submit"] {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #f7f1e8;
+}
+
+.gate-card button[type="submit"]:hover {
+  background: var(--ink-soft);
+  border-color: var(--ink-soft);
+  color: #f7f1e8;
+}
+
+.gate-error {
+  margin: 10px 0 0;
+  color: var(--alert);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.gate-note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .skip {
   position: absolute;
   left: 12px;

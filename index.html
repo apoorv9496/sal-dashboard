@@ -8,8 +8,25 @@
   <title>SAL Papers / Dubble — Weekly ops</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    if (sessionStorage.getItem("salDashUnlocked") !== "1") {
+      document.documentElement.classList.add("is-locked");
+    }
+  </script>
 </head>
 <body>
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate-card">
+      <h1 id="gate-title">SAL Papers ops</h1>
+      <p class="gate-lede">Enter passcode</p>
+      <form id="gate-form" autocomplete="off">
+        <input type="password" id="gate-code" name="passcode" autocomplete="current-password" aria-label="Passcode" inputmode="text">
+        <button type="submit">Unlock</button>
+      </form>
+      <p class="gate-error" id="gate-error" hidden>Wrong passcode</p>
+      <p class="gate-note">For authorized SAL team use only.</p>
+    </div>
+  </div>
   <a class="skip" href="#app">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
