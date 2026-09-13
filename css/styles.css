@@ -442,6 +442,23 @@ a.card:hover {
   font-size: 13px;
 }
 
+select.planning-window {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  border: 1px solid var(--rule);
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+select.planning-window:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
 .bars {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -736,7 +753,7 @@ button:hover { border-color: #c2b4a2; color: var(--ink); }
 
 @media print {
   body { background: #fff; }
-  .site-header, .site-footer, .banner, .actions, .toolbar, nav { display: none !important; }
+  .site-header, .site-footer, .banner, .actions, .toolbar, nav, .planning-window { display: none !important; }
   .panel, .kpi, .card { box-shadow: none; }
   main { padding: 0; }
 }

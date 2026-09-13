@@ -88,8 +88,75 @@ function customerPills(itemsOrMeta, activeSet) {
 }
 
 function rankLabel(row) {
-  if (row.supplementary || row.rank === "+1") return "+1";
-  return escapeHtml(row.rank);
+  const rank = row.rank;
+  if (rank === "+1" || rank === "+2" || rank === "+3") return escapeHtml(rank);
+  if (row.supplementary) return "+1";
+  return escapeHtml(rank);
+}
+
+function isSupplementaryRow(row) {
+  const rank = String(row?.rank ?? "");
+  return Boolean(row?.supplementary) || rank === "+1" || rank === "+2" || rank === "+3";
+}
+
+const LABEL_PLANNING_WINDOW_KEY = "salLabelPlanningWindow";
+
+function resolveLabelPlanningWindow(data) {
+  let stored = "";
+  try {
+    stored = sessionStorage.getItem(LABEL_PLANNING_WINDOW_KEY) || "";
+  } catch (_) {
+    stored = "";
+  }
+  if (stored === "6mo" || stored === "3mo") return stored;
+  return data.defaultPlanningWindow || "6mo";
+}
+
+function planningForWindow(data, windowId) {
+  const fromWindows = data.planningWindows?.[windowId]?.planning;
+  if (Array.isArray(fromWindows)) return fromWindows;
+  return data.planning || [];
+}
+
+function persistLabelPlanningWindow(windowId) {
+  try {
+    sessionStorage.setItem(LABEL_PLANNING_WINDOW_KEY, windowId);
+  } catch (_) {
+    /* ignore quota / private mode */
+  }
+}
+
+function labelsPlanningColumns(activeSet) {
+  return [
+    { key: "rank", label: "Rank", align: "right", value: rankLabel },
+    { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
+    { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
+    { key: "avgQtyPerMo", label: "Avg qty / mo", align: "right", value: (r) => fmt.num(r.avgQtyPerMo) },
+    { key: "currentStockRolls", label: "Current stock (rolls)", align: "right", value: (r) => fmt.num(r.currentStockRolls) },
+    { key: "boxesRequirement", label: "Stock / req (boxes)", align: "right", value: (r) => escapeHtml(r.boxesRequirement || (r.currentBoxes != null && r.avgBoxesPerMo != null ? `${r.currentBoxes} / ${r.avgBoxesPerMo}` : "—")) },
+    { key: "customersA", label: "Customers A", value: (r) => customerPills(r.customersAMeta || r.customersA, activeSet) },
+    { key: "customersB", label: "Customers B", value: (r) => customerPills(r.customersBMeta || r.customersB, activeSet) },
+  ];
+}
+
+function labelsPlanningTable(data, windowId, activeSet) {
+  return table(
+    labelsPlanningColumns(activeSet),
+    planningForWindow(data, windowId),
+    "planning-table",
+    (r) => (isSupplementaryRow(r) ? "supplementary" : "")
+  );
+}
+
+function bindLabelPlanningWindow(data, activeSet) {
+  const select = document.getElementById("planning-window");
+  const host = document.getElementById("planning-table-host");
+  if (!select || !host) return;
+  select.addEventListener("change", () => {
+    const id = select.value === "3mo" ? "3mo" : "6mo";
+    persistLabelPlanningWindow(id);
+    host.innerHTML = labelsPlanningTable(data, id, activeSet);
+  });
 }
 
 async function loadJSON(path) {
@@ -269,6 +336,7 @@ function renderLabels(data) {
   const activeSet = new Set(
     (data.active || []).map((row) => String(row.customer || "").toLowerCase())
   );
+  const windowId = resolveLabelPlanningWindow(data);
 
   const bars = trend
     .map((t) => {
@@ -301,24 +369,16 @@ function renderLabels(data) {
     </section>
     <section class="panel">
       <div class="panel-head">
-        <h2>Planning — 6 + 1</h2>
-        <p class="hint">Stock / req = current boxes (from S-19 rolls ÷ rolls/box) / avg boxes per month. Boxing 4/6÷24, 3/5÷36, 50×30÷48.</p>
+        <div>
+          <h2>Planning — 6 + 3</h2>
+          <p class="hint">window re-ranks top 6; +1/+2/+3 fixed (DT Y 4/6, DT TC Y 4/6, CHROMO W 3/5); Stock/req uses selected window avgs</p>
+        </div>
+        <select id="planning-window" class="planning-window" aria-label="Planning window">
+          <option value="6mo"${windowId === "6mo" ? " selected" : ""}>6 months</option>
+          <option value="3mo"${windowId === "3mo" ? " selected" : ""}>3 months</option>
+        </select>
       </div>
-      ${table(
-        [
-          { key: "rank", label: "Rank", align: "right", value: rankLabel },
-          { key: "item", label: "Item", value: (r) => escapeHtml(r.item) },
-          { key: "size", label: "Size", value: (r) => escapeHtml(r.size) },
-          { key: "avgQtyPerMo", label: "Avg qty / mo", align: "right", value: (r) => fmt.num(r.avgQtyPerMo) },
-          { key: "currentStockRolls", label: "Current stock (rolls)", align: "right", value: (r) => fmt.num(r.currentStockRolls) },
-          { key: "boxesRequirement", label: "Stock / req (boxes)", align: "right", value: (r) => escapeHtml(r.boxesRequirement || (r.currentBoxes != null && r.avgBoxesPerMo != null ? `${r.currentBoxes} / ${r.avgBoxesPerMo}` : "—")) },
-          { key: "customersA", label: "Customers A", value: (r) => customerPills(r.customersAMeta || r.customersA, activeSet) },
-          { key: "customersB", label: "Customers B", value: (r) => customerPills(r.customersBMeta || r.customersB, activeSet) },
-        ],
-        data.planning || [],
-        "planning-table",
-        (r) => (r.supplementary || r.rank === "+1" ? "supplementary" : "")
-      )}
+      <div id="planning-table-host">${labelsPlanningTable(data, windowId, activeSet)}</div>
     </section>
     <section class="panel">
       <div class="panel-head">
@@ -362,6 +422,7 @@ function renderLabels(data) {
   `));
   bindFilter("lost-filter", "lost-table");
   bindFilter("active-filter", "active-table");
+  bindLabelPlanningWindow(data, activeSet);
 }
 
 function rmColumns() {
