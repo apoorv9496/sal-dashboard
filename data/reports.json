@@ -2,7 +2,7 @@
   "company": "SAL Papers",
   "brand": "Dubble",
   "tagline": "Weekly operations briefing",
-  "lastUpdated": "2026-09-12",
+  "lastUpdated": "2026-09-14",
   "sample": false,
   "reports": [
     {
@@ -11,7 +11,8 @@
       "subtitle": "Labels management report",
       "hash": "#label",
       "dataFile": "data/labels.json",
-      "status": "active"
+      "status": "active",
+      "asOf": "2026-09-14"
     },
     {
       "id": "rm",
@@ -19,15 +20,17 @@
       "subtitle": "Inventory management / RM stock",
       "hash": "#rm",
       "dataFile": "data/inventory.json",
-      "status": "active"
+      "status": "active",
+      "asOf": "2026-09-14"
     },
     {
       "id": "gumming",
       "title": "Gumming sheets",
-      "subtitle": "Gumming sheets management report",
+      "subtitle": "Gumming production & sheet stock",
       "hash": "#gumming",
       "dataFile": "data/gumming.json",
-      "status": "active"
+      "status": "active",
+      "asOf": "2026-09-14"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-09-14",
   "sample": false,
   "title": "Gumming sheets management report",
   "header": {
@@ -36,13 +36,13 @@
       }
     ],
     "mtd": {
-      "amountLakh": 102.3,
-      "pctOfAvg": 28.2,
+      "amountLakh": 122.7,
+      "pctOfAvg": 33.8,
       "avgMonthlyLakh": 363.0
     },
     "activeInactive": {
-      "active": 33,
-      "inactive": 37,
+      "active": 31,
+      "inactive": 39,
       "pool": 70,
       "aovFloor": 100000,
       "note": "Pool = customers with AOV ≥ ₹100,000. Active = dispatch in last 60 days. Inactive = no dispatch in 60+ days. AOV and dispatch-day averages use the past 2 months."
@@ -500,7 +500,7 @@
         },
         {
           "name": "BALAJEESTICKER LLP",
-          "active": true
+          "active": false
         },
         {
           "name": "PAPER POINT",
@@ -617,6 +617,17 @@
       "customer": "ABHINAV TRADEX PRIVATE LIMITED",
       "products": [
         "[PAPER —]"
+      ]
+    },
+    {
+      "marketingPerson": "JYOTI",
+      "customer": "BALAJEESTICKER LLP",
+      "products": [
+        "[CALS SHEET 12×18 inch]",
+        "[CALS SHEET 13×19 inch]",
+        "[DGL CALS SHEET 12×18 inch]",
+        "[DGL CALS SHEET 12×24 inch]",
+        "[DGL PET SHEET 12×18 inch]"
       ]
     },
     {
@@ -748,6 +759,13 @@
     },
     {
       "marketingPerson": "MEENAKSHI",
+      "customer": "CHOPRA ADVERTISERS (INDIA)",
+      "products": [
+        "[PVC SHEET 25×40 inch]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
       "customer": "CLASSIC STICKERS & PRINTERS PVT LTD",
       "products": [
         "[CALS SHEET 18×23 inch]",
@@ -758,7 +776,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "DESIGN INDIA",
       "products": [
-        "[BOPP SHEET 22×30 inch]",
+        "[BOPP SHEET 28×30 inch]",
         "[BOPP SHEET 406×707 MM]",
         "[BOPP SHEET 610×755 MM]",
         "[BOPP SHEET 660×755 MM]",
@@ -925,8 +943,8 @@
     {
       "marketingPerson": "AYUSH",
       "customer": "DEEPAK SALES CORPN.",
-      "avgDispatchDays": 3.5,
-      "avgOrderValue": 345012,
+      "avgDispatchDays": 13.7,
+      "avgOrderValue": 490068,
       "products": [
         "[BOPP SHEET 20×26 inch]",
         "[CALS SHEET 13×19 inch]",
@@ -946,19 +964,6 @@
         "[CALS SHEET 18×25 inch]",
         "[DGL CALS SHEET 13×19 inch]",
         "[DGL MCC SHEET 13×19 inch]"
-      ]
-    },
-    {
-      "marketingPerson": "JYOTI",
-      "customer": "BALAJEESTICKER LLP",
-      "avgDispatchDays": 2,
-      "avgOrderValue": 166338,
-      "products": [
-        "[CALS SHEET 12×18 inch]",
-        "[CALS SHEET 13×19 inch]",
-        "[DGL CALS SHEET 12×18 inch]",
-        "[DGL CALS SHEET 12×24 inch]",
-        "[DGL PET SHEET 12×18 inch]"
       ]
     },
     {
@@ -1011,17 +1016,6 @@
     },
     {
       "marketingPerson": "JYOTI",
-      "customer": "RAINBOW TRADERS",
-      "avgDispatchDays": null,
-      "avgOrderValue": 254371,
-      "products": [
-        "[CALS SHEET 18×23 inch]",
-        "[CALS SHEET 18×25 inch]",
-        "[CALS SHEET 20×30 inch]"
-      ]
-    },
-    {
-      "marketingPerson": "JYOTI",
       "customer": "SATI PAPER TRADER",
       "avgDispatchDays": 4,
       "avgOrderValue": 899289,
@@ -1045,10 +1039,10 @@
     {
       "marketingPerson": "JYOTI",
       "customer": "SEMATIC ENTERPRISES",
-      "avgDispatchDays": 23.5,
-      "avgOrderValue": 303050,
+      "avgDispatchDays": 11,
+      "avgOrderValue": 330000,
       "products": [
-        "[BOPP SHEET 13×19  inch]",
+        "[BOPP SHEET 13×19 inch]",
         "[CALS SHEET 12×18 inch]",
         "[CALS SHEET 13×19 inch]",
         "[CALS SHEET 18×30 inch]",
@@ -1076,15 +1070,6 @@
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
-    },
-    {
-      "marketingPerson": "MEENAKSHI",
-      "customer": "CHOPRA ADVERTISERS (INDIA)",
-      "avgDispatchDays": null,
-      "avgOrderValue": 286956,
-      "products": [
-        "[PVC SHEET 25×40 inch]"
       ]
     },
     {
@@ -1142,8 +1127,8 @@
     {
       "marketingPerson": "MEENAKSHI",
       "customer": "MITRA TRADING CO.",
-      "avgDispatchDays": 30.8,
-      "avgOrderValue": 423079,
+      "avgDispatchDays": 25.2,
+      "avgOrderValue": 417227,
       "products": [
         "[CALS SHEET 12×18 inch]",
         "[CALS SHEET 18×23 inch]",
@@ -1266,8 +1251,8 @@
     {
       "marketingPerson": "NEETU",
       "customer": "SEEMA GRAPHICS",
-      "avgDispatchDays": 27.2,
-      "avgOrderValue": 418510,
+      "avgDispatchDays": 34.6,
+      "avgOrderValue": 397573,
       "products": [
         "[BOPP SHEET 20×30 inch]",
         "[BOPP SHEET 20×36 inch]",
@@ -1290,21 +1275,32 @@
     {
       "marketingPerson": "RUCHI",
       "customer": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
-      "avgDispatchDays": 16.1,
-      "avgOrderValue": 281791,
+      "avgDispatchDays": 16.9,
+      "avgOrderValue": 283878,
       "products": [
         "[7128001 NJ MPL 24L 64X34 WR 64×34 MM]",
         "[7128006 NJ MPL 01P 210X288 WS 210×288 MM]",
-        "[7128007 NJ MPL 02L 200X146 WR 200×146 MM]",
+        "[7128031 NJ MPL 48L 48X24 WR 48×24 inch]",
         "[7128490 PLS 220 GSM 305X457 305×457 MM]",
         "[7128540 PLG 220 GSM 305X457 305×457 MM]"
       ]
     },
     {
+      "marketingPerson": "RUCHI",
+      "customer": "RAINBOW TRADERS",
+      "avgDispatchDays": 2,
+      "avgOrderValue": 251368,
+      "products": [
+        "[CALS SHEET 18×23 inch]",
+        "[CALS SHEET 18×25 inch]",
+        "[CALS SHEET 20×30 inch]"
+      ]
+    },
+    {
       "marketingPerson": "SK JAIN",
       "customer": "SHREE CHAMUNDA MULTIMAX",
-      "avgDispatchDays": 14,
-      "avgOrderValue": 1461352,
+      "avgDispatchDays": 21,
+      "avgOrderValue": 2050661,
       "products": [
         "[CALS SHEET 12×18 inch]",
         "[CALS SHEET 13×19 inch]",
