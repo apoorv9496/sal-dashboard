@@ -481,8 +481,8 @@ select.planning-window:focus {
   width: 100%;
   min-height: 6px;
   max-height: 140px;
-  height: var(--bar, 10%);
-  height: max(6px, min(140px, calc(140px * var(--bar, 10%) / 100%)));
+  /* --bar is 0–100 (unitless); 100 fills the 140px plot. Percent height does not resolve here. */
+  height: calc(var(--bar, 10) * 1.4px);
 }
 
 .bar-col.partial .bar {
@@ -719,7 +719,7 @@ button:hover { border-color: #c2b4a2; color: var(--ink); }
   .bars { min-height: 0; }
   .bar-col { flex-direction: row; align-items: center; gap: 10px; }
   .bar {
-    width: var(--bar, 10%);
+    width: calc(var(--bar, 10) * 1%);
     max-width: 72%;
     height: 12px !important;
     min-height: 12px;

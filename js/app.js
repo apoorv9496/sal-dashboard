@@ -65,6 +65,36 @@ function trendAmount(row) {
   return null;
 }
 
+/** Y-axis ceiling: max(max month, avgMonthly×1.15), rounded up a little; floor 0. */
+function trendScaleCeiling(amounts, avgMonthly) {
+  const nums = amounts.filter((n) => n != null && Number.isFinite(n));
+  const maxAmt = nums.length ? Math.max(...nums) : 0;
+  const avg = Number(avgMonthly);
+  const avgPad = Number.isFinite(avg) && avg > 0 ? avg * 1.15 : 0;
+  const raw = Math.max(maxAmt, avgPad, 0);
+  if (!(raw > 0)) return 1;
+  const mag = 10 ** Math.floor(Math.log10(raw));
+  const step = mag < 1 ? 0.1 : mag / 10;
+  return Math.ceil(raw / step - 1e-9) * step;
+}
+
+function monthlyTrendBars(trend, avgMonthly) {
+  const amounts = trend.map(trendAmount);
+  const scaleMax = trendScaleCeiling(amounts, avgMonthly);
+  return trend
+    .map((t) => {
+      const amt = trendAmount(t);
+      const pct = Math.max(0, Math.min(100, Math.round(((amt || 0) / scaleMax) * 100)));
+      const partial = /mtd/i.test(t.label || "");
+      return `
+        <div class="bar-col ${partial ? "partial" : ""}">
+          <div class="bar" style="--bar:${pct}" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
+          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
+        </div>`;
+    })
+    .join("");
+}
+
 function pills(items) {
   if (!items || !items.length) return "—";
   return `<span class="pills">${items
@@ -418,25 +448,11 @@ function renderLabels(data) {
   const mtd = data.header?.mtd || {};
   const ai = data.header?.activeInactive || {};
   const trend = data.header?.monthlyTrend || [];
-  const amounts = trend.map(trendAmount);
-  const maxAmt = Math.max(...amounts.filter((n) => n != null), 1);
+  const bars = monthlyTrendBars(trend, mtd.avgMonthlyLakh);
   const activeSet = new Set(
     (data.active || []).map((row) => String(row.customer || "").toLowerCase())
   );
   const windowId = resolveLabelPlanningWindow(data);
-
-  const bars = trend
-    .map((t) => {
-      const amt = trendAmount(t);
-      const pct = Math.max(6, Math.round(((amt || 0) / maxAmt) * 100));
-      const partial = /mtd/i.test(t.label || "");
-      return `
-        <div class="bar-col ${partial ? "partial" : ""}">
-          <div class="bar" style="--bar:${pct}%" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
-          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
-        </div>`;
-    })
-    .join("");
 
   app.replaceChildren(el(`
     ${pageChrome("Labels", data.title || "Labels management report", data.asOf)}
@@ -622,24 +638,10 @@ function renderGumming(data) {
   const mtd = data.header?.mtd || {};
   const ai = data.header?.activeInactive || {};
   const trend = data.header?.monthlyTrend || [];
-  const amounts = trend.map(trendAmount);
-  const maxAmt = Math.max(...amounts.filter((n) => n != null), 1);
+  const bars = monthlyTrendBars(trend, mtd.avgMonthlyLakh);
   const activeSet = new Set(
     (data.active || []).map((row) => String(row.customer || "").toLowerCase())
   );
-
-  const bars = trend
-    .map((t) => {
-      const amt = trendAmount(t);
-      const pct = Math.max(6, Math.round(((amt || 0) / maxAmt) * 100));
-      const partial = /mtd/i.test(t.label || "");
-      return `
-        <div class="bar-col ${partial ? "partial" : ""}">
-          <div class="bar" style="--bar:${pct}%" title="${escapeHtml(t.label)}: ${fmt.lakh(amt)}"></div>
-          <div class="bar-meta"><b>${escapeHtml(t.label)}</b>${fmt.lakh(amt)}</div>
-        </div>`;
-    })
-    .join("");
 
   app.replaceChildren(el(`
     ${pageChrome("Gumming sheets", data.title || "Gumming sheets management report", data.asOf)}
