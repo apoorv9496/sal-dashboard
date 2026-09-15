@@ -184,12 +184,8 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function table(columns, rows, tableId, rowClass) {
-  if (!rows.length) return `<p class="empty">No rows in this snapshot.</p>`;
-  const head = columns
-    .map((c) => `<th class="${c.align === "right" ? "num" : ""}">${escapeHtml(c.label)}</th>`)
-    .join("");
-  const body = rows
+function tableRowsHtml(columns, rows, rowClass) {
+  return rows
     .map((row) => {
       const cells = columns
         .map((c) => {
@@ -202,19 +198,110 @@ function table(columns, rows, tableId, rowClass) {
       return `<tr class="${extra}">${cells}</tr>`;
     })
     .join("");
+}
+
+function table(columns, rows, tableId, rowClass) {
+  if (!rows.length) return `<p class="empty">No rows in this snapshot.</p>`;
+  const head = columns
+    .map((c) => `<th class="${c.align === "right" ? "num" : ""}">${escapeHtml(c.label)}</th>`)
+    .join("");
   return `
     <div class="table-wrap">
       <table id="${tableId || ""}">
         <thead><tr>${head}</tr></thead>
-        <tbody>${body}</tbody>
+        <tbody>${tableRowsHtml(columns, rows, rowClass)}</tbody>
       </table>
     </div>`;
 }
 
-function bindFilter(input, tableId) {
+function pagedTable(columns, rows, tableId, pageSize = 5) {
+  if (!rows.length) return `<p class="empty">No rows in this snapshot.</p>`;
+  const total = rows.length;
+  const end = Math.min(pageSize, total);
+  return `
+    ${table(columns, rows.slice(0, pageSize), tableId)}
+    <div class="pager" id="${tableId}-pager">
+      <span class="pager-range">1–${end} of ${total}</span>
+      <div class="pager-actions">
+        <button type="button" data-page-dir="prev" disabled>Prev</button>
+        <button type="button" data-page-dir="next"${total <= pageSize ? " disabled" : ""}>Next</button>
+      </div>
+    </div>`;
+}
+
+function rowSearchText(columns, row) {
+  return columns
+    .map((c) => {
+      const raw = c.value ? c.value(row) : row[c.key];
+      return String(raw ?? "").replace(/<[^>]*>/g, " ");
+    })
+    .join(" ")
+    .toLowerCase();
+}
+
+function renderPagedBody(tableId) {
+  const state = pagedState[tableId];
+  const tableEl = document.getElementById(tableId);
+  if (!state || !tableEl) return;
+  const tbody = tableEl.querySelector("tbody");
+  const pager = document.getElementById(`${tableId}-pager`);
+  const total = state.filtered.length;
+  const pages = Math.max(1, Math.ceil(total / state.pageSize) || 1);
+  if (state.page > pages) state.page = pages;
+  if (state.page < 1) state.page = 1;
+  const startIdx = total ? (state.page - 1) * state.pageSize : 0;
+  const pageRows = state.filtered.slice(startIdx, startIdx + state.pageSize);
+  tbody.innerHTML = tableRowsHtml(state.columns, pageRows, state.rowClass);
+  const start = total ? startIdx + 1 : 0;
+  const end = startIdx + pageRows.length;
+  const range = pager?.querySelector(".pager-range");
+  if (range) range.textContent = `${start}–${end} of ${total}`;
+  const prev = pager?.querySelector('[data-page-dir="prev"]');
+  const next = pager?.querySelector('[data-page-dir="next"]');
+  if (prev) prev.disabled = state.page <= 1 || total === 0;
+  if (next) next.disabled = state.page >= pages || total === 0;
+}
+
+const pagedState = {};
+
+function bindPagination(tableId) {
+  const pager = document.getElementById(`${tableId}-pager`);
+  if (!pager) return;
+  pager.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-page-dir]");
+    const state = pagedState[tableId];
+    if (!btn || !state || btn.disabled) return;
+    if (btn.getAttribute("data-page-dir") === "next") state.page += 1;
+    else state.page -= 1;
+    renderPagedBody(tableId);
+  });
+}
+
+function bindFilter(input, tableId, columns, allRows, pageSize = 5) {
   const field = document.getElementById(input);
   const tableEl = document.getElementById(tableId);
   if (!field || !tableEl) return;
+  if (columns && allRows) {
+    pagedState[tableId] = {
+      columns,
+      rows: allRows,
+      filtered: allRows,
+      page: 1,
+      pageSize,
+      rowClass: null,
+    };
+    bindPagination(tableId);
+    field.addEventListener("input", () => {
+      const q = field.value.trim().toLowerCase();
+      const state = pagedState[tableId];
+      state.filtered = q
+        ? state.rows.filter((row) => rowSearchText(state.columns, row).includes(q))
+        : state.rows;
+      state.page = 1;
+      renderPagedBody(tableId);
+    });
+    return;
+  }
   field.addEventListener("input", () => {
     const q = field.value.trim().toLowerCase();
     tableEl.querySelectorAll("tbody tr").forEach((tr) => {
@@ -440,37 +527,65 @@ function rmColumns() {
   ];
 }
 
+function overbookColumns() {
+  const cols = rmColumns();
+  const note = cols.pop();
+  cols.push(
+    { key: "overbookT", label: "Overbook (T)", align: "right", value: (r) => fmt.tonnes(r.overbookT) },
+    { key: "poMonths", label: "PO months", align: "right", value: (r) => fmt.num(r.poMonths) },
+    note
+  );
+  return cols;
+}
+
 function renderInventory(data) {
   const stockouts = (data.shortage || []).filter((r) => !r.currentStockT).length;
+  const shortage = data.shortage || [];
+  const excess = data.excess || [];
+  const overbooked = data.overbooked || [];
+  const shortCols = rmColumns();
+  const excessCols = rmColumns();
+  const overCols = overbookColumns();
   app.replaceChildren(el(`
     ${pageChrome("Inventory / RM", data.title || "Inventory management / RM stock", data.asOf)}
     ${sampleBanner(data.sample)}
     <p class="source">${escapeHtml(data.source || "")}</p>
     <section class="kpis">
-      <div class="kpi"><span>Shortage lines</span><strong>${fmt.num((data.shortage || []).length)}</strong></div>
-      <div class="kpi"><span>Excess lines</span><strong>${fmt.num((data.excess || []).length)}</strong></div>
+      <div class="kpi"><span>Shortage lines</span><strong>${fmt.num(shortage.length)}</strong></div>
+      <div class="kpi"><span>Excess lines</span><strong>${fmt.num(excess.length)}</strong></div>
+      <div class="kpi"><span>Overbooked</span><strong>${fmt.num(overbooked.length)}</strong></div>
       <div class="kpi"><span>Stock-outs</span><strong>${fmt.num(stockouts)}</strong></div>
       <div class="kpi"><span>Notes</span><strong>${fmt.num((data.notes || []).length)}</strong></div>
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Shortage</h2>
-        <p class="hint">Top short items · quantities in tonnes</p>
+        <p class="hint">Top 10 · 5 per page · tonnes</p>
       </div>
       <div class="toolbar">
         <input type="search" id="short-filter" placeholder="Filter shortages…" aria-label="Filter shortages">
       </div>
-      ${table(rmColumns(), data.shortage || [], "short-table")}
+      ${pagedTable(shortCols, shortage, "short-table", 5)}
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Excess</h2>
-        <p class="hint">Top excess items · quantities in tonnes</p>
+        <p class="hint">Top 10 · 5 per page · tonnes</p>
       </div>
       <div class="toolbar">
         <input type="search" id="excess-filter" placeholder="Filter excess…" aria-label="Filter excess">
       </div>
-      ${table(rmColumns(), data.excess || [], "excess-table")}
+      ${pagedTable(excessCols, excess, "excess-table", 5)}
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Overbooked POs</h2>
+        <p class="hint">Top 10 vs consumption · PO beyond 1.5 mo cover need · 5 per page</p>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="overbook-filter" placeholder="Filter overbooked…" aria-label="Filter overbooked">
+      </div>
+      ${pagedTable(overCols, overbooked, "overbook-table", 5)}
     </section>
     ${
       (data.notes || []).length
@@ -487,8 +602,9 @@ function renderInventory(data) {
         : ""
     }
   `));
-  bindFilter("short-filter", "short-table");
-  bindFilter("excess-filter", "excess-table");
+  bindFilter("short-filter", "short-table", shortCols, shortage, 5);
+  bindFilter("excess-filter", "excess-table", excessCols, excess, 5);
+  bindFilter("overbook-filter", "overbook-table", overCols, overbooked, 5);
 }
 
 function renderUpcoming(report) {

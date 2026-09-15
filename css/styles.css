@@ -386,7 +386,7 @@ a.card:hover {
 
 .kpis {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin-bottom: 16px;
 }
@@ -507,6 +507,30 @@ select.planning-window:focus {
   gap: 12px;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.pager-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pager button {
+  padding: 6px 11px;
+}
+
+.pager button:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 input[type="search"] {
@@ -753,7 +777,7 @@ button:hover { border-color: #c2b4a2; color: var(--ink); }
 
 @media print {
   body { background: #fff; }
-  .site-header, .site-footer, .banner, .actions, .toolbar, nav, .planning-window { display: none !important; }
+  .site-header, .site-footer, .banner, .actions, .toolbar, .pager, nav, .planning-window { display: none !important; }
   .panel, .kpi, .card { box-shadow: none; }
   main { padding: 0; }
 }
