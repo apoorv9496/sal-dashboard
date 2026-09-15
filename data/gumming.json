@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-14",
+  "asOf": "2026-09-15",
   "sample": false,
   "title": "Gumming sheets management report",
   "header": {
@@ -938,7 +938,8 @@
         "[MAPLITHO SHEET 20×30 inch]",
         "[MAPLITHO SHEET —]",
         "[PAPER —]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "AYUSH",
@@ -951,7 +952,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "AYUSH",
@@ -964,7 +966,8 @@
         "[CALS SHEET 18×25 inch]",
         "[DGL CALS SHEET 13×19 inch]",
         "[DGL MCC SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -974,7 +977,8 @@
       "products": [
         "[CALS SHEET 12×18 inch]",
         "[DGL CALS SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -987,7 +991,8 @@
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]",
         "[MIRROR COAT CHINA SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1000,7 +1005,8 @@
         "[CALS SHEET 18×23 inch]",
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1012,7 +1018,8 @@
         "[DGL BOPP SHEET 13×19 inch]",
         "[DGL M-PET SHEET 13×19 inch]",
         "[M-PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1025,7 +1032,8 @@
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1034,7 +1042,8 @@
       "avgOrderValue": 209333,
       "products": [
         "[PAPER —]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1047,7 +1056,8 @@
         "[CALS SHEET 13×19 inch]",
         "[CALS SHEET 18×30 inch]",
         "[DGL CALS SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "JYOTI",
@@ -1057,7 +1067,8 @@
       "products": [
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1070,7 +1081,8 @@
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1083,7 +1095,8 @@
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1096,7 +1109,8 @@
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1109,7 +1123,8 @@
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1122,7 +1137,8 @@
         "[CALS SHEET 20×30 inch]",
         "[DGL BOPP SHEET 12×18 inch]",
         "[DGL CALS SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1135,7 +1151,8 @@
         "[CALS SHEET 18×24 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 2
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1146,7 +1163,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1159,7 +1177,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1172,7 +1191,8 @@
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1185,7 +1205,8 @@
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 12×18 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1198,7 +1219,8 @@
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]",
         "[CALS SHEET 25×36 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1211,7 +1233,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 18×24 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1224,7 +1247,8 @@
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]",
         "[DGL CALS SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1233,7 +1257,8 @@
       "avgOrderValue": 943282,
       "products": [
         "[PAPER —]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "NEETU",
@@ -1246,7 +1271,8 @@
         "[CALS SHEET 20×30 inch]",
         "[CALS SHEET 20×33 inch]",
         "[CALS SHEET 20×34 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "NEETU",
@@ -1259,7 +1285,8 @@
         "[BOPP SHEET 20×37 inch]",
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "NEETU",
@@ -1270,7 +1297,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "RUCHI",
@@ -1283,7 +1311,8 @@
         "[7128031 NJ MPL 48L 48X24 WR 48×24 inch]",
         "[7128490 PLS 220 GSM 305X457 305×457 MM]",
         "[7128540 PLG 220 GSM 305X457 305×457 MM]"
-      ]
+      ],
+      "ordersMTD": 5
     },
     {
       "marketingPerson": "RUCHI",
@@ -1294,7 +1323,8 @@
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 18×25 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "SK JAIN",
@@ -1307,7 +1337,8 @@
         "[DGL CALS SHEET 12×18 inch]",
         "[DGL PET SHEET 12×18 inch]",
         "[DGL PET SHEET 13×19 inch]"
-      ]
+      ],
+      "ordersMTD": 1
     }
   ]
 }

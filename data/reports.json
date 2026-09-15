@@ -2,7 +2,7 @@
   "company": "SAL Papers",
   "brand": "Dubble",
   "tagline": "Weekly operations briefing",
-  "lastUpdated": "2026-09-14",
+  "lastUpdated": "2026-09-15",
   "sample": false,
   "reports": [
     {
@@ -12,7 +12,7 @@
       "hash": "#label",
       "dataFile": "data/labels.json",
       "status": "active",
-      "asOf": "2026-09-14"
+      "asOf": "2026-09-15"
     },
     {
       "id": "rm",
@@ -30,7 +30,7 @@
       "hash": "#gumming",
       "dataFile": "data/gumming.json",
       "status": "active",
-      "asOf": "2026-09-14"
+      "asOf": "2026-09-15"
     }
   ]
 }

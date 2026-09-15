@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-14",
+  "asOf": "2026-09-15",
   "sample": false,
   "title": "Labels management report",
   "defaultPlanningWindow": "6mo",
@@ -40,7 +40,7 @@
           ],
           "currentStockRolls": 1152,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "A N PAPERS TRADERS",
               "active": false
@@ -74,7 +74,7 @@
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "A.R PACKING SOLUTIONS",
               "active": false
@@ -111,7 +111,7 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "2D BSC TECHNOLOGIES",
               "active": true
@@ -129,7 +129,7 @@
               "active": false
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 35",
           "rollsPerBox": 24
@@ -148,13 +148,13 @@
           ],
           "currentStockRolls": 240,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "Z TECHNOLOGIES",
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "ARIHANT INTERNATIONAL",
               "active": false
@@ -184,7 +184,7 @@
           ],
           "currentStockRolls": 1116,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "BEST BARCODE SYSTEM PRIVATE LIMITED",
               "active": true
@@ -198,7 +198,7 @@
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "A.R PACKING SOLUTIONS",
               "active": false
@@ -236,13 +236,13 @@
           "customersB": [],
           "currentStockRolls": 1080,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 30,
           "boxesRequirement": "30 / 17",
           "rollsPerBox": 36
@@ -259,13 +259,13 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 12",
           "rollsPerBox": 36
@@ -283,7 +283,7 @@
           "customersB": [],
           "currentStockRolls": 240,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
@@ -293,7 +293,7 @@
               "active": false
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 10,
           "boxesRequirement": "10 / 17",
           "rollsPerBox": 24,
@@ -309,8 +309,8 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [],
-          "customersBMOta": [],
+          "customersAMeta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 0",
           "rollsPerBox": 24,
@@ -326,8 +326,8 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [],
-          "customersBMOta": [],
+          "customersAMeta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 0",
           "rollsPerBox": 36,
@@ -365,7 +365,7 @@
           ],
           "currentStockRolls": 1152,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "A N PAPERS TRADERS",
               "active": false
@@ -391,7 +391,7 @@
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "A.R PACKING SOLUTIONS",
               "active": false
@@ -422,7 +422,7 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "2D BSC TECHNOLOGIES",
               "active": true
@@ -432,7 +432,7 @@
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 62",
           "rollsPerBox": 24
@@ -451,13 +451,13 @@
           ],
           "currentStockRolls": 240,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "Z TECHNOLOGIES",
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "ARIHANT INTERNATIONAL",
               "active": false
@@ -479,13 +479,13 @@
           "customersB": [],
           "currentStockRolls": 1080,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 30,
           "boxesRequirement": "30 / 28",
           "rollsPerBox": 36
@@ -502,13 +502,13 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 23",
           "rollsPerBox": 36
@@ -532,7 +532,7 @@
           ],
           "currentStockRolls": 1116,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "BEST BARCODE SYSTEM PRIVATE LIMITED",
               "active": true
@@ -546,7 +546,7 @@
               "active": true
             }
           ],
-          "customersBMOta": [
+          "customersBMeta": [
             {
               "name": "A.R PACKING SOLUTIONS",
               "active": false
@@ -580,13 +580,13 @@
           "customersB": [],
           "currentStockRolls": 240,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [
+          "customersAMeta": [
             {
               "name": "KANVI TRADERS",
               "active": true
             }
           ],
-          "customersBMOta": [],
+          "customersBMeta": [],
           "currentBoxes": 10,
           "boxesRequirement": "10 / 20",
           "rollsPerBox": 24,
@@ -602,8 +602,8 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [],
-          "customersBMOta": [],
+          "customersAMeta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 0",
           "rollsPerBox": 24,
@@ -619,8 +619,8 @@
           "customersB": [],
           "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-          "customersAMOta": [],
-          "customersBMOta": [],
+          "customersAMeta": [],
+          "customersBMeta": [],
           "currentBoxes": 0,
           "boxesRequirement": "0 / 0",
           "rollsPerBox": 36,
@@ -654,7 +654,7 @@
       ],
       "currentStockRolls": 1152,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "A N PAPERS TRADERS",
           "active": false
@@ -688,7 +688,7 @@
           "active": true
         }
       ],
-      "customersBMOta": [
+      "customersBMeta": [
         {
           "name": "A.R PACKING SOLUTIONS",
           "active": false
@@ -725,7 +725,7 @@
       "customersB": [],
       "currentStockRolls": 0,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "2D BSC TECHNOLOGIES",
           "active": true
@@ -743,7 +743,7 @@
           "active": false
         }
       ],
-      "customersBMOta": [],
+      "customersBMeta": [],
       "currentBoxes": 0,
       "boxesRequirement": "0 / 35",
       "rollsPerBox": 24
@@ -762,13 +762,13 @@
       ],
       "currentStockRolls": 240,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "Z TECHNOLOGIES",
           "active": true
         }
       ],
-      "customersBMOta": [
+      "customersBMeta": [
         {
           "name": "ARIHANT INTERNATIONAL",
           "active": false
@@ -798,7 +798,7 @@
       ],
       "currentStockRolls": 1116,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "BEST BARCODE SYSTEM PRIVATE LIMITED",
           "active": true
@@ -812,7 +812,7 @@
           "active": true
         }
       ],
-      "customersBMOta": [
+      "customersBMeta": [
         {
           "name": "A.R PACKING SOLUTIONS",
           "active": false
@@ -850,13 +850,13 @@
       "customersB": [],
       "currentStockRolls": 1080,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "KANVI TRADERS",
           "active": true
         }
       ],
-      "customersBMOta": [],
+      "customersBMeta": [],
       "currentBoxes": 30,
       "boxesRequirement": "30 / 17",
       "rollsPerBox": 36
@@ -873,13 +873,13 @@
       "customersB": [],
       "currentStockRolls": 0,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "KANVI TRADERS",
           "active": true
         }
       ],
-      "customersBMOta": [],
+      "customersBMeta": [],
       "currentBoxes": 0,
       "boxesRequirement": "0 / 12",
       "rollsPerBox": 36
@@ -897,7 +897,7 @@
       "customersB": [],
       "currentStockRolls": 240,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [
+      "customersAMeta": [
         {
           "name": "KANVI TRADERS",
           "active": true
@@ -907,7 +907,7 @@
           "active": false
         }
       ],
-      "customersBMOta": [],
+      "customersBMeta": [],
       "currentBoxes": 10,
       "boxesRequirement": "10 / 17",
       "rollsPerBox": 24,
@@ -923,8 +923,8 @@
       "customersB": [],
       "currentStockRolls": 0,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [],
-      "customersBMOta": [],
+      "customersAMeta": [],
+      "customersBMeta": [],
       "currentBoxes": 0,
       "boxesRequirement": "0 / 0",
       "rollsPerBox": 24,
@@ -940,8 +940,8 @@
       "customersB": [],
       "currentStockRolls": 0,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
-      "customersAMOta": [],
-      "customersBMOta": [],
+      "customersAMeta": [],
+      "customersBMeta": [],
       "currentBoxes": 0,
       "boxesRequirement": "0 / 0",
       "rollsPerBox": 36,
@@ -1072,7 +1072,8 @@
       "avgOrderValue": 84672,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1082,7 +1083,8 @@
       "products": [
         "[DT Label Roll (W) 3/5]",
         "[DT Label Roll (W) 4/6]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1095,7 +1097,8 @@
         "[DT Label Roll (W) 4/6]",
         "[DT Label Roll (Y) 3/5]",
         "[DT Label Roll (Y) 4/6]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1104,7 +1107,8 @@
       "avgOrderValue": 41347,
       "products": [
         "[CHROMO Label Roll 100 MM / 50 MM]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "MEENAKSHI",
@@ -1113,7 +1117,8 @@
       "avgOrderValue": 74400,
       "products": [
         "[DT Label Roll (W) 4/6]"
-      ]
+      ],
+      "ordersMTD": 0
     },
     {
       "marketingPerson": "NEETU",
@@ -1122,7 +1127,8 @@
       "avgOrderValue": 12010,
       "products": [
         "[DT Label Roll 50 MM / 25 MM]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "NEETU",
@@ -1131,7 +1137,8 @@
       "avgOrderValue": 143261,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "NEETU",
@@ -1140,7 +1147,8 @@
       "avgOrderValue": 85335,
       "products": [
         "[CHROMO Label Roll 50 MM / 30 MM]"
-      ]
+      ],
+      "ordersMTD": 1
     },
     {
       "marketingPerson": "RUCHI",
@@ -1149,7 +1157,8 @@
       "avgOrderValue": 81200,
       "products": [
         "[DT Label Roll 100 MM / 125 MM]"
-      ]
+      ],
+      "ordersMTD": 1
     }
   ],
   "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants",
