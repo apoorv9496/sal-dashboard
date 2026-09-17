@@ -504,7 +504,7 @@ function renderLabels(data) {
     <section class="panel">
       <div class="panel-head">
         <h2>Active</h2>
-        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, dispatch in last 60 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, dispatch in last 45 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
       </div>
       <div class="toolbar">
         <input type="search" id="active-filter" placeholder="Filter active accounts…" aria-label="Filter active accounts">
@@ -698,7 +698,7 @@ function renderGumming(data) {
     <section class="panel">
       <div class="panel-head">
         <h2>Active</h2>
-        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, dispatch in last 60 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, dispatch in last 45 days. Avgs from past 2 months. Pool ${fmt.num(ai.pool)}.</p>
       </div>
       <div class="toolbar">
         <input type="search" id="gumming-active-filter" placeholder="Filter active accounts…" aria-label="Filter active accounts">
