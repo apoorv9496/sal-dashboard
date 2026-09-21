@@ -459,6 +459,24 @@ select.planning-window:focus {
   outline-offset: 1px;
 }
 
+select.issue-select {
+  font: inherit;
+  font-size: 13px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  max-width: 100%;
+  min-width: 8.5em;
+}
+
+select.issue-select:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
 .bars {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

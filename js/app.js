@@ -307,6 +307,26 @@ function bindPagination(tableId) {
   });
 }
 
+/** Filter text for a row: selected <select> value only, not every <option>. */
+function tableRowFilterText(tr) {
+  let text = "";
+  const walk = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      text += node.textContent;
+      return;
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+    if (node.tagName === "SELECT") {
+      const opt = node.options[node.selectedIndex];
+      if (opt && opt.value) text += ` ${opt.textContent} `;
+      return;
+    }
+    node.childNodes.forEach(walk);
+  };
+  walk(tr);
+  return text.toLowerCase();
+}
+
 function bindFilter(input, tableId, columns, allRows, pageSize = 5) {
   const field = document.getElementById(input);
   const tableEl = document.getElementById(tableId);
@@ -335,7 +355,7 @@ function bindFilter(input, tableId, columns, allRows, pageSize = 5) {
   field.addEventListener("input", () => {
     const q = field.value.trim().toLowerCase();
     tableEl.querySelectorAll("tbody tr").forEach((tr) => {
-      tr.hidden = q !== "" && !tr.textContent.toLowerCase().includes(q);
+      tr.hidden = q !== "" && !tableRowFilterText(tr).includes(q);
     });
   });
 }
@@ -444,6 +464,64 @@ function cardStats(id, data) {
     <div><span class="stat-label">As of</span><span class="stat-value">${escapeHtml(fmt.date(data.asOf))}</span></div>`;
 }
 
+const LABEL_LOST_ISSUE_KEY_PREFIX = "sal-dashboard:label-lost-issue:";
+const LABEL_LOST_ISSUE_VALUES = ["quality", "payment", "rate", "communication", "delay"];
+
+function normalizeLabelLostCustomer(name) {
+  return String(name || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+function labelLostIssueStorageKey(customer) {
+  return LABEL_LOST_ISSUE_KEY_PREFIX + normalizeLabelLostCustomer(customer);
+}
+
+function readLabelLostIssue(customer) {
+  let stored = "";
+  try {
+    stored = localStorage.getItem(labelLostIssueStorageKey(customer)) || "";
+  } catch (_) {
+    stored = "";
+  }
+  return LABEL_LOST_ISSUE_VALUES.includes(stored) ? stored : "";
+}
+
+function persistLabelLostIssue(customer, value) {
+  const next = LABEL_LOST_ISSUE_VALUES.includes(value) ? value : "";
+  try {
+    const key = labelLostIssueStorageKey(customer);
+    if (next) localStorage.setItem(key, next);
+    else localStorage.removeItem(key);
+  } catch (_) {
+    /* ignore quota / private mode */
+  }
+}
+
+function labelLostIssueSelect(customer) {
+  const current = readLabelLostIssue(customer);
+  const options = [`<option value="">—</option>`]
+    .concat(
+      LABEL_LOST_ISSUE_VALUES.map(
+        (value) =>
+          `<option value="${value}"${current === value ? " selected" : ""}>${value}</option>`
+      )
+    )
+    .join("");
+  return `<select class="issue-select" data-customer="${escapeHtml(customer)}" aria-label="Issue">${options}</select>`;
+}
+
+function bindLabelLostIssueSelects() {
+  const host = document.getElementById("label-lost");
+  if (!host) return;
+  host.addEventListener("change", (event) => {
+    const select = event.target.closest("select.issue-select");
+    if (!select || !host.contains(select)) return;
+    persistLabelLostIssue(select.getAttribute("data-customer") || "", select.value);
+  });
+}
+
 function renderLabels(data) {
   const mtd = data.header?.mtd || {};
   const ai = data.header?.activeInactive || {};
@@ -483,7 +561,7 @@ function renderLabels(data) {
       </div>
       <div id="planning-table-host">${labelsPlanningTable(data, windowId, activeSet)}</div>
     </section>
-    <section class="panel">
+    <section class="panel" id="label-lost">
       <div class="panel-head">
         <h2>Lost</h2>
         <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
@@ -495,6 +573,7 @@ function renderLabels(data) {
         [
           { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
           { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "issue", label: "Issue", value: (r) => labelLostIssueSelect(r.customer) },
           { key: "products", label: "Products", value: (r) => pills(r.products) },
         ],
         data.lost || [],
@@ -551,6 +630,7 @@ function renderLabels(data) {
   bindFilter("rm-shortage-filter", "rm-shortage-table");
   bindFilter("lost-filter", "lost-table");
   bindFilter("active-filter", "active-table");
+  bindLabelLostIssueSelects();
   bindLabelPlanningWindow(data, activeSet);
 }
 
