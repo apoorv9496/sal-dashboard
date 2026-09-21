@@ -21,7 +21,7 @@
           "item": "DT Label Roll (W)",
           "size": "4/6",
           "avgQtyPerMo": 2270,
-          "avgBoxesPerMo": 95,
+          "avgBoxesPerMo": 65,
           "customersA": [
             "A N PAPERS TRADERS",
             "BEST BARCODE SYSTEM PRIVATE LIMITED",
@@ -93,7 +93,7 @@
             }
           ],
           "currentBoxes": 3,
-          "boxesRequirement": "3 / 95",
+          "boxesRequirement": "3 / 65",
           "rollsPerBox": 24
         },
         {
@@ -101,7 +101,7 @@
           "item": "CHROMO Label Roll (W)",
           "size": "4/6",
           "avgQtyPerMo": 836,
-          "avgBoxesPerMo": 35,
+          "avgBoxesPerMo": 62,
           "customersA": [
             "2D BSC TECHNOLOGIES",
             "BHAGIRATHI PRINT WAYS",
@@ -131,7 +131,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 45,
-          "boxesRequirement": "45 / 35",
+          "boxesRequirement": "45 / 62",
           "rollsPerBox": 24
         },
         {
@@ -139,7 +139,7 @@
           "item": "CHROMO Label Roll",
           "size": "50 MM / 30 MM",
           "avgQtyPerMo": 1918,
-          "avgBoxesPerMo": 40,
+          "avgBoxesPerMo": 42,
           "customersA": [
             "Z TECHNOLOGIES"
           ],
@@ -161,7 +161,7 @@
             }
           ],
           "currentBoxes": 4,
-          "boxesRequirement": "4 / 40",
+          "boxesRequirement": "4 / 42",
           "rollsPerBox": 48
         },
         {
@@ -169,7 +169,7 @@
           "item": "DT Label Roll (W)",
           "size": "3/5",
           "avgQtyPerMo": 690,
-          "avgBoxesPerMo": 19,
+          "avgBoxesPerMo": 18,
           "customersA": [
             "BEST BARCODE SYSTEM PRIVATE LIMITED",
             "KANVI TRADERS",
@@ -221,7 +221,7 @@
             }
           ],
           "currentBoxes": 22,
-          "boxesRequirement": "22 / 19",
+          "boxesRequirement": "22 / 18",
           "rollsPerBox": 36
         },
         {
@@ -229,7 +229,7 @@
           "item": "DT Label Roll (Y)",
           "size": "3/5",
           "avgQtyPerMo": 600,
-          "avgBoxesPerMo": 17,
+          "avgBoxesPerMo": 28,
           "customersA": [
             "KANVI TRADERS"
           ],
@@ -244,7 +244,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 15,
-          "boxesRequirement": "15 / 17",
+          "boxesRequirement": "15 / 28",
           "rollsPerBox": 36
         },
         {
@@ -252,7 +252,7 @@
           "item": "DT (TC) Label Roll (Y)",
           "size": "3/5",
           "avgQtyPerMo": 414,
-          "avgBoxesPerMo": 12,
+          "avgBoxesPerMo": 23,
           "customersA": [
             "KANVI TRADERS"
           ],
@@ -267,7 +267,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 0,
-          "boxesRequirement": "0 / 12",
+          "boxesRequirement": "0 / 23",
           "rollsPerBox": 36
         },
         {
@@ -275,7 +275,7 @@
           "item": "DT Label Roll (Y)",
           "size": "4/6",
           "avgQtyPerMo": 400,
-          "avgBoxesPerMo": 17,
+          "avgBoxesPerMo": 20,
           "customersA": [
             "KANVI TRADERS",
             "LAXMI SALES AGENCIES"
@@ -295,7 +295,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 14,
-          "boxesRequirement": "14 / 17",
+          "boxesRequirement": "14 / 20",
           "rollsPerBox": 24,
           "supplementary": true
         },
@@ -635,7 +635,7 @@
       "item": "DT Label Roll (W)",
       "size": "4/6",
       "avgQtyPerMo": 2270,
-      "avgBoxesPerMo": 95,
+      "avgBoxesPerMo": 65,
       "customersA": [
         "A N PAPERS TRADERS",
         "BEST BARCODE SYSTEM PRIVATE LIMITED",
@@ -707,7 +707,7 @@
         }
       ],
       "currentBoxes": 3,
-      "boxesRequirement": "3 / 95",
+      "boxesRequirement": "3 / 65",
       "rollsPerBox": 24
     },
     {
@@ -715,7 +715,7 @@
       "item": "CHROMO Label Roll (W)",
       "size": "4/6",
       "avgQtyPerMo": 836,
-      "avgBoxesPerMo": 35,
+      "avgBoxesPerMo": 62,
       "customersA": [
         "2D BSC TECHNOLOGIES",
         "BHAGIRATHI PRINT WAYS",
@@ -745,7 +745,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 45,
-      "boxesRequirement": "45 / 35",
+      "boxesRequirement": "45 / 62",
       "rollsPerBox": 24
     },
     {
@@ -753,7 +753,7 @@
       "item": "CHROMO Label Roll",
       "size": "50 MM / 30 MM",
       "avgQtyPerMo": 1918,
-      "avgBoxesPerMo": 40,
+      "avgBoxesPerMo": 42,
       "customersA": [
         "Z TECHNOLOGIES"
       ],
@@ -775,7 +775,7 @@
         }
       ],
       "currentBoxes": 4,
-      "boxesRequirement": "4 / 40",
+      "boxesRequirement": "4 / 42",
       "rollsPerBox": 48
     },
     {
@@ -783,7 +783,7 @@
       "item": "DT Label Roll (W)",
       "size": "3/5",
       "avgQtyPerMo": 690,
-      "avgBoxesPerMo": 19,
+      "avgBoxesPerMo": 18,
       "customersA": [
         "BEST BARCODE SYSTEM PRIVATE LIMITED",
         "KANVI TRADERS",
@@ -835,7 +835,7 @@
         }
       ],
       "currentBoxes": 22,
-      "boxesRequirement": "22 / 19",
+      "boxesRequirement": "22 / 18",
       "rollsPerBox": 36
     },
     {
@@ -843,7 +843,7 @@
       "item": "DT Label Roll (Y)",
       "size": "3/5",
       "avgQtyPerMo": 600,
-      "avgBoxesPerMo": 17,
+      "avgBoxesPerMo": 28,
       "customersA": [
         "KANVI TRADERS"
       ],
@@ -858,7 +858,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 15,
-      "boxesRequirement": "15 / 17",
+      "boxesRequirement": "15 / 28",
       "rollsPerBox": 36
     },
     {
@@ -866,7 +866,7 @@
       "item": "DT (TC) Label Roll (Y)",
       "size": "3/5",
       "avgQtyPerMo": 414,
-      "avgBoxesPerMo": 12,
+      "avgBoxesPerMo": 23,
       "customersA": [
         "KANVI TRADERS"
       ],
@@ -881,7 +881,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 0,
-      "boxesRequirement": "0 / 12",
+      "boxesRequirement": "0 / 23",
       "rollsPerBox": 36
     },
     {
@@ -889,7 +889,7 @@
       "item": "DT Label Roll (Y)",
       "size": "4/6",
       "avgQtyPerMo": 400,
-      "avgBoxesPerMo": 17,
+      "avgBoxesPerMo": 20,
       "customersA": [
         "KANVI TRADERS",
         "LAXMI SALES AGENCIES"
@@ -909,7 +909,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 14,
-      "boxesRequirement": "14 / 17",
+      "boxesRequirement": "14 / 20",
       "rollsPerBox": 24,
       "supplementary": true
     },
@@ -953,38 +953,38 @@
       {
         "month": "2026-03",
         "label": "Mar",
-        "amountLakh": 13.1
+        "amountLakh": 15.5
       },
       {
         "month": "2026-04",
         "label": "Apr",
-        "amountLakh": 5.3
+        "amountLakh": 6.3
       },
       {
         "month": "2026-05",
         "label": "May",
-        "amountLakh": 7.3
+        "amountLakh": 8.6
       },
       {
         "month": "2026-06",
         "label": "Jun",
-        "amountLakh": 12.0
+        "amountLakh": 14.2
       },
       {
         "month": "2026-07",
         "label": "Jul",
-        "amountLakh": 12.3
+        "amountLakh": 14.6
       },
       {
         "month": "2026-08",
         "label": "Aug",
-        "amountLakh": 7.6
+        "amountLakh": 8.9
       }
     ],
     "mtd": {
-      "amountLakh": 12.4,
-      "pctOfAvg": 128.9,
-      "avgMonthlyLakh": 9.6
+      "amountLakh": 14.6,
+      "pctOfAvg": 128.7,
+      "avgMonthlyLakh": 11.3
     },
     "activeInactive": {
       "active": 11,
@@ -1069,7 +1069,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "2D BSC TECHNOLOGIES",
       "avgDispatchDays": 10,
-      "avgOrderValue": 84672,
+      "avgOrderValue": 99913,
       "ordersMTD": 0,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
@@ -1079,7 +1079,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "BEST BARCODE SYSTEM PRIVATE LIMITED",
       "avgDispatchDays": 41,
-      "avgOrderValue": 64880,
+      "avgOrderValue": 76558,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll (W) 3/5]",
@@ -1090,7 +1090,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "KANVI TRADERS",
       "avgDispatchDays": 21,
-      "avgOrderValue": 211953,
+      "avgOrderValue": 250105,
       "ordersMTD": 1,
       "products": [
         "[DT (TC) Label Roll (Y) 3/5]",
@@ -1104,7 +1104,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "PRINT GLAMOUR INDIA",
       "avgDispatchDays": 2,
-      "avgOrderValue": 41347,
+      "avgOrderValue": 48790,
       "ordersMTD": 0,
       "products": [
         "[CHROMO Label Roll 100 MM / 50 MM]"
@@ -1114,7 +1114,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "SHREE RAM LABELS PVT LTD",
       "avgDispatchDays": 2,
-      "avgOrderValue": 65250,
+      "avgOrderValue": 76995,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll (W) 3/5]",
@@ -1125,7 +1125,7 @@
       "marketingPerson": "MEENAKSHI",
       "customer": "VAMIKA LABELS",
       "avgDispatchDays": 7,
-      "avgOrderValue": 191259,
+      "avgOrderValue": 225685,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll (Y) 3/5]",
@@ -1136,7 +1136,7 @@
       "marketingPerson": "NEETU",
       "customer": "ATUL PAPER PRIVATE LIMITED",
       "avgDispatchDays": 1,
-      "avgOrderValue": 12010,
+      "avgOrderValue": 14172,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll 50 MM / 25 MM]"
@@ -1146,7 +1146,7 @@
       "marketingPerson": "NEETU",
       "customer": "BHAGIRATHI PRINT WAYS",
       "avgDispatchDays": 5.7,
-      "avgOrderValue": 151415,
+      "avgOrderValue": 178670,
       "ordersMTD": 1,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
@@ -1156,7 +1156,7 @@
       "marketingPerson": "NEETU",
       "customer": "KRIVIA CORPORATION",
       "avgDispatchDays": 60.5,
-      "avgOrderValue": 54560,
+      "avgOrderValue": 64381,
       "ordersMTD": 2,
       "products": [
         "[DT Label Roll (W) 4/6]"
@@ -1166,7 +1166,7 @@
       "marketingPerson": "NEETU",
       "customer": "Z TECHNOLOGIES",
       "avgDispatchDays": 3.8,
-      "avgOrderValue": 78905,
+      "avgOrderValue": 93108,
       "ordersMTD": 2,
       "products": [
         "[CHROMO Label Roll 50 MM / 30 MM]"
@@ -1176,14 +1176,14 @@
       "marketingPerson": "RUCHI",
       "customer": "LALITHA ENTERPRISES",
       "avgDispatchDays": 10,
-      "avgOrderValue": 81200,
+      "avgOrderValue": 95816,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll 100 MM / 125 MM]"
       ]
     }
   ],
-  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T06:56:24.464Z (fresh download 2026-09-21 Asia/Calcutta · stock refreshed afternoon)",
+  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T05:53:40.620Z",
   "planningRule": "6+3; dropdown 3mo/6mo re-ranks top 6, fixed +1/+2/+3",
   "supplementaryNotes": [
     "DT (TC) Label Roll (Y) 4/6 had zero sales in Mar–Aug 2026 (6mo) window; included as supplementary with zeros/empty customers.",
