@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-17",
+  "asOf": "2026-09-21",
   "sample": false,
   "title": "Labels management report",
   "defaultPlanningWindow": "6mo",
@@ -28,6 +28,7 @@
             "BHARATSHIPP BUSINESS SOLUTIONS",
             "EXL BUSINESS SOLUTIONS",
             "KANVI TRADERS",
+            "KRIVIA CORPORATION",
             "PRINT GLAMOUR INDIA",
             "SHREE RAM LABELS PVT LTD",
             "Z TECHNOLOGIES"
@@ -35,10 +36,9 @@
           "customersB": [
             "A.R PACKING SOLUTIONS",
             "ARIHANT INTERNATIONAL",
-            "HARIOM ENTERPRISES",
-            "KRIVIA CORPORATION"
+            "HARIOM ENTERPRISES"
           ],
-          "currentStockRolls": 936,
+          "currentStockRolls": 72,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -59,6 +59,10 @@
             },
             {
               "name": "KANVI TRADERS",
+              "active": true
+            },
+            {
+              "name": "KRIVIA CORPORATION",
               "active": true
             },
             {
@@ -86,14 +90,10 @@
             {
               "name": "HARIOM ENTERPRISES",
               "active": false
-            },
-            {
-              "name": "KRIVIA CORPORATION",
-              "active": false
             }
           ],
-          "currentBoxes": 39,
-          "boxesRequirement": "39 / 95",
+          "currentBoxes": 3,
+          "boxesRequirement": "3 / 95",
           "rollsPerBox": 24
         },
         {
@@ -146,7 +146,7 @@
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 480,
+          "currentStockRolls": 1200,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -160,8 +160,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 10,
-          "boxesRequirement": "10 / 40",
+          "currentBoxes": 25,
+          "boxesRequirement": "25 / 40",
           "rollsPerBox": 48
         },
         {
@@ -356,14 +356,14 @@
             "BHARATSHIPP BUSINESS SOLUTIONS",
             "EXL BUSINESS SOLUTIONS",
             "KANVI TRADERS",
+            "KRIVIA CORPORATION",
             "SHREE RAM LABELS PVT LTD"
           ],
           "customersB": [
             "A.R PACKING SOLUTIONS",
-            "HARIOM ENTERPRISES",
-            "KRIVIA CORPORATION"
+            "HARIOM ENTERPRISES"
           ],
-          "currentStockRolls": 936,
+          "currentStockRolls": 72,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -387,6 +387,10 @@
               "active": true
             },
             {
+              "name": "KRIVIA CORPORATION",
+              "active": true
+            },
+            {
               "name": "SHREE RAM LABELS PVT LTD",
               "active": true
             }
@@ -399,14 +403,10 @@
             {
               "name": "HARIOM ENTERPRISES",
               "active": false
-            },
-            {
-              "name": "KRIVIA CORPORATION",
-              "active": false
             }
           ],
-          "currentBoxes": 39,
-          "boxesRequirement": "39 / 65",
+          "currentBoxes": 3,
+          "boxesRequirement": "3 / 65",
           "rollsPerBox": 24
         },
         {
@@ -449,7 +449,7 @@
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 480,
+          "currentStockRolls": 1200,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -463,8 +463,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 10,
-          "boxesRequirement": "10 / 42",
+          "currentBoxes": 25,
+          "boxesRequirement": "25 / 42",
           "rollsPerBox": 48
         },
         {
@@ -642,6 +642,7 @@
         "BHARATSHIPP BUSINESS SOLUTIONS",
         "EXL BUSINESS SOLUTIONS",
         "KANVI TRADERS",
+        "KRIVIA CORPORATION",
         "PRINT GLAMOUR INDIA",
         "SHREE RAM LABELS PVT LTD",
         "Z TECHNOLOGIES"
@@ -649,10 +650,9 @@
       "customersB": [
         "A.R PACKING SOLUTIONS",
         "ARIHANT INTERNATIONAL",
-        "HARIOM ENTERPRISES",
-        "KRIVIA CORPORATION"
+        "HARIOM ENTERPRISES"
       ],
-      "currentStockRolls": 936,
+      "currentStockRolls": 72,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -673,6 +673,10 @@
         },
         {
           "name": "KANVI TRADERS",
+          "active": true
+        },
+        {
+          "name": "KRIVIA CORPORATION",
           "active": true
         },
         {
@@ -700,14 +704,10 @@
         {
           "name": "HARIOM ENTERPRISES",
           "active": false
-        },
-        {
-          "name": "KRIVIA CORPORATION",
-          "active": false
         }
       ],
-      "currentBoxes": 39,
-      "boxesRequirement": "39 / 95",
+      "currentBoxes": 3,
+      "boxesRequirement": "3 / 95",
       "rollsPerBox": 24
     },
     {
@@ -760,7 +760,7 @@
       "customersB": [
         "ARIHANT INTERNATIONAL"
       ],
-      "currentStockRolls": 480,
+      "currentStockRolls": 1200,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -774,8 +774,8 @@
           "active": false
         }
       ],
-      "currentBoxes": 10,
-      "boxesRequirement": "10 / 40",
+      "currentBoxes": 25,
+      "boxesRequirement": "25 / 40",
       "rollsPerBox": 48
     },
     {
@@ -982,14 +982,14 @@
       }
     ],
     "mtd": {
-      "amountLakh": 9.8,
-      "pctOfAvg": 101.9,
+      "amountLakh": 12.4,
+      "pctOfAvg": 128.9,
       "avgMonthlyLakh": 9.6
     },
     "activeInactive": {
-      "active": 10,
+      "active": 11,
       "inactive": 9,
-      "pool": 19,
+      "pool": 20,
       "aovFloor": 50000,
       "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 45 days. Inactive = no dispatch in 45+ days. AOV and dispatch-day averages use the past 2 months."
     }
@@ -1078,9 +1078,9 @@
     {
       "marketingPerson": "MEENAKSHI",
       "customer": "BEST BARCODE SYSTEM PRIVATE LIMITED",
-      "avgDispatchDays": 61,
-      "avgOrderValue": 57000,
-      "ordersMTD": 0,
+      "avgDispatchDays": 41,
+      "avgOrderValue": 64880,
+      "ordersMTD": 1,
       "products": [
         "[DT Label Roll (W) 3/5]",
         "[DT Label Roll (W) 4/6]"
@@ -1154,10 +1154,20 @@
     },
     {
       "marketingPerson": "NEETU",
+      "customer": "KRIVIA CORPORATION",
+      "avgDispatchDays": 60.5,
+      "avgOrderValue": 54560,
+      "ordersMTD": 2,
+      "products": [
+        "[DT Label Roll (W) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "NEETU",
       "customer": "Z TECHNOLOGIES",
-      "avgDispatchDays": 4.3,
-      "avgOrderValue": 85335,
-      "ordersMTD": 1,
+      "avgDispatchDays": 3.8,
+      "avgOrderValue": 78905,
+      "ordersMTD": 2,
       "products": [
         "[CHROMO Label Roll 50 MM / 30 MM]"
       ]
@@ -1173,7 +1183,7 @@
       ]
     }
   ],
-  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants",
+  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T05:53:40.620Z (fresh download 2026-09-21 Asia/Calcutta)",
   "planningRule": "6+3; dropdown 3mo/6mo re-ranks top 6, fixed +1/+2/+3",
   "supplementaryNotes": [
     "DT (TC) Label Roll (Y) 4/6 had zero sales in Mar–Aug 2026 (6mo) window; included as supplementary with zeros/empty customers.",
@@ -1183,9 +1193,9 @@
   ],
   "rmShortage": {
     "title": "RM Shortage Report",
-    "asOf": "2026-09-17",
+    "asOf": "2026-09-21",
     "period": "01-Mar-2026 To 31-Aug-2026",
-    "source": "RM Consumption Detail Desp Group Wise — donotreply@dubble.org (1a0af273f48d312d)",
+    "source": "RM Consumption Detail Desp Group Wise — donotreply@dubble.org (1a0c2560136c788b)",
     "shortageRule": "Current Stock < 1.5 × Avg Consumed Qty (mail legend); tonnes",
     "materials": [
       "Direct thermal",
@@ -1205,11 +1215,11 @@
         "width": "1001-1030",
         "micron": null,
         "gsm": "63g-75g",
-        "currentStockT": 3.473,
+        "currentStockT": 2.676,
         "avgConsumedT": 24.807,
         "pendingPoT": 0.4,
         "coverMo": 0.1,
-        "note": "cover 0.1 mo · need 33.738t to 1.5×"
+        "note": "cover 0.1 mo · need 34.534t to 1.5×"
       },
       {
         "family": "Direct Thermal Top coated",
@@ -1257,37 +1267,11 @@
         "width": "1001-1030",
         "micron": null,
         "gsm": "55g-58g",
-        "currentStockT": 0.0,
+        "currentStockT": 6.67,
         "avgConsumedT": 8.334,
-        "pendingPoT": 6.0,
-        "coverMo": 0.0,
-        "note": "Zero stock, still used ~8.334 t/mo"
-      },
-      {
-        "family": "Glassine white",
-        "itemName": "GLASSINE",
-        "type": "White",
-        "width": "1001-1030",
-        "micron": null,
-        "gsm": "63g-75g",
-        "currentStockT": 0.0,
-        "avgConsumedT": 1.951,
-        "pendingPoT": 10.0,
-        "coverMo": 0.0,
-        "note": "Zero stock, still used ~1.951 t/mo"
-      },
-      {
-        "family": "Glassine white",
-        "itemName": "GLASSINE",
-        "type": "White",
-        "width": "1001-1030",
-        "micron": null,
-        "gsm": "45g-52g",
-        "currentStockT": 0.0,
-        "avgConsumedT": 0.97,
         "pendingPoT": 0.0,
-        "coverMo": 0.0,
-        "note": "Zero stock, still used ~0.970 t/mo"
+        "coverMo": 0.8,
+        "note": "cover 0.8 mo · need 5.831t to 1.5×"
       },
       {
         "family": "Glassine white",
@@ -1319,6 +1303,19 @@
         "family": "Glassine white",
         "itemName": "GLASSINE",
         "type": "White",
+        "width": "1101-Any",
+        "micron": null,
+        "gsm": "55g-58g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.254,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.254 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
         "width": "506-600",
         "micron": null,
         "gsm": "110g-120g",
@@ -1327,6 +1324,19 @@
         "pendingPoT": 0.0,
         "coverMo": 0.0,
         "note": "Zero stock, still used ~0.249 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "666-765",
+        "micron": null,
+        "gsm": "85g-95g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.233,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.233 t/mo"
       }
     ],
     "meta": {
