@@ -1180,5 +1180,161 @@
     "CHROMO Label Roll (W) 3/5 had zero sales in Mar–Aug 2026 (6mo) window; included as supplementary with zeros/empty customers.",
     "DT (TC) Label Roll (Y) 4/6 had zero sales in Jun–Aug 2026 (3mo) window; included as supplementary with zeros/empty customers.",
     "CHROMO Label Roll (W) 3/5 had zero sales in Jun–Aug 2026 (3mo) window; included as supplementary with zeros/empty customers."
-  ]
+  ],
+  "rmShortage": {
+    "title": "RM Shortage Report",
+    "asOf": "2026-09-17",
+    "period": "01-Mar-2026 To 31-Aug-2026",
+    "source": "RM Consumption Detail Desp Group Wise — donotreply@dubble.org (1a0af273f48d312d)",
+    "shortageRule": "Current Stock < 1.5 × Avg Consumed Qty (mail legend); tonnes",
+    "materials": [
+      "Direct thermal",
+      "Direct Thermal Top coated",
+      "Glassine white",
+      "glassine BO",
+      "glassine yellow"
+    ],
+    "placement": "end of #label",
+    "limit": 10,
+    "rankNote": "All DT then all DT TC shortage rows; then any glassine BO and glassine yellow shortage rows; fill remaining slots to 10 from Glassine white (and other) by shortfall to 1.5× avg.",
+    "rows": [
+      {
+        "family": "Direct thermal",
+        "itemName": "DIRECT THERMAL",
+        "type": null,
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "63g-75g",
+        "currentStockT": 3.473,
+        "avgConsumedT": 24.807,
+        "pendingPoT": 0.4,
+        "coverMo": 0.1,
+        "note": "cover 0.1 mo · need 33.738t to 1.5×"
+      },
+      {
+        "family": "Direct Thermal Top coated",
+        "itemName": "DIRECT THERMAL TOP COATED",
+        "type": null,
+        "width": "401-480",
+        "micron": null,
+        "gsm": "63g-75g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.123,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.123 t/mo"
+      },
+      {
+        "family": "Direct Thermal Top coated",
+        "itemName": "DIRECT THERMAL TOP COATED",
+        "type": null,
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "63g-75g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.096,
+        "pendingPoT": 2.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.096 t/mo"
+      },
+      {
+        "family": "glassine yellow",
+        "itemName": "GLASSINE",
+        "type": "Yellow",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "55g-58g",
+        "currentStockT": 0.63,
+        "avgConsumedT": 0.422,
+        "pendingPoT": 0.0,
+        "coverMo": 1.5,
+        "note": "cover 1.5 mo · need 0.003t to 1.5×"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "55g-58g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 8.334,
+        "pendingPoT": 6.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~8.334 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "63g-75g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 1.951,
+        "pendingPoT": 10.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~1.951 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "45g-52g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.97,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.970 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1031-1050",
+        "micron": null,
+        "gsm": "110g-120g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.592,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.592 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "59g-62g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.586,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.586 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "506-600",
+        "micron": null,
+        "gsm": "110g-120g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.249,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.249 t/mo"
+      }
+    ],
+    "meta": {
+      "dt": 1,
+      "dt_tc": 2,
+      "glassine_bo": 0,
+      "glassine_yellow": 1,
+      "filler": 6
+    }
+  }
 }
