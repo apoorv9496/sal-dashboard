@@ -109,7 +109,7 @@
             "RK BOX MAKER"
           ],
           "customersB": [],
-          "currentStockRolls": 0,
+          "currentStockRolls": 1080,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -130,8 +130,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 0,
-          "boxesRequirement": "0 / 35",
+          "currentBoxes": 45,
+          "boxesRequirement": "45 / 35",
           "rollsPerBox": 24
         },
         {
@@ -146,7 +146,7 @@
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 1200,
+          "currentStockRolls": 192,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -160,8 +160,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 25,
-          "boxesRequirement": "25 / 40",
+          "currentBoxes": 4,
+          "boxesRequirement": "4 / 40",
           "rollsPerBox": 48
         },
         {
@@ -281,7 +281,7 @@
             "LAXMI SALES AGENCIES"
           ],
           "customersB": [],
-          "currentStockRolls": 480,
+          "currentStockRolls": 336,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -294,8 +294,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 20,
-          "boxesRequirement": "20 / 17",
+          "currentBoxes": 14,
+          "boxesRequirement": "14 / 17",
           "rollsPerBox": 24,
           "supplementary": true
         },
@@ -420,7 +420,7 @@
             "BHAGIRATHI PRINT WAYS"
           ],
           "customersB": [],
-          "currentStockRolls": 0,
+          "currentStockRolls": 1080,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -433,8 +433,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 0,
-          "boxesRequirement": "0 / 62",
+          "currentBoxes": 45,
+          "boxesRequirement": "45 / 62",
           "rollsPerBox": 24
         },
         {
@@ -449,7 +449,7 @@
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 1200,
+          "currentStockRolls": 192,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -463,8 +463,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 25,
-          "boxesRequirement": "25 / 42",
+          "currentBoxes": 4,
+          "boxesRequirement": "4 / 42",
           "rollsPerBox": 48
         },
         {
@@ -578,7 +578,7 @@
             "KANVI TRADERS"
           ],
           "customersB": [],
-          "currentStockRolls": 480,
+          "currentStockRolls": 336,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -587,8 +587,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 20,
-          "boxesRequirement": "20 / 20",
+          "currentBoxes": 14,
+          "boxesRequirement": "14 / 20",
           "rollsPerBox": 24,
           "supplementary": true
         },
@@ -723,7 +723,7 @@
         "RK BOX MAKER"
       ],
       "customersB": [],
-      "currentStockRolls": 0,
+      "currentStockRolls": 1080,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -744,8 +744,8 @@
         }
       ],
       "customersBMeta": [],
-      "currentBoxes": 0,
-      "boxesRequirement": "0 / 35",
+      "currentBoxes": 45,
+      "boxesRequirement": "45 / 35",
       "rollsPerBox": 24
     },
     {
@@ -760,7 +760,7 @@
       "customersB": [
         "ARIHANT INTERNATIONAL"
       ],
-      "currentStockRolls": 1200,
+      "currentStockRolls": 192,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -774,8 +774,8 @@
           "active": false
         }
       ],
-      "currentBoxes": 25,
-      "boxesRequirement": "25 / 40",
+      "currentBoxes": 4,
+      "boxesRequirement": "4 / 40",
       "rollsPerBox": 48
     },
     {
@@ -895,7 +895,7 @@
         "LAXMI SALES AGENCIES"
       ],
       "customersB": [],
-      "currentStockRolls": 480,
+      "currentStockRolls": 336,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -908,8 +908,8 @@
         }
       ],
       "customersBMeta": [],
-      "currentBoxes": 20,
-      "boxesRequirement": "20 / 17",
+      "currentBoxes": 14,
+      "boxesRequirement": "14 / 17",
       "rollsPerBox": 24,
       "supplementary": true
     },
@@ -1183,7 +1183,7 @@
       ]
     }
   ],
-  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T05:53:40.620Z (fresh download 2026-09-21 Asia/Calcutta)",
+  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T06:56:24.464Z (fresh download 2026-09-21 Asia/Calcutta · stock refreshed afternoon)",
   "planningRule": "6+3; dropdown 3mo/6mo re-ranks top 6, fixed +1/+2/+3",
   "supplementaryNotes": [
     "DT (TC) Label Roll (Y) 4/6 had zero sales in Mar–Aug 2026 (6mo) window; included as supplementary with zeros/empty customers.",
