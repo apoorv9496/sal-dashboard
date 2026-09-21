@@ -564,7 +564,7 @@ function renderLabels(data) {
     <section class="panel" id="label-lost">
       <div class="panel-head">
         <h2>Lost</h2>
-        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, no dispatch in 45+ days · ${fmt.num((data.lost || []).length)} accounts</p>
       </div>
       <div class="toolbar">
         <input type="search" id="lost-filter" placeholder="Filter lost accounts…" aria-label="Filter lost accounts">
@@ -785,7 +785,7 @@ function renderGumming(data) {
     <section class="panel">
       <div class="panel-head">
         <h2>Lost</h2>
-        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
+        <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, no dispatch in 45+ days · ${fmt.num((data.lost || []).length)} accounts</p>
       </div>
       <div class="toolbar">
         <input type="search" id="gumming-lost-filter" placeholder="Filter lost accounts…" aria-label="Filter lost accounts">
