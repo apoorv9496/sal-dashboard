@@ -465,7 +465,7 @@ function cardStats(id, data) {
 }
 
 const LABEL_LOST_ISSUE_KEY_PREFIX = "sal-dashboard:label-lost-issue:";
-const LABEL_LOST_ISSUE_VALUES = ["quality", "payment", "rate", "communication", "delay"];
+const LABEL_LOST_ISSUE_VALUES = ["quality", "payment", "rate", "communication", "delay", "duplicate"];
 
 function normalizeLabelLostCustomer(name) {
   return String(name || "")
