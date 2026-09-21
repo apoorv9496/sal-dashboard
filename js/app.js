@@ -739,6 +739,64 @@ function renderUpcoming(report) {
   `));
 }
 
+const GUMMING_LOST_ISSUE_KEY_PREFIX = "sal-dashboard:gumming-lost-issue:";
+const GUMMING_LOST_ISSUE_VALUES = ["quality", "payment", "rate", "communication", "delay", "duplicate"];
+
+function normalizeGummingLostCustomer(name) {
+  return String(name || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+function gummingLostIssueStorageKey(customer) {
+  return GUMMING_LOST_ISSUE_KEY_PREFIX + normalizeGummingLostCustomer(customer);
+}
+
+function readGummingLostIssue(customer) {
+  let stored = "";
+  try {
+    stored = localStorage.getItem(gummingLostIssueStorageKey(customer)) || "";
+  } catch (_) {
+    stored = "";
+  }
+  return GUMMING_LOST_ISSUE_VALUES.includes(stored) ? stored : "";
+}
+
+function persistGummingLostIssue(customer, value) {
+  const next = GUMMING_LOST_ISSUE_VALUES.includes(value) ? value : "";
+  try {
+    const key = gummingLostIssueStorageKey(customer);
+    if (next) localStorage.setItem(key, next);
+    else localStorage.removeItem(key);
+  } catch (_) {
+    /* ignore quota / private mode */
+  }
+}
+
+function gummingLostIssueSelect(customer) {
+  const current = readGummingLostIssue(customer);
+  const options = [`<option value="">—</option>`]
+    .concat(
+      GUMMING_LOST_ISSUE_VALUES.map(
+        (value) =>
+          `<option value="${value}"${current === value ? " selected" : ""}>${value}</option>`
+      )
+    )
+    .join("");
+  return `<select class="issue-select" data-customer="${escapeHtml(customer)}" aria-label="Issue">${options}</select>`;
+}
+
+function bindGummingLostIssueSelects() {
+  const host = document.getElementById("gumming-lost");
+  if (!host) return;
+  host.addEventListener("change", (event) => {
+    const select = event.target.closest("select.issue-select");
+    if (!select || !host.contains(select)) return;
+    persistGummingLostIssue(select.getAttribute("data-customer") || "", select.value);
+  });
+}
+
 function renderGumming(data) {
   const mtd = data.header?.mtd || {};
   const ai = data.header?.activeInactive || {};
@@ -782,7 +840,7 @@ function renderGumming(data) {
         "gumming-planning-table"
       )}
     </section>
-    <section class="panel">
+    <section class="panel" id="gumming-lost">
       <div class="panel-head">
         <h2>Lost</h2>
         <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 100000)}, no dispatch in 45+ days · ${fmt.num((data.lost || []).length)} accounts</p>
@@ -794,6 +852,7 @@ function renderGumming(data) {
         [
           { key: "marketingPerson", label: "Marketing", value: (r) => escapeHtml(r.marketingPerson) },
           { key: "customer", label: "Customer", value: (r) => escapeHtml(r.customer) },
+          { key: "issue", label: "Issue", value: (r) => gummingLostIssueSelect(r.customer) },
           { key: "products", label: "Products", value: (r) => pills(r.products) },
         ],
         data.lost || [],
@@ -825,6 +884,7 @@ function renderGumming(data) {
   `));
   bindFilter("gumming-lost-filter", "gumming-lost-table");
   bindFilter("gumming-active-filter", "gumming-active-table");
+  bindGummingLostIssueSelects();
 }
 
 const renderers = {
