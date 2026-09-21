@@ -485,6 +485,30 @@ function renderLabels(data) {
     </section>
     <section class="panel">
       <div class="panel-head">
+        <h2>RM Shortage Report</h2>
+        <p class="hint">from RM Consumption mail · stock &lt; 1.5× avg · label RMs (DT / DT TC / Glassine W·BO·Y) · ${escapeHtml(fmt.date(data.rmShortage?.asOf))}</p>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="rm-shortage-filter" placeholder="Filter RM shortages…" aria-label="Filter RM shortages">
+      </div>
+      ${table(
+        [
+          { key: "family", label: "Family", value: (r) => escapeHtml(r.family) },
+          { key: "itemName", label: "Item", value: (r) => escapeHtml(r.itemName) },
+          { key: "type", label: "Type", value: (r) => (r.type ? escapeHtml(r.type) : "—") },
+          { key: "width", label: "Width", align: "right", value: (r) => fmt.dim(r.width, " mm") },
+          { key: "gsm", label: "GSM", align: "right", value: (r) => fmt.dim(r.gsm) },
+          { key: "currentStockT", label: "Stock (T)", align: "right", value: (r) => fmt.tonnes(r.currentStockT) },
+          { key: "avgConsumedT", label: "Avg consume (T)", align: "right", value: (r) => fmt.tonnes(r.avgConsumedT) },
+          { key: "pendingPoT", label: "Pending PO (T)", align: "right", value: (r) => fmt.tonnes(r.pendingPoT) },
+          { key: "note", label: "Note", value: (r) => escapeHtml(r.note) },
+        ],
+        data.rmShortage?.rows || [],
+        "rm-shortage-table"
+      )}
+    </section>
+    <section class="panel">
+      <div class="panel-head">
         <h2>Lost</h2>
         <p class="hint">AOV ≥ ${fmt.inr(ai.aovFloor || 50000)}, no dispatch in 60+ days · ${fmt.num((data.lost || []).length)} accounts</p>
       </div>
@@ -524,6 +548,7 @@ function renderLabels(data) {
     </section>
     ${ai.note ? `<p class="source">${escapeHtml(ai.note)}</p>` : ""}
   `));
+  bindFilter("rm-shortage-filter", "rm-shortage-table");
   bindFilter("lost-filter", "lost-table");
   bindFilter("active-filter", "active-table");
   bindLabelPlanningWindow(data, activeSet);
