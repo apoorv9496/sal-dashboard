@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-21",
+  "asOf": "2026-09-28",
   "sample": false,
   "title": "Labels management report",
   "defaultPlanningWindow": "6mo",
@@ -21,7 +21,7 @@
           "item": "DT Label Roll (W)",
           "size": "4/6",
           "avgQtyPerMo": 2270,
-          "avgBoxesPerMo": 65,
+          "avgBoxesPerMo": 95,
           "customersA": [
             "A N PAPERS TRADERS",
             "BEST BARCODE SYSTEM PRIVATE LIMITED",
@@ -38,7 +38,7 @@
             "ARIHANT INTERNATIONAL",
             "HARIOM ENTERPRISES"
           ],
-          "currentStockRolls": 72,
+          "currentStockRolls": 720,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -92,8 +92,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 3,
-          "boxesRequirement": "3 / 65",
+          "currentBoxes": 30,
+          "boxesRequirement": "30 / 95",
           "rollsPerBox": 24
         },
         {
@@ -101,7 +101,7 @@
           "item": "CHROMO Label Roll (W)",
           "size": "4/6",
           "avgQtyPerMo": 836,
-          "avgBoxesPerMo": 62,
+          "avgBoxesPerMo": 35,
           "customersA": [
             "2D BSC TECHNOLOGIES",
             "BHAGIRATHI PRINT WAYS",
@@ -109,7 +109,7 @@
             "RK BOX MAKER"
           ],
           "customersB": [],
-          "currentStockRolls": 1080,
+          "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -130,8 +130,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 45,
-          "boxesRequirement": "45 / 62",
+          "currentBoxes": 0,
+          "boxesRequirement": "0 / 35",
           "rollsPerBox": 24
         },
         {
@@ -139,14 +139,14 @@
           "item": "CHROMO Label Roll",
           "size": "50 MM / 30 MM",
           "avgQtyPerMo": 1918,
-          "avgBoxesPerMo": 42,
+          "avgBoxesPerMo": 40,
           "customersA": [
             "Z TECHNOLOGIES"
           ],
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 192,
+          "currentStockRolls": 1008,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -160,8 +160,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 4,
-          "boxesRequirement": "4 / 42",
+          "currentBoxes": 21,
+          "boxesRequirement": "21 / 40",
           "rollsPerBox": 48
         },
         {
@@ -169,7 +169,7 @@
           "item": "DT Label Roll (W)",
           "size": "3/5",
           "avgQtyPerMo": 690,
-          "avgBoxesPerMo": 18,
+          "avgBoxesPerMo": 19,
           "customersA": [
             "BEST BARCODE SYSTEM PRIVATE LIMITED",
             "KANVI TRADERS",
@@ -221,7 +221,7 @@
             }
           ],
           "currentBoxes": 22,
-          "boxesRequirement": "22 / 18",
+          "boxesRequirement": "22 / 19",
           "rollsPerBox": 36
         },
         {
@@ -229,7 +229,7 @@
           "item": "DT Label Roll (Y)",
           "size": "3/5",
           "avgQtyPerMo": 600,
-          "avgBoxesPerMo": 28,
+          "avgBoxesPerMo": 17,
           "customersA": [
             "KANVI TRADERS"
           ],
@@ -244,7 +244,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 15,
-          "boxesRequirement": "15 / 28",
+          "boxesRequirement": "15 / 17",
           "rollsPerBox": 36
         },
         {
@@ -252,7 +252,7 @@
           "item": "DT (TC) Label Roll (Y)",
           "size": "3/5",
           "avgQtyPerMo": 414,
-          "avgBoxesPerMo": 23,
+          "avgBoxesPerMo": 12,
           "customersA": [
             "KANVI TRADERS"
           ],
@@ -267,7 +267,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 0,
-          "boxesRequirement": "0 / 23",
+          "boxesRequirement": "0 / 12",
           "rollsPerBox": 36
         },
         {
@@ -275,7 +275,7 @@
           "item": "DT Label Roll (Y)",
           "size": "4/6",
           "avgQtyPerMo": 400,
-          "avgBoxesPerMo": 20,
+          "avgBoxesPerMo": 17,
           "customersA": [
             "KANVI TRADERS",
             "LAXMI SALES AGENCIES"
@@ -295,7 +295,7 @@
           ],
           "customersBMeta": [],
           "currentBoxes": 14,
-          "boxesRequirement": "14 / 20",
+          "boxesRequirement": "14 / 17",
           "rollsPerBox": 24,
           "supplementary": true
         },
@@ -363,7 +363,7 @@
             "A.R PACKING SOLUTIONS",
             "HARIOM ENTERPRISES"
           ],
-          "currentStockRolls": 72,
+          "currentStockRolls": 720,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -405,8 +405,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 3,
-          "boxesRequirement": "3 / 65",
+          "currentBoxes": 30,
+          "boxesRequirement": "30 / 65",
           "rollsPerBox": 24
         },
         {
@@ -420,7 +420,7 @@
             "BHAGIRATHI PRINT WAYS"
           ],
           "customersB": [],
-          "currentStockRolls": 1080,
+          "currentStockRolls": 0,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -433,8 +433,8 @@
             }
           ],
           "customersBMeta": [],
-          "currentBoxes": 45,
-          "boxesRequirement": "45 / 62",
+          "currentBoxes": 0,
+          "boxesRequirement": "0 / 62",
           "rollsPerBox": 24
         },
         {
@@ -449,7 +449,7 @@
           "customersB": [
             "ARIHANT INTERNATIONAL"
           ],
-          "currentStockRolls": 192,
+          "currentStockRolls": 1008,
           "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
           "customersAMeta": [
             {
@@ -463,8 +463,8 @@
               "active": false
             }
           ],
-          "currentBoxes": 4,
-          "boxesRequirement": "4 / 42",
+          "currentBoxes": 21,
+          "boxesRequirement": "21 / 42",
           "rollsPerBox": 48
         },
         {
@@ -635,7 +635,7 @@
       "item": "DT Label Roll (W)",
       "size": "4/6",
       "avgQtyPerMo": 2270,
-      "avgBoxesPerMo": 65,
+      "avgBoxesPerMo": 95,
       "customersA": [
         "A N PAPERS TRADERS",
         "BEST BARCODE SYSTEM PRIVATE LIMITED",
@@ -652,7 +652,7 @@
         "ARIHANT INTERNATIONAL",
         "HARIOM ENTERPRISES"
       ],
-      "currentStockRolls": 72,
+      "currentStockRolls": 720,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -706,8 +706,8 @@
           "active": false
         }
       ],
-      "currentBoxes": 3,
-      "boxesRequirement": "3 / 65",
+      "currentBoxes": 30,
+      "boxesRequirement": "30 / 95",
       "rollsPerBox": 24
     },
     {
@@ -715,7 +715,7 @@
       "item": "CHROMO Label Roll (W)",
       "size": "4/6",
       "avgQtyPerMo": 836,
-      "avgBoxesPerMo": 62,
+      "avgBoxesPerMo": 35,
       "customersA": [
         "2D BSC TECHNOLOGIES",
         "BHAGIRATHI PRINT WAYS",
@@ -723,7 +723,7 @@
         "RK BOX MAKER"
       ],
       "customersB": [],
-      "currentStockRolls": 1080,
+      "currentStockRolls": 0,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -744,8 +744,8 @@
         }
       ],
       "customersBMeta": [],
-      "currentBoxes": 45,
-      "boxesRequirement": "45 / 62",
+      "currentBoxes": 0,
+      "boxesRequirement": "0 / 35",
       "rollsPerBox": 24
     },
     {
@@ -753,14 +753,14 @@
       "item": "CHROMO Label Roll",
       "size": "50 MM / 30 MM",
       "avgQtyPerMo": 1918,
-      "avgBoxesPerMo": 42,
+      "avgBoxesPerMo": 40,
       "customersA": [
         "Z TECHNOLOGIES"
       ],
       "customersB": [
         "ARIHANT INTERNATIONAL"
       ],
-      "currentStockRolls": 192,
+      "currentStockRolls": 1008,
       "currentStockNote": "S-19 BOX STOCK · rolls (= boxes × rolls/box)",
       "customersAMeta": [
         {
@@ -774,8 +774,8 @@
           "active": false
         }
       ],
-      "currentBoxes": 4,
-      "boxesRequirement": "4 / 42",
+      "currentBoxes": 21,
+      "boxesRequirement": "21 / 40",
       "rollsPerBox": 48
     },
     {
@@ -783,7 +783,7 @@
       "item": "DT Label Roll (W)",
       "size": "3/5",
       "avgQtyPerMo": 690,
-      "avgBoxesPerMo": 18,
+      "avgBoxesPerMo": 19,
       "customersA": [
         "BEST BARCODE SYSTEM PRIVATE LIMITED",
         "KANVI TRADERS",
@@ -835,7 +835,7 @@
         }
       ],
       "currentBoxes": 22,
-      "boxesRequirement": "22 / 18",
+      "boxesRequirement": "22 / 19",
       "rollsPerBox": 36
     },
     {
@@ -843,7 +843,7 @@
       "item": "DT Label Roll (Y)",
       "size": "3/5",
       "avgQtyPerMo": 600,
-      "avgBoxesPerMo": 28,
+      "avgBoxesPerMo": 17,
       "customersA": [
         "KANVI TRADERS"
       ],
@@ -858,7 +858,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 15,
-      "boxesRequirement": "15 / 28",
+      "boxesRequirement": "15 / 17",
       "rollsPerBox": 36
     },
     {
@@ -866,7 +866,7 @@
       "item": "DT (TC) Label Roll (Y)",
       "size": "3/5",
       "avgQtyPerMo": 414,
-      "avgBoxesPerMo": 23,
+      "avgBoxesPerMo": 12,
       "customersA": [
         "KANVI TRADERS"
       ],
@@ -881,7 +881,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 0,
-      "boxesRequirement": "0 / 23",
+      "boxesRequirement": "0 / 12",
       "rollsPerBox": 36
     },
     {
@@ -889,7 +889,7 @@
       "item": "DT Label Roll (Y)",
       "size": "4/6",
       "avgQtyPerMo": 400,
-      "avgBoxesPerMo": 20,
+      "avgBoxesPerMo": 17,
       "customersA": [
         "KANVI TRADERS",
         "LAXMI SALES AGENCIES"
@@ -909,7 +909,7 @@
       ],
       "customersBMeta": [],
       "currentBoxes": 14,
-      "boxesRequirement": "14 / 20",
+      "boxesRequirement": "14 / 17",
       "rollsPerBox": 24,
       "supplementary": true
     },
@@ -982,14 +982,14 @@
       }
     ],
     "mtd": {
-      "amountLakh": 14.6,
-      "pctOfAvg": 128.7,
+      "amountLakh": 23.0,
+      "pctOfAvg": 202.7,
       "avgMonthlyLakh": 11.3
     },
     "activeInactive": {
-      "active": 11,
+      "active": 13,
       "inactive": 9,
-      "pool": 20,
+      "pool": 22,
       "aovFloor": 50000,
       "note": "Pool = customers with AOV ≥ ₹50,000. Active = dispatch in last 45 days. Inactive = no dispatch in 45+ days. AOV and dispatch-day averages use the past 2 months."
     }
@@ -1068,9 +1068,9 @@
     {
       "marketingPerson": "MEENAKSHI",
       "customer": "2D BSC TECHNOLOGIES",
-      "avgDispatchDays": 10,
-      "avgOrderValue": 99913,
-      "ordersMTD": 0,
+      "avgDispatchDays": 8.5,
+      "avgOrderValue": 157006,
+      "ordersMTD": 1,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
       ]
@@ -1089,8 +1089,8 @@
     {
       "marketingPerson": "MEENAKSHI",
       "customer": "KANVI TRADERS",
-      "avgDispatchDays": 21,
-      "avgOrderValue": 250105,
+      "avgDispatchDays": 25.7,
+      "avgOrderValue": 257890,
       "ordersMTD": 1,
       "products": [
         "[DT (TC) Label Roll (Y) 3/5]",
@@ -1113,11 +1113,21 @@
     {
       "marketingPerson": "MEENAKSHI",
       "customer": "SHREE RAM LABELS PVT LTD",
-      "avgDispatchDays": 2,
-      "avgOrderValue": 76995,
+      "avgDispatchDays": 1,
+      "avgOrderValue": 66198,
       "ordersMTD": 1,
       "products": [
         "[DT Label Roll (W) 3/5]",
+        "[DT Label Roll (W) 4/6]"
+      ]
+    },
+    {
+      "marketingPerson": "MEENAKSHI",
+      "customer": "SKY GLOBAL PRIVATE LIMITED",
+      "avgDispatchDays": 7,
+      "avgOrderValue": 520526,
+      "ordersMTD": 1,
+      "products": [
         "[DT Label Roll (W) 4/6]"
       ]
     },
@@ -1145,8 +1155,8 @@
     {
       "marketingPerson": "NEETU",
       "customer": "BHAGIRATHI PRINT WAYS",
-      "avgDispatchDays": 5.7,
-      "avgOrderValue": 178670,
+      "avgDispatchDays": 7,
+      "avgOrderValue": 221277,
       "ordersMTD": 1,
       "products": [
         "[CHROMO Label Roll (W) 4/6]"
@@ -1181,9 +1191,19 @@
       "products": [
         "[DT Label Roll 100 MM / 125 MM]"
       ]
+    },
+    {
+      "marketingPerson": "RUCHI",
+      "customer": "RAMA LABELLETTE INDIA",
+      "avgDispatchDays": 0,
+      "avgOrderValue": 75583,
+      "ordersMTD": 1,
+      "products": [
+        "[DT Label Roll (W) 4/6]"
+      ]
     }
   ],
-  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-21T05:53:40.620Z",
+  "stockSource": "S-19 SHEET STOCK / LABAL ROLL+BOX STOCK (fileId 1_YbA891M8DT6mQ2XNqiP2JcasWTS2WNvMGCZAmT7f4w) · main BOX STOCK block · rolls = boxes × rolls/box; W=white Y=yellow; sum P+PN variants · Drive modifiedTime 2026-09-27T08:20:53.882Z",
   "planningRule": "6+3; dropdown 3mo/6mo re-ranks top 6, fixed +1/+2/+3",
   "supplementaryNotes": [
     "DT (TC) Label Roll (Y) 4/6 had zero sales in Mar–Aug 2026 (6mo) window; included as supplementary with zeros/empty customers.",
@@ -1193,9 +1213,9 @@
   ],
   "rmShortage": {
     "title": "RM Shortage Report",
-    "asOf": "2026-09-21",
+    "asOf": "2026-09-28",
     "period": "01-Mar-2026 To 31-Aug-2026",
-    "source": "RM Consumption Detail Desp Group Wise — donotreply@dubble.org (1a0c2560136c788b)",
+    "source": "RM Consumption Detail Desp Group Wise — donotreply@dubble.org (1a0e662b1825c635)",
     "shortageRule": "Current Stock < 1.5 × Avg Consumed Qty (mail legend); tonnes",
     "materials": [
       "Direct thermal",
@@ -1215,11 +1235,11 @@
         "width": "1001-1030",
         "micron": null,
         "gsm": "63g-75g",
-        "currentStockT": 2.676,
+        "currentStockT": 0.35,
         "avgConsumedT": 24.807,
-        "pendingPoT": 0.4,
-        "coverMo": 0.1,
-        "note": "cover 0.1 mo · need 34.534t to 1.5×"
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "cover 0.0 mo · need 36.86t to 1.5×"
       },
       {
         "family": "Direct Thermal Top coated",
@@ -1233,19 +1253,6 @@
         "pendingPoT": 0.0,
         "coverMo": 0.0,
         "note": "Zero stock, still used ~0.123 t/mo"
-      },
-      {
-        "family": "Direct Thermal Top coated",
-        "itemName": "DIRECT THERMAL TOP COATED",
-        "type": null,
-        "width": "1001-1030",
-        "micron": null,
-        "gsm": "63g-75g",
-        "currentStockT": 0.0,
-        "avgConsumedT": 0.096,
-        "pendingPoT": 2.0,
-        "coverMo": 0.0,
-        "note": "Zero stock, still used ~0.096 t/mo"
       },
       {
         "family": "glassine yellow",
@@ -1267,11 +1274,24 @@
         "width": "1001-1030",
         "micron": null,
         "gsm": "55g-58g",
-        "currentStockT": 6.67,
+        "currentStockT": 10.043,
         "avgConsumedT": 8.334,
         "pendingPoT": 0.0,
-        "coverMo": 0.8,
-        "note": "cover 0.8 mo · need 5.831t to 1.5×"
+        "coverMo": 1.2,
+        "note": "cover 1.2 mo · need 2.458t to 1.5×"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "45g-52g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.97,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.97 t/mo"
       },
       {
         "family": "Glassine white",
@@ -1290,25 +1310,12 @@
         "family": "Glassine white",
         "itemName": "GLASSINE",
         "type": "White",
-        "width": "1001-1030",
-        "micron": null,
-        "gsm": "59g-62g",
-        "currentStockT": 0.0,
-        "avgConsumedT": 0.586,
-        "pendingPoT": 0.0,
-        "coverMo": 0.0,
-        "note": "Zero stock, still used ~0.586 t/mo"
-      },
-      {
-        "family": "Glassine white",
-        "itemName": "GLASSINE",
-        "type": "White",
         "width": "1101-Any",
         "micron": null,
         "gsm": "55g-58g",
         "currentStockT": 0.0,
         "avgConsumedT": 0.254,
-        "pendingPoT": 0.0,
+        "pendingPoT": 20.0,
         "coverMo": 0.0,
         "note": "Zero stock, still used ~0.254 t/mo"
       },
@@ -1337,14 +1344,27 @@
         "pendingPoT": 0.0,
         "coverMo": 0.0,
         "note": "Zero stock, still used ~0.233 t/mo"
+      },
+      {
+        "family": "Glassine white",
+        "itemName": "GLASSINE",
+        "type": "White",
+        "width": "1001-1030",
+        "micron": null,
+        "gsm": "85g-95g",
+        "currentStockT": 0.0,
+        "avgConsumedT": 0.167,
+        "pendingPoT": 0.0,
+        "coverMo": 0.0,
+        "note": "Zero stock, still used ~0.167 t/mo"
       }
     ],
     "meta": {
       "dt": 1,
-      "dt_tc": 2,
+      "dt_tc": 1,
       "glassine_bo": 0,
       "glassine_yellow": 1,
-      "filler": 6
+      "filler": 7
     }
   }
 }
