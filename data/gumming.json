@@ -45,7 +45,7 @@
       "inactive": 45,
       "pool": 75,
       "aovFloor": 100000,
-      "note": "Pool = customers with AOV ≥ ₹100,000. Active = dispatch in last 45 days. Inactive = no dispatch in 45+ days. AOV and dispatch-day averages use the past 2 months."
+      "note": "Pool = customers with AOV ≥ ₹ 1.0 L. Active = dispatch in last 45 days. Inactive = no dispatch in 45+ days. AOV and dispatch-day averages use the past 2 months."
     }
   },
   "planning": [
