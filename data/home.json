@@ -194,7 +194,7 @@
         ]
       },
       "footnotes": [
-        "Excludes own group companies M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES: Sep MTD ₹ 65.78 L, Aug 1–26 ₹ 11.36 L, Aug full ₹ 11.36 L (all SAL PAPERS; SHREE ARIHANT last billed Mar 2026). PFW included."
+        "Excludes own group companies M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES: Sep MTD ₹65.78 L, Aug 1–26 ₹11.36 L, Aug full ₹11.36 L (all SAL PAPERS; SHREE ARIHANT last billed Mar 2026). PFW included."
       ]
     },
     {
@@ -349,7 +349,7 @@
         ]
       },
       "footnotes": [
-        "Full BarCode category incl. PFW LABEL SOLUTIONS LTD (Feb 2026 ₹ 36.08 L, Mar 2026 ₹ 16.83 L). Live #label (28 Sep) still excludes PFW; the proposed #label rebuild includes it, matching this tab."
+        "Full BarCode category incl. PFW LABEL SOLUTIONS LTD (Feb 2026 ₹36.08 L, Mar 2026 ₹16.83 L). Live #label (28 Sep) still excludes PFW; the proposed #label rebuild includes it, matching this tab."
       ]
     },
     {
@@ -504,7 +504,7 @@
         ]
       },
       "footnotes": [
-        "Sheet Form; excludes M/S SHREE ARIHANT LAMINATES (own group): Jan 2026 ₹ 2.52 Cr, Feb ₹ 48.10 L, Mar ₹ 51,000; nothing since. Matches the proposed #gumming rebuild (Mar ₹ 6.09 Cr vs live ₹ 6.10 Cr)."
+        "Sheet Form; excludes M/S SHREE ARIHANT LAMINATES (own group): Jan 2026 ₹2.52 Cr, Feb ₹48.10 L, Mar ₹51,000; nothing since. Matches the proposed #gumming rebuild (Mar ₹6.09 Cr, ₹50,000 below live)."
       ]
     },
     {
@@ -814,7 +814,7 @@
         ]
       },
       "footnotes": [
-        "Other + blank + Label Sheet (RM/paper trading, scrap, empty drums, factory rent, job work). Excludes own group companies: Sep MTD ₹ 65.78 L (M/S SAL PAPERS PVT LTD); SHREE ARIHANT Other billing ₹ 4.37 Cr lifetime, last Mar 2026."
+        "Other + blank + Label Sheet (RM/paper trading, scrap, empty drums, factory rent, job work). Excludes own group companies: Sep MTD ₹65.78 L (M/S SAL PAPERS PVT LTD); SHREE ARIHANT Other billing ₹4.37 Cr lifetime, last Mar 2026."
       ]
     }
   ],
@@ -823,7 +823,7 @@
       "Amounts = Sales Analysis Total Bill Amount (col 81, GST-inclusive), line-level, summed. Never Taxable Value.",
       "MTD = 1st of month to last invoice date; prevSamePeriod = same day-range of previous month; lastYearSamePeriod = same day-range a year earlier.",
       "pctOfAvg / avgMonthlyLakh reuse the category-page definition: MTD as % of the average of the 6 complete months before the current month.",
-      "Active customers (45 d) = any customer billed after the cutoff (no AOV floor). The category pages use an AOV-floor pool (Labels ₹ 50,000, Gumming ₹ 1.0 L), so their counts differ.",
+      "Active customers (45 d) = any customer billed after the cutoff (no AOV floor). The category pages use an AOV-floor pool (Labels ₹50,000, Gumming ₹1,00,000), so their counts differ.",
       "Invoices are counted by Invoice No With Prefix, else date#Invoice No (prefix is blank on many rows from Jun 2026), same as the category builders."
     ],
     "excludedOwnCompany": {

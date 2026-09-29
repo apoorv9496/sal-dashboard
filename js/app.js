@@ -2,91 +2,41 @@ const app = document.getElementById("app");
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-const RUPEE_PER_LAKH = 100000;
-const RUPEE_PER_CRORE = 10000000;
+const RUPEES_PER_LAKH = 1e5;
+const RUPEES_PER_CRORE = 1e7;
 
 /**
- * Indian money only.
- * ≥ ₹1 crore → "₹ 5.30 Cr"; ₹1 lakh up to 1 crore → "₹ 63.2 L"
- * (2 decimals when lakhDigits is 2); under ₹1 lakh → "₹ 85,000".
+ * Central money formatter (Indian system, no millions/K).
+ *   ≥ ₹1,00,00,000   → crores, 2 decimals      "₹ 5.30 Cr"
+ *   ₹1,00,000 – <1 Cr → lakhs, `lakhDigits`     "₹ 63.2 L"
+ *   < ₹1,00,000       → full figure, en-IN      "₹ 85,000"
+ * `full: true` always prints the full en-IN figure ("₹ 12,40,000").
+ * `symbol: false` drops the "₹ " prefix (chart ticks / labels).
  */
-function fmtINR(rupees, lakhDigits = 1) {
+function fmtINR(rupees, { lakhDigits = 1, crDigits = 2, full = false, symbol = true } = {}) {
   if (rupees == null || rupees === "") return "—";
-  const n = Number(rupees);
-  if (!Number.isFinite(n)) return "—";
-  const sign = n < 0 ? "-" : "";
-  const abs = Math.abs(n);
-  const digits = lakhDigits === 2 ? 2 : 1;
-  const lakhRounded = Number((abs / RUPEE_PER_LAKH).toFixed(digits));
-  if (abs >= RUPEE_PER_CRORE || (abs >= RUPEE_PER_LAKH && lakhRounded >= 100)) {
-    const cr = abs / RUPEE_PER_CRORE;
-    return `${sign}₹ ${cr.toLocaleString("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })} Cr`;
+  const r = Number(rupees);
+  if (!Number.isFinite(r)) return "—";
+  const sign = r < 0 ? "-" : "";
+  const a = Math.abs(r);
+  const pre = `${sign}${symbol ? "₹ " : ""}`;
+  const grp = (n, d) =>
+    n.toLocaleString("en-IN", { minimumFractionDigits: d, maximumFractionDigits: d });
+  if (full || a < RUPEES_PER_LAKH) return `${pre}${grp(Math.round(a), 0)}`;
+  const lakhs = a / RUPEES_PER_LAKH;
+  // 99.96 L would round to "100.0 L" → show as crores instead.
+  if (a >= RUPEES_PER_CRORE || Number(lakhs.toFixed(lakhDigits)) >= 100) {
+    return `${pre}${grp(a / RUPEES_PER_CRORE, crDigits)} Cr`;
   }
-  if (abs >= RUPEE_PER_LAKH) {
-    const lk = abs / RUPEE_PER_LAKH;
-    return `${sign}₹ ${lk.toLocaleString("en-IN", {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits,
-    })} L`;
-  }
-  return `${sign}₹ ${Math.round(abs).toLocaleString("en-IN")}`;
+  return `${pre}${grp(lakhs, lakhDigits)} L`;
 }
 
-/** `lakh` is already expressed in ₹ lakh, the unit stored in the JSON. */
-function fmtLakhINR(lakh, lakhDigits = 1) {
+/** Same rule for values stored in lakh (the JSON's *Lakh fields). */
+function fmtLakhINR(lakh, opts) {
   if (lakh == null || lakh === "") return "—";
   const n = Number(lakh);
   if (!Number.isFinite(n)) return "—";
-  return fmtINR(Math.round(n * RUPEE_PER_LAKH), lakhDigits);
-}
-
-/** One unit for a whole chart, chosen from its largest amount in ₹ lakh. */
-function chartMoneyUnit(maxLakh) {
-  const abs = Math.abs(Number(maxLakh));
-  if (!(abs > 0)) return "L";
-  if (abs >= 100) return "Cr";
-  if (abs >= 1) return "L";
-  return "INR";
-}
-
-function moneyUnitPhrase(unit) {
-  if (unit === "Cr") return "₹ crore";
-  if (unit === "INR") return "₹";
-  return "₹ lakh";
-}
-
-function formatChartNumber(lakhValue, unit, callout) {
-  const v = Number(lakhValue);
-  if (!Number.isFinite(v)) return "";
-  if (unit === "Cr") {
-    return (v / 100).toLocaleString("en-IN", {
-      minimumFractionDigits: callout ? 2 : 0,
-      maximumFractionDigits: 2,
-    });
-  }
-  if (unit === "INR") {
-    return Math.round(v * RUPEE_PER_LAKH).toLocaleString("en-IN");
-  }
-  return v.toLocaleString("en-IN", {
-    minimumFractionDigits: callout ? 1 : 0,
-    maximumFractionDigits: 1,
-  });
-}
-
-function trendPlottedMax(tab) {
-  const vals = (tab.monthlyTrend || []).map((m) => Number(m.amountLakh));
-  vals.push(Number(tab.prevSamePeriod?.amountLakh), Number(tab.mtd?.avgMonthlyLakh));
-  const nums = vals.filter((n) => Number.isFinite(n));
-  return nums.length ? Math.max(...nums) : 0;
-}
-
-function seriesMoneyPhrase(amounts) {
-  const nums = (amounts || []).filter((n) => n != null && Number.isFinite(Number(n))).map(Number);
-  const max = nums.length ? Math.max(...nums) : 0;
-  return moneyUnitPhrase(chartMoneyUnit(max));
+  return fmtINR(n * RUPEES_PER_LAKH, opts);
 }
 
 const fmt = {
@@ -108,11 +58,13 @@ const fmt = {
       maximumFractionDigits: digits,
     });
   },
+  /** Amount given in lakh → ₹ Cr / L / full figure via fmtINR (1-decimal lakh). */
   lakh(n) {
-    return fmtLakhINR(n, 1);
+    return fmtLakhINR(n);
   },
+  /** Full rupee figure, Indian grouping (AOV floors, avg order value). */
   inr(n) {
-    return fmtINR(n, 1);
+    return fmtINR(n, { full: true });
   },
   tonnes(n) {
     if (n == null || n === "") return "—";
@@ -131,9 +83,9 @@ const fmt = {
     const arrow = n >= 0 ? "▲" : "▼";
     return `<span class="${cls}">${arrow} ${fmt.num(Math.abs(n), 1)}%</span>`;
   },
-  /** Average invoice value keeps 2 decimals while it stays in the lakh band. */
+  /** Average invoice value keeps 2-decimal lakh (crores are always 2 dp). */
   lakh2(n) {
-    return fmtLakhINR(n, 2);
+    return fmtLakhINR(n, { lakhDigits: 2 });
   },
   /** Width / GSM / micron: numbers stay formatted; BizSol ranges stay readable strings. */
   dim(value, suffix = "") {
@@ -606,8 +558,7 @@ function homeTrendHint(home, tab) {
   const avgA = avg.length ? isoParts(`${avg[0]}-01`) : null;
   const avgB = avg.length ? isoParts(`${avg[avg.length - 1]}-01`) : null;
   const avgBit = avgA && avgB ? `${avgA.mon}–${avgB.mon}` : "6 mo";
-  const unitPhrase = moneyUnitPhrase(chartMoneyUnit(trendPlottedMax(tab)));
-  return `${unitPhrase}, GST-incl. · ${partialBit} (hollow dot) · ◆ same days of ${prev ? prev.mon : "last month"} · dashed = 6-mo avg (${avgBit}), as on category pages`;
+  return `₹ (L = lakh, Cr = crore), GST-incl. · ${partialBit} (hollow dot) · ◆ same days of ${prev ? prev.mon : "last month"} · dashed = 6-mo avg (${avgBit}), as on category pages`;
 }
 
 function homeSourceLine(home) {
@@ -620,9 +571,9 @@ function homeCategoryNote(home) {
   const ex = home.notes?.excludedOwnCompany;
   const mon = isoParts(home.periods?.mtd?.[0]);
   const excluded =
-    ex && ex.mtdLakh != null && mon ? `: ${mon.mon} MTD ${fmtLakhINR(ex.mtdLakh, 2)} excluded` : "";
+    ex && ex.mtdLakh != null && mon ? `: ${mon.mon} MTD ${fmt.lakh2(ex.mtdLakh)} excluded` : "";
   const who = buyers ? ` (${buyers})` : "";
-  return `Amounts in ₹ crore or ₹ lakh. Tabs sum to All. All tabs exclude own group companies${who}${excluded}. PFW included (Labels).`;
+  return `L = lakh, Cr = crore. Tabs sum to All. All tabs exclude own group companies${who}${excluded}. PFW included (Labels).`;
 }
 
 function homeTabsHtml(home, cur) {
@@ -678,8 +629,17 @@ function niceChartMax(values) {
   return { max, step };
 }
 
-function axisTickLabel(v, unit) {
-  return formatChartNumber(v, unit, false);
+/**
+ * Y-axis tick in lakh → one unit per chart: Cr for every tick when the axis max ≥ 1 Cr
+ * (100 L), else L. Trailing zeros trimmed ("2 Cr", "0.5 Cr", "20 L"); 0 stays "0".
+ */
+function axisTickLabel(v, maxLakh) {
+  const n = Number(v);
+  if (!(Math.abs(n) > 1e-9)) return "0";
+  const useCr = Number(maxLakh) * RUPEES_PER_LAKH >= RUPEES_PER_CRORE;
+  const val = useCr ? (n * RUPEES_PER_LAKH) / RUPEES_PER_CRORE : n;
+  const txt = (Math.round(val * 100) / 100).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+  return `${txt} ${useCr ? "Cr" : "L"}`;
 }
 
 /** Inline SVG line chart: 13 months, hollow partial month, dashed 6-mo avg, ◆ same-days marker. */
@@ -696,7 +656,6 @@ function trendLineSvg(tab) {
   const prev = Number(tab.prevSamePeriod?.amountLakh);
   const avg = Number(tab.mtd?.avgMonthlyLakh);
   const { max, step } = niceChartMax(s.map((m) => m.amountLakh).concat([prev, avg]));
-  const unit = chartMoneyUnit(trendPlottedMax(tab));
   const X = (i) => pl + (i * (W - pl - pr)) / Math.max(1, n - 1);
   const Y = (v) => pt + (Hh - pt - pb) * (1 - Number(v) / max);
   const c = HOME_TAB_COLOR[tab.id] || "#1c1915";
@@ -708,7 +667,7 @@ function trendLineSvg(tab) {
     const v = i * step;
     const y = Y(v);
     g += `<line x1="${pl}" x2="${W - pr}" y1="${y}" y2="${y}" stroke="#e6ddd0"/>`;
-    g += `<text x="${pl - 6}" y="${y + 4}" font-size="10" text-anchor="end" fill="#6b645a">${axisTickLabel(v, unit)}</text>`;
+    g += `<text x="${pl - 6}" y="${y + 4}" font-size="10" text-anchor="end" fill="#6b645a">${axisTickLabel(v, max)}</text>`;
   }
   s.forEach((m, i) => {
     const label = String(m.label || "");
@@ -739,7 +698,7 @@ function trendLineSvg(tab) {
   });
   if (last && last.amountLakh != null) {
     const labelY = Math.max(12, Y(last.amountLakh) - 9);
-    g += `<text x="${X(n - 1) - 8}" y="${labelY}" font-size="11" font-weight="700" text-anchor="end" fill="${c}">${formatChartNumber(last.amountLakh, unit, true)}</text>`;
+    g += `<text x="${X(n - 1) - 8}" y="${labelY}" font-size="11" font-weight="700" text-anchor="end" fill="${c}">${escapeHtml(fmt.lakh(last.amountLakh))}</text>`;
   }
   if (Number.isFinite(prev)) {
     const py = Y(prev);
@@ -976,10 +935,9 @@ function renderLabels(data) {
     (data.active || []).map((row) => String(row.customer || "").toLowerCase())
   );
   const trendHasPartial = trend.some((t) => t.partial || /mtd/i.test(t.label || ""));
-  const billing = seriesMoneyPhrase(trend.map(trendAmount));
   const trendHint = trendHasPartial
-    ? `Billing in ${billing}. The latest bar is month-to-date.`
-    : `Billing in ${billing}. Bars are complete months; month-to-date is the MTD figure above.`;
+    ? "Billing in ₹ (L = lakh, Cr = crore). The latest bar is month-to-date."
+    : "Billing in ₹ (L = lakh, Cr = crore). Bars are complete months; month-to-date is the MTD figure above.";
 
   app.replaceChildren(el(`
     ${pageChrome("Labels", data.title || "Labels management report", data.asOf)}
@@ -1262,14 +1220,14 @@ function renderGumming(data) {
     <section class="panel">
       <div class="panel-head">
         <h2>Monthly trend</h2>
-        <p class="hint">Billing in ${escapeHtml(seriesMoneyPhrase(trend.map(trendAmount)))}.</p>
+        <p class="hint">Billing in ₹ (L = lakh, Cr = crore).</p>
       </div>
       <div class="bars">${bars}</div>
     </section>
     <section class="panel">
       <div class="panel-head">
         <h2>Planning — top 10</h2>
-        <p class="hint">Top 10 by sales over the past 3 months (Jun–Aug 2026); AOV ≥ ₹ 1.0 L pool; customers & products lists capped at top 5; Sheet Form category</p>
+        <p class="hint">Top 10 by sales over the past 3 months (Jun–Aug 2026); AOV ≥ ${fmt.inr(ai.aovFloor || 100000)} pool; customers & products lists capped at top 5; Sheet Form category</p>
       </div>
       ${table(
         [
