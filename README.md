@@ -1,17 +1,34 @@
 # SAL Papers / Dubble — weekly ops dashboard
 
 Static briefing site for **SAL Papers / Dubble** (B2B label stock).  
-Home plus two live reports:
+Home is a sales overview. Three reports sit under it:
 
 | Route | Report | Data file |
 | --- | --- | --- |
-| `#home` | Overview cards + last updated | `data/reports.json` |
+| `#home` | Sales overview (tabs, KPIs, trend) plus report cards | `data/home.json` (cards also use `data/reports.json`) |
 | `#label` | Labels management report | `data/labels.json` |
 | `#rm` | Inventory management / RM stock | `data/inventory.json` |
+| `#gumming` | Gumming sheets management report | `data/gumming.json` |
 
-Gumming sheets is registered as **upcoming** in `data/reports.json` so the next report can land without a layout rewrite.
+If `data/home.json` fails to load, `#home` falls back to the report cards only.
 
-The first commit ships **realistic sample numbers**. They are marked `sample: true` and bannered in the UI. Do not use them for purchasing or planning.
+Files with `"sample": true` are bannered in the UI. Do not use sample figures for purchasing or planning.
+
+## Sales figures — own group companies
+
+Every sales figure on `#home`, `#label`, and `#gumming` **excludes only** billing to these own group companies:
+
+- M/S SAL PAPERS PVT LTD
+- M/S SHREE ARIHANT LAMINATES
+
+PFW LABEL SOLUTIONS is included (it is not an own group company). The home page footnotes repeat the excluded amount. Match is case- and punctuation-insensitive; a leading `M/S` is ignored.
+
+## Production planning — past 3 months
+
+Labels and gumming production planning both use the **past 3 complete months** only (currently Jun–Aug 2026).
+
+- `#label` has no 3-month / 6-month dropdown. The table is the top 6 by sales over those 3 months, plus fixed `+1` / `+2` / `+3` rows. Stock / requirement uses the 3-month averages. `planningWindows` contains only `"3mo"`.
+- `#gumming` ranks the top 10 on the same 3-month window. The header monthly trend and the 6-month average (Mar–Aug) are unchanged.
 
 ## Public URL
 
@@ -22,6 +39,7 @@ After GitHub Pages is enabled (see below):
 - Home: https://apoorv9496.github.io/sal-dashboard/#home  
 - Labels: https://apoorv9496.github.io/sal-dashboard/#label  
 - Inventory / RM: https://apoorv9496.github.io/sal-dashboard/#rm  
+- Gumming sheets: https://apoorv9496.github.io/sal-dashboard/#gumming  
 
 No Node runtime on Pages. The site is HTML + CSS + vanilla JS that `fetch`es the JSON files.
 
@@ -50,17 +68,18 @@ Then open http://localhost:8080/
 
 Weekly refresh is a **data commit**, not an HTML edit.
 
-1. Replace `data/labels.json` and `data/inventory.json` with that week’s extract (keep the same keys).
-2. Set `asOf` on each file to the Monday date (`YYYY-MM-DD`).
-3. Set `lastUpdated` in `data/reports.json` to the same Monday.
-4. Set `"sample": false` once real figures replace the placeholders.
-5. Commit and push to `main`. Pages republishes in a minute or two.
+1. Replace `data/labels.json`, `data/gumming.json`, `data/inventory.json`, and `data/home.json` with that week’s extract (keep the same keys). Rebuild `data/home.json` from Sales Analysis (Total Bill Amount, GST-inclusive); do not total it by hand in the page.
+2. Keep the own-company exclusion (only M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES) and keep production planning on the past 3 complete months.
+3. Set `asOf` on each file to the Monday date (`YYYY-MM-DD`).
+4. Set `lastUpdated` in `data/reports.json` to the same Monday.
+5. Set `"sample": false` once real figures replace the placeholders.
+6. Commit and push to `main`. Pages republishes in a minute or two.
 
-To add a report later (e.g. gumming):
+To add a report later:
 
-1. Add `data/gumming.json`.
-2. In `data/reports.json`, set the `gumming` entry `status` to `"active"`.
-3. Add a renderer in `js/app.js` on the `renderers` map (`gumming: renderGumming`).
+1. Add `data/<id>.json`.
+2. In `data/reports.json`, set that entry’s `status` to `"active"`.
+3. Add a renderer in `js/app.js` on the `renderers` map.
 
 ## JSON schemas
 
@@ -88,7 +107,63 @@ Registry + home-page last-updated. Upcoming rows appear as disabled cards.
 }
 ```
 
-`status` is `active` or `upcoming`.
+`status` is `active` or `upcoming`. Optional `homeDataFile` overrides the default `data/home.json` path.
+
+### `data/home.json`
+
+Sales overview for `#home`. Amounts are ₹ lakh, GST-inclusive Total Bill Amount. The page does not recompute them.
+
+```json
+{
+  "asOf": "2026-09-28",
+  "sample": false,
+  "title": "Sales overview",
+  "source": "Sales Analysis · ERP_Sales_Data · Total Bill Amount (col 81, GST-inclusive)",
+  "lastInvoiceDate": "2026-09-26",
+  "definition": {
+    "excludedBuyers": ["M/S SAL PAPERS PVT LTD", "M/S SHREE ARIHANT LAMINATES"],
+    "appliesTo": "every tab and metric"
+  },
+  "periods": {
+    "mtd": ["2026-09-01", "2026-09-26"],
+    "prevSamePeriod": ["2026-08-01", "2026-08-26"],
+    "prevFullMonth": ["2026-08-01", "2026-08-31"],
+    "lastYearSamePeriod": ["2025-09-01", "2025-09-26"],
+    "avgMonths": ["2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"],
+    "activeCutoffExclusive": "2026-08-14"
+  },
+  "defaultTab": "all",
+  "tabs": [
+    {
+      "id": "all",
+      "label": "All",
+      "onDashboard": true,
+      "shareOfMtdPct": 100,
+      "monthlyTrend": [{ "month": "2026-09", "label": "Sep'26", "amountLakh": 529.69, "partial": true }],
+      "mtd": { "amountLakh": 529.69, "invoices": 134, "customers": 76, "pctOfAvg": 89.4, "avgMonthlyLakh": 592.81 },
+      "prevSamePeriod": { "amountLakh": 358.19, "invoices": 111, "customers": 69, "changePct": 47.9 },
+      "prevFullMonth": { "amountLakh": 482.9, "mtdPctOfPrevFull": 109.7 },
+      "lastYearSamePeriod": { "amountLakh": 480.01, "changePct": 10.3 },
+      "customers45d": { "activeBilled": 97 },
+      "avgInvoiceValue": { "mtdLakh": 3.95, "prevSamePeriodLakh": 3.23 },
+      "topCustomersMtd": [{ "customer": "EXAMPLE", "amountLakh": 63.2, "sharePct": 11.9, "prevSamePeriodLakh": 50.4 }],
+      "concentration": { "top5SharePctMtd": 37.9, "top5SharePct12m": 38.2, "top10SharePct12m": 55.4, "customers12m": 232 },
+      "footnotes": ["Excludes own group companies…"]
+    }
+  ],
+  "notes": { "excludedOwnCompany": { "mtdLakh": 65.78 } }
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `defaultTab` | Tab selected on a fresh visit. The choice is remembered in `sessionStorage` for the rest of the session. |
+| `tabs[]` | All, Labels, Gumming sheets, Roll form, Other / misc. `onDashboard: false` shows a “new” chip (no report page yet). |
+| `monthlyTrend[].partial` | Current month. Drawn as a hollow dot on a dotted segment. |
+| `mtd.pctOfAvg` / `avgMonthlyLakh` | MTD as a percent of the average of `periods.avgMonths` (the 6 complete months before this month, Mar–Aug). |
+| `prevSamePeriod` | Same day-of-month range last month. The chart marks it with a ◆ on the current month’s x position. |
+| `customers45d` | Customers billed after `activeCutoffExclusive`. No AOV floor, so this count differs from the label and gumming pools. |
+| `footnotes` | Shown under the chart, including the own-company exclusion. |
 
 ### `data/labels.json`
 
@@ -161,7 +236,7 @@ Matches the weekly **labels management** report. Amounts are ₹ lakh.
 | `monthlyTrend[].amountLakh` | Billing that month in ₹ lakh. `amount` is also accepted. |
 | `mtd.pctOfAvg` | MTD billing as % of `avgMonthlyLakh`. |
 | `activeInactive.pool` | Customers with AOV ≥ `aovFloor` (₹50,000). |
-| `planning` | Top 5 movers plus optional `+1` (`supplementary: true`) — sample uses **DT Label Roll (Y) 4/6**. |
+| `planning` / `planningWindows["3mo"]` | Top 6 by sales over the past 3 months, plus fixed `+1` / `+2` / `+3`. There is no 6-month window. |
 | `avgBoxesPerMo` | `null` renders as —. Used for 50×30 in the sample. |
 | `customersA` / `customersB` | Arrays of customer **names** (two columns on the weekly sheet). |
 | `lost` | AOV ≥ ₹50K and no dispatch in 60+ days. |
@@ -218,9 +293,11 @@ Matches the weekly **inventory management** report (Dashboard tab 4 / RM mail). 
 index.html                 Home + hash-routed reports
 404.html                   Pointers back to hash routes
 css/styles.css
-js/app.js                  Router, tables, renderers
+js/app.js                  Router, tables, inline SVG trend, renderers
 data/reports.json          Manifest / extension registry
+data/home.json             Sales overview
 data/labels.json
+data/gumming.json
 data/inventory.json
 .github/workflows/deploy-pages.yml
 ```
