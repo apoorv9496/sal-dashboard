@@ -7,7 +7,7 @@
       {
         "month": "2026-03",
         "label": "Mar",
-        "amountLakh": 609.5
+        "amountLakh": 609.0
       },
       {
         "month": "2026-04",
@@ -42,8 +42,8 @@
     },
     "activeInactive": {
       "active": 30,
-      "inactive": 46,
-      "pool": 76,
+      "inactive": 45,
+      "pool": 75,
       "aovFloor": 100000,
       "note": "Pool = customers with AOV ≥ ₹100,000. Active = dispatch in last 45 days. Inactive = no dispatch in 45+ days. AOV and dispatch-day averages use the past 2 months."
     }
@@ -51,124 +51,9 @@
   "planning": [
     {
       "rank": 1,
-      "item": "CALS SHEET",
-      "size": "18×23 inch",
-      "avgQtyPerMo": 8166,
-      "avgBoxesPerMo": null,
-      "customersA": [
-        "RELEASE TECH PAPER CONVERSION PVT LTD",
-        "SHREE CHAMUNDA MULTIMAX",
-        "S L TRADING COMPANY",
-        "PAPER COLLECTION",
-        "SATI PAPER TRADER"
-      ],
-      "customersB": [
-        "M/S SHRI GANGA ENTERPRISES",
-        "SWASTIK ASSOCIATE"
-      ],
-      "customersAMeta": [
-        {
-          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
-          "active": true
-        },
-        {
-          "name": "SHREE CHAMUNDA MULTIMAX",
-          "active": true
-        },
-        {
-          "name": "S L TRADING COMPANY",
-          "active": true
-        },
-        {
-          "name": "PAPER COLLECTION",
-          "active": false
-        },
-        {
-          "name": "SATI PAPER TRADER",
-          "active": true
-        }
-      ],
-      "customersBMeta": [
-        {
-          "name": "M/S SHRI GANGA ENTERPRISES",
-          "active": false
-        },
-        {
-          "name": "SWASTIK ASSOCIATE",
-          "active": false
-        }
-      ]
-    },
-    {
-      "rank": 2,
-      "item": "CALS SHEET",
-      "size": "20×30 inch",
-      "avgQtyPerMo": 4570,
-      "avgBoxesPerMo": null,
-      "customersA": [
-        "RELEASE TECH PAPER CONVERSION PVT LTD",
-        "SHREE CHAMUNDA MULTIMAX",
-        "A B PAPER CONVERSION PVT. LTD.",
-        "S L TRADING COMPANY",
-        "PAPER COLLECTION"
-      ],
-      "customersB": [
-        "DURGA NATH PRESS",
-        "MEHTA PRINT ARTS PVT LTD",
-        "SHRI LUXMI PRINT N PACK",
-        "M/S SHRI GANGA ENTERPRISES",
-        "M/S BANSAL PACKAGING"
-      ],
-      "customersAMeta": [
-        {
-          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
-          "active": true
-        },
-        {
-          "name": "SHREE CHAMUNDA MULTIMAX",
-          "active": true
-        },
-        {
-          "name": "A B PAPER CONVERSION PVT. LTD.",
-          "active": false
-        },
-        {
-          "name": "S L TRADING COMPANY",
-          "active": true
-        },
-        {
-          "name": "PAPER COLLECTION",
-          "active": false
-        }
-      ],
-      "customersBMeta": [
-        {
-          "name": "DURGA NATH PRESS",
-          "active": false
-        },
-        {
-          "name": "MEHTA PRINT ARTS PVT LTD",
-          "active": false
-        },
-        {
-          "name": "SHRI LUXMI PRINT N PACK",
-          "active": false
-        },
-        {
-          "name": "M/S SHRI GANGA ENTERPRISES",
-          "active": false
-        },
-        {
-          "name": "M/S BANSAL PACKAGING",
-          "active": false
-        }
-      ]
-    },
-    {
-      "rank": 3,
       "item": "DGL CALS SHEET",
       "size": "12×18 inch",
-      "avgQtyPerMo": 5615,
+      "avgQtyPerMo": 6799,
       "avgBoxesPerMo": null,
       "customersA": [
         "RELEASE TECH PAPER CONVERSION PVT LTD",
@@ -179,10 +64,10 @@
       ],
       "customersB": [
         "BASANT",
-        "M/S GODHA STATIONERY MARTS",
         "PROMISCA LIFECARE LLP",
         "DOLPHIN IMPEX",
-        "ROBOTECH TECHNOLOGIES PRIVATE LIMITED"
+        "SAF PRINTINGS",
+        "ASIAN DIGITAL CENTRE"
       ],
       "customersAMeta": [
         {
@@ -212,10 +97,6 @@
           "active": false
         },
         {
-          "name": "M/S GODHA STATIONERY MARTS",
-          "active": false
-        },
-        {
           "name": "PROMISCA LIFECARE LLP",
           "active": false
         },
@@ -224,16 +105,65 @@
           "active": false
         },
         {
-          "name": "ROBOTECH TECHNOLOGIES PRIVATE LIMITED",
+          "name": "SAF PRINTINGS",
+          "active": false
+        },
+        {
+          "name": "ASIAN DIGITAL CENTRE",
           "active": false
         }
       ]
     },
     {
-      "rank": 4,
+      "rank": 2,
+      "item": "CALS SHEET",
+      "size": "18×23 inch",
+      "avgQtyPerMo": 7634,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "SHREE CHAMUNDA MULTIMAX",
+        "S L TRADING COMPANY",
+        "PAPER COLLECTION",
+        "SATI PAPER TRADER"
+      ],
+      "customersB": [
+        "M/S SHRI GANGA ENTERPRISES"
+      ],
+      "customersAMeta": [
+        {
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
+        },
+        {
+          "name": "SHREE CHAMUNDA MULTIMAX",
+          "active": true
+        },
+        {
+          "name": "S L TRADING COMPANY",
+          "active": true
+        },
+        {
+          "name": "PAPER COLLECTION",
+          "active": false
+        },
+        {
+          "name": "SATI PAPER TRADER",
+          "active": true
+        }
+      ],
+      "customersBMeta": [
+        {
+          "name": "M/S SHRI GANGA ENTERPRISES",
+          "active": false
+        }
+      ]
+    },
+    {
+      "rank": 3,
       "item": "DGL CALS SHEET",
       "size": "13×19 inch",
-      "avgQtyPerMo": 3076,
+      "avgQtyPerMo": 4104,
       "avgBoxesPerMo": null,
       "customersA": [
         "RELEASE TECH PAPER CONVERSION PVT LTD",
@@ -244,10 +174,9 @@
       ],
       "customersB": [
         "SELEEKA PRINTERS",
-        "BALI PRINTING ZONE",
-        "K M IMPEX",
         "PROMISCA LIFECARE LLP",
-        "OM SAI PAPER MART"
+        "BALI PRINTING ZONE",
+        "ASIAN DIGITAL CENTRE"
       ],
       "customersAMeta": [
         {
@@ -277,37 +206,37 @@
           "active": false
         },
         {
-          "name": "BALI PRINTING ZONE",
-          "active": false
-        },
-        {
-          "name": "K M IMPEX",
-          "active": false
-        },
-        {
           "name": "PROMISCA LIFECARE LLP",
           "active": false
         },
         {
-          "name": "OM SAI PAPER MART",
+          "name": "BALI PRINTING ZONE",
+          "active": false
+        },
+        {
+          "name": "ASIAN DIGITAL CENTRE",
           "active": false
         }
       ]
     },
     {
-      "rank": 5,
+      "rank": 4,
       "item": "CALS SHEET",
-      "size": "18×25 inch",
-      "avgQtyPerMo": 2744,
+      "size": "20×30 inch",
+      "avgQtyPerMo": 3411,
       "avgBoxesPerMo": null,
       "customersA": [
         "RELEASE TECH PAPER CONVERSION PVT LTD",
         "SHREE CHAMUNDA MULTIMAX",
         "S L TRADING COMPANY",
         "PAPER COLLECTION",
-        "PAPER POINT"
+        "SATI PAPER TRADER"
       ],
-      "customersB": [],
+      "customersB": [
+        "SHRI LUXMI PRINT N PACK",
+        "M/S SHRI GANGA ENTERPRISES",
+        "M/S BANSAL PACKAGING"
+      ],
       "customersAMeta": [
         {
           "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
@@ -326,17 +255,30 @@
           "active": false
         },
         {
-          "name": "PAPER POINT",
+          "name": "SATI PAPER TRADER",
           "active": true
         }
       ],
-      "customersBMeta": []
+      "customersBMeta": [
+        {
+          "name": "SHRI LUXMI PRINT N PACK",
+          "active": false
+        },
+        {
+          "name": "M/S SHRI GANGA ENTERPRISES",
+          "active": false
+        },
+        {
+          "name": "M/S BANSAL PACKAGING",
+          "active": false
+        }
+      ]
     },
     {
-      "rank": 6,
+      "rank": 5,
       "item": "7128006 NJ MPL 01P 210X288 WS",
       "size": "210×288 MM",
-      "avgQtyPerMo": 9800,
+      "avgQtyPerMo": 10417,
       "avgBoxesPerMo": null,
       "customersA": [
         "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
@@ -356,23 +298,19 @@
       "customersBMeta": []
     },
     {
-      "rank": 7,
+      "rank": 6,
       "item": "CALS SHEET",
-      "size": "12×18 inch",
-      "avgQtyPerMo": 2397,
+      "size": "18×25 inch",
+      "avgQtyPerMo": 2682,
       "avgBoxesPerMo": null,
       "customersA": [
         "RELEASE TECH PAPER CONVERSION PVT LTD",
         "SHREE CHAMUNDA MULTIMAX",
         "S L TRADING COMPANY",
         "PAPER COLLECTION",
-        "SATI PAPER TRADER"
+        "PAPER POINT"
       ],
-      "customersB": [
-        "M/S GODHA STATIONERY MARTS",
-        "TULSHI GRAPHICS",
-        "PROMISCA LIFECARE LLP"
-      ],
+      "customersB": [],
       "customersAMeta": [
         {
           "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
@@ -391,87 +329,66 @@
           "active": false
         },
         {
-          "name": "SATI PAPER TRADER",
+          "name": "PAPER POINT",
           "active": true
         }
       ],
-      "customersBMeta": [
-        {
-          "name": "M/S GODHA STATIONERY MARTS",
-          "active": false
-        },
-        {
-          "name": "TULSHI GRAPHICS",
-          "active": false
-        },
-        {
-          "name": "PROMISCA LIFECARE LLP",
-          "active": false
-        }
-      ]
+      "customersBMeta": []
     },
     {
-      "rank": 8,
-      "item": "PAPER",
-      "size": "—",
-      "avgQtyPerMo": 148,
+      "rank": 7,
+      "item": "BOPP SHEET",
+      "size": "20×30 inch",
+      "avgQtyPerMo": 1001,
       "avgBoxesPerMo": null,
       "customersA": [
-        "M/S SHREE ARIHANT LAMINATES",
-        "VARUN MEDIMPEX INC",
+        "RELEASE TECH PAPER CONVERSION PVT LTD",
+        "S L TRADING COMPANY",
         "PAPER POINT",
-        "MESBOR INTERNATIONAL F.Z.E",
-        "SATYASHILA PUBLICATION PVT LTD"
+        "MULESH PRINTERS HOUSE",
+        "MAHALAXMI PAPER AGENCY"
       ],
-      "customersB": [
-        "MLJ INDUSTRIES LIMITED"
-      ],
+      "customersB": [],
       "customersAMeta": [
         {
-          "name": "M/S SHREE ARIHANT LAMINATES",
-          "active": false
+          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "active": true
         },
         {
-          "name": "VARUN MEDIMPEX INC",
-          "active": false
+          "name": "S L TRADING COMPANY",
+          "active": true
         },
         {
           "name": "PAPER POINT",
           "active": true
         },
         {
-          "name": "MESBOR INTERNATIONAL F.Z.E",
+          "name": "MULESH PRINTERS HOUSE",
           "active": true
         },
         {
-          "name": "SATYASHILA PUBLICATION PVT LTD",
-          "active": true
-        }
-      ],
-      "customersBMeta": [
-        {
-          "name": "MLJ INDUSTRIES LIMITED",
+          "name": "MAHALAXMI PAPER AGENCY",
           "active": false
         }
-      ]
+      ],
+      "customersBMeta": []
     },
     {
-      "rank": 9,
+      "rank": 8,
       "item": "DGL PET SHEET",
       "size": "12×18 inch",
-      "avgQtyPerMo": 1438,
+      "avgQtyPerMo": 1651,
       "avgBoxesPerMo": null,
       "customersA": [
         "RELEASE TECH PAPER CONVERSION PVT LTD",
         "SHREE CHAMUNDA MULTIMAX",
         "SATI PAPER TRADER",
-        "BALAJEESTICKER LLP",
-        "PAPER POINT"
+        "PAPER POINT",
+        "PATNA PAPER CO."
       ],
       "customersB": [
         "SPICK RITE PRINTERS",
-        "NAVEEN TRADING CO.",
-        "NEW KALANGAN TROPHIES"
+        "NAVEEN TRADING CO."
       ],
       "customersAMeta": [
         {
@@ -487,11 +404,11 @@
           "active": true
         },
         {
-          "name": "BALAJEESTICKER LLP",
-          "active": false
+          "name": "PAPER POINT",
+          "active": true
         },
         {
-          "name": "PAPER POINT",
+          "name": "PATNA PAPER CO.",
           "active": true
         }
       ],
@@ -503,57 +420,59 @@
         {
           "name": "NAVEEN TRADING CO.",
           "active": false
-        },
-        {
-          "name": "NEW KALANGAN TROPHIES",
-          "active": false
         }
       ]
     },
     {
-      "rank": 10,
-      "item": "BOPP SHEET",
-      "size": "20×30 inch",
-      "avgQtyPerMo": 776,
+      "rank": 9,
+      "item": "PAPER",
+      "size": "—",
+      "avgQtyPerMo": 229,
       "avgBoxesPerMo": null,
       "customersA": [
-        "RELEASE TECH PAPER CONVERSION PVT LTD",
-        "S L TRADING COMPANY",
-        "PAPER POINT",
-        "DEEPAK SALES CORPN.",
-        "MULESH PRINTERS HOUSE"
+        "VARUN MEDIMPEX INC",
+        "MESBOR INTERNATIONAL F.Z.E",
+        "SATYASHILA PUBLICATION PVT LTD"
       ],
-      "customersB": [
-        "CIRRUS GRAPHICS PRIVATE LIMITED"
-      ],
+      "customersB": [],
       "customersAMeta": [
         {
-          "name": "RELEASE TECH PAPER CONVERSION PVT LTD",
+          "name": "VARUN MEDIMPEX INC",
+          "active": false
+        },
+        {
+          "name": "MESBOR INTERNATIONAL F.Z.E",
           "active": true
         },
         {
-          "name": "S L TRADING COMPANY",
-          "active": true
-        },
-        {
-          "name": "PAPER POINT",
-          "active": true
-        },
-        {
-          "name": "DEEPAK SALES CORPN.",
-          "active": true
-        },
-        {
-          "name": "MULESH PRINTERS HOUSE",
+          "name": "SATYASHILA PUBLICATION PVT LTD",
           "active": true
         }
       ],
-      "customersBMeta": [
+      "customersBMeta": []
+    },
+    {
+      "rank": 10,
+      "item": "7128540 PLG 220 GSM 305X457",
+      "size": "305×457 MM",
+      "avgQtyPerMo": 2442,
+      "avgBoxesPerMo": null,
+      "customersA": [
+        "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
+        "POLYPLEX DIGIPRINT PRIVATE LIMITED"
+      ],
+      "customersB": [],
+      "customersAMeta": [
         {
-          "name": "CIRRUS GRAPHICS PRIVATE LIMITED",
+          "name": "TECHNOVA PRINTRITE PRODUCTS PRIVATE LIMITED",
           "active": false
+        },
+        {
+          "name": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
+          "active": true
         }
-      ]
+      ],
+      "customersBMeta": []
     }
   ],
   "lost": [
@@ -578,13 +497,6 @@
       "products": [
         "[CALS SHEET 18×23 inch]",
         "[CALS SHEET 20×30 inch]"
-      ]
-    },
-    {
-      "marketingPerson": "APOORV",
-      "customer": "M/S SHREE ARIHANT LAMINATES",
-      "products": [
-        "[PAPER —]"
       ]
     },
     {
