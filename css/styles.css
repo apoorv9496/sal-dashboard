@@ -828,6 +828,13 @@ tr.sel td {
   vertical-align: baseline;
 }
 
+.cat-name { white-space: nowrap; }
+
+.home-split .flag {
+  display: inline-block;
+  margin-top: 2px;
+}
+
 .flag {
   font-size: 10px;
   font-weight: 700;

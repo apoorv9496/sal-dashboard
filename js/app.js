@@ -679,7 +679,7 @@ function homeCategoryTable(home, cur, colMtd, colPrev, colFull) {
         value: (r) => {
           const color = HOME_TAB_COLOR[r.id] || "#1c1915";
           const flag = r.onDashboard === false ? `<span class="flag">not on dashboard</span>` : "";
-          return `<i class="swatch" style="background:${color}" aria-hidden="true"></i>${escapeHtml(r.label)}${flag}`;
+          return `<i class="swatch" style="background:${color}" aria-hidden="true"></i><span class="cat-name">${escapeHtml(r.label)}</span>${flag}`;
         },
       },
       { key: "mtd", label: colMtd, align: "right", value: (r) => fmt.num(r.mtd?.amountLakh, 1) },
