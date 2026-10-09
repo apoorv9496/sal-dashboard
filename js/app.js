@@ -1390,13 +1390,10 @@ function attrBarsHtml(sources) {
 }
 
 function attrMatrixHtml(data, period, mode) {
-  const allowed = ["mtd", "lastMonth", "t12m"];
-  const key = allowed.includes(period.id) ? period.id : "t12m";
-  const block = data.sourceByCategory?.[key];
+  const block = data.sourceByCategory?.[period.id];
   if (!block) return "";
   const cats = block.categories || [];
   const range = sameMonthDayRange(block.range, true);
-  const fallback = key !== period.id;
   const modeLabel = mode === "col" ? "share of the category (column)" : "share of the source (row)";
   const head = `<tr><th>Source</th>${cats
     .map((c) => `<th class="num">${escapeHtml(c.label)}</th>`)
@@ -1419,16 +1416,12 @@ function attrMatrixHtml(data, period, mode) {
     .map((c) => `<td class="num" data-label="${escapeHtml(c.label)}">${fmt.lakh((block.columnTotalsLakh || {})[c.id])}</td>`)
     .join("");
   const foot = `<tr class="attr-total"><td data-label="Source">Total</td>${totalCells}<td class="num" data-label="Total">${fmt.lakh(block.totalLakh)}</td></tr>`;
-  const partial = key === "mtd" ? ` <span class="chip">partial</span>` : "";
-  const note = fallback
-    ? `<p class="hint">This period is not in the category matrix. Showing 12 months${range ? ` (${escapeHtml(range)})` : ""}.</p>`
-    : "";
+  const partial = period.partial ? ` <span class="chip">partial</span>` : "";
   return `<section class="panel">
     <div class="panel-head">
       <div>
         <h2>Source × category</h2>
-        <p class="hint">${escapeHtml(range || key)}${partial} · tint is ${escapeHtml(modeLabel)}</p>
-        ${note}
+        <p class="hint">${escapeHtml(range || period.id)}${partial} · tint is ${escapeHtml(modeLabel)}</p>
       </div>
       <div class="actions" role="group" aria-label="Matrix percent">
         <button type="button" class="attr-toggle" data-attr-matrix="row" aria-pressed="${mode === "row" ? "true" : "false"}">Row %</button>
@@ -1463,7 +1456,7 @@ function renderAttribution(data) {
       ? `Change vs ${escapeHtml(period.compareLabel)}.`
       : escapeHtml(period.compareNote || "");
     app.replaceChildren(el(`
-      ${pageChrome(data.title || "Sales attribution", "Other and Unknown are untagged, so channel shares are indicative.", data.asOf)}
+      ${pageChrome(data.title || "Sales attribution", data.note || "Other and Unknown are untagged, so channel shares are indicative.", data.asOf)}
       ${sampleBanner(data.sample)}
       ${attrControlsHtml(tab, period)}
       <section class="panel" id="attr-panel">
