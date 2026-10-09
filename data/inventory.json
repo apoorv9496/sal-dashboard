@@ -117,17 +117,6 @@
   ],
   "shortage": [
     {
-      "itemName": "DIRECT THERMAL",
-      "type": null,
-      "width": "1001-1030",
-      "micron": null,
-      "gsm": "63g-75g",
-      "currentStockT": 0.35,
-      "avgConsumedT": 25.516,
-      "pendingPoT": 0.0,
-      "note": "Heavy use, almost empty · cover 0.0 mo"
-    },
-    {
       "itemName": "CHROMO C2S",
       "type": null,
       "width": "401-480",
@@ -214,6 +203,17 @@
       "avgConsumedT": 3.703,
       "pendingPoT": 0.0,
       "note": "cover 0.4 mo · need 3.901t to 1.5×"
+    },
+    {
+      "itemName": "DIRECT THERMAL",
+      "type": null,
+      "width": "1001-1030",
+      "micron": null,
+      "gsm": "63g-75g",
+      "currentStockT": 0.35,
+      "avgConsumedT": 2.183,
+      "pendingPoT": 0.0,
+      "note": "Thin cover, no PO · cover 0.2 mo · avg adj. (temp rule to 30 Nov: 6-mo total − 140 t)"
     },
     {
       "itemName": "RBP CCK",
@@ -372,7 +372,7 @@
   "notes": [
     {
       "severity": "urgent",
-      "text": "DIRECT THERMAL 1001-1030 63g-75g — 0.35t vs 25.516t/mo. Heavy use, almost empty · cover 0.0 mo"
+      "text": "CHROMO C2S 401-480 76g-83g — 5.242t vs 13.33t/mo. cover 0.4 mo · need 14.753t to 1.5×"
     },
     {
       "severity": "watch",
@@ -385,6 +385,10 @@
     {
       "severity": "watch",
       "text": "Excess: RBP CCK 401-480 — Idle over 3x: 104.141 t · cover 20 mo · PO 42.008t flag"
+    },
+    {
+      "severity": "info",
+      "text": "Temporary rule until 30 Nov 2026: DIRECT THERMAL 1001-1030 63g-75g avg = (mail avg × 6 − 140 t) ÷ 6, floored at 0 (DT Top Coated not adjusted). Applies to #rm and the #label RM Shortage Report."
     },
     {
       "severity": "info",

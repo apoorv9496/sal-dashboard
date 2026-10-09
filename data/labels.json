@@ -940,10 +940,10 @@
         "micron": null,
         "gsm": "63g-75g",
         "currentStockT": 0.35,
-        "avgConsumedT": 25.516,
+        "avgConsumedT": 2.183,
         "pendingPoT": 0.0,
-        "coverMo": 0.0,
-        "note": "cover 0.0 mo · need 37.924t to 1.5×"
+        "coverMo": 0.2,
+        "note": "cover 0.2 mo · need 2.924t to 1.5× · avg adj. (temp rule to 30 Nov: 6-mo total − 140 t)"
       },
       {
         "family": "Direct Thermal Top coated",
