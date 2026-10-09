@@ -864,6 +864,17 @@ function cardStats(id, data) {
       <div><span class="stat-label">MTD</span><span class="stat-value">${fmt.lakh(data.header?.mtd?.amountLakh)}</span></div>
       <div><span class="stat-label">Active / pool</span><span class="stat-value">${fmt.num(ai.active)} / ${fmt.num(ai.pool)}</span></div>`;
   }
+  if (id === "attribution") {
+    const all = (data.tabs || []).find((t) => t.id === "all") || data.tabs?.[0];
+    const period =
+      (all?.periods || []).find((p) => p.id === "lastMonth") || (all?.periods || [])[0];
+    const share = period?.totals?.knownSourceSharePct;
+    const top = (period?.sources || []).find((s) => s.source !== "other" && s.source !== "unknown");
+    const topTxt = top ? `${escapeHtml(top.label)} ${fmt.lakh(top.amountLakh)}` : "—";
+    return `
+      <div><span class="stat-label">Known source (last month)</span><span class="stat-value">${share == null ? "—" : fmt.pct(share)}</span></div>
+      <div><span class="stat-label">Top channel</span><span class="stat-value">${topTxt}</span></div>`;
+  }
   return `
     <div><span class="stat-label">As of</span><span class="stat-value">${escapeHtml(fmt.date(data.asOf))}</span></div>`;
 }
@@ -1289,10 +1300,201 @@ function renderGumming(data) {
   bindGummingLostIssueSelects();
 }
 
+const ATTR_PERIOD_KEY = "salAttrPeriod";
+const ATTR_COLOR = {
+  indiamart: "#2c4a6e",
+  google: "#3a7d44",
+  social: "#6b4fa0",
+  reference: "#9a4d24",
+  direct: "#1c1915",
+  exhibition: "#8a5a12",
+  other: "#9b9387",
+  unknown: "#c9c2b6",
+};
+
+function attrRead(key, fallback, allowed) {
+  let stored = "";
+  try {
+    stored = sessionStorage.getItem(key) || "";
+  } catch (_) {
+    stored = "";
+  }
+  if (allowed.has(stored)) return stored;
+  if (allowed.has(fallback)) return fallback;
+  const first = allowed.values().next().value;
+  return first || "";
+}
+
+function attrWrite(key, value) {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (_) {
+    /* ignore quota / private mode */
+  }
+}
+
+function attrSwatch(id) {
+  if (id === "unknown") return `<i class="swatch attr-swatch-unknown" aria-hidden="true"></i>`;
+  const color = ATTR_COLOR[id] || "#1c1915";
+  return `<i class="swatch" style="background:${color}" aria-hidden="true"></i>`;
+}
+
+function attrMuted(id) {
+  return id === "other" || id === "unknown" ? " attr-muted" : "";
+}
+
+function attrDelta(src) {
+  if (src?.changePct != null && src.changePct !== "") return fmt.delta(src.changePct);
+  const prevAmt = src?.prev && src.prev.amountLakh != null ? Number(src.prev.amountLakh) : null;
+  const now = src?.amountLakh == null || src.amountLakh === "" ? null : Number(src.amountLakh);
+  if (now === 0 && prevAmt > 0) return fmt.delta(-100);
+  return "—";
+}
+
+function attrControlsHtml(tab, period) {
+  const periods = (tab.periods || [])
+    .map((p) => {
+      const on = p.id === period.id;
+      return `<button type="button" class="pill${on ? " pill-active" : ""}" role="tab" aria-selected="${on ? "true" : "false"}" data-attr-period="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>`;
+    })
+    .join("");
+  const bits = [];
+  if (period.partial) bits.push(`<span class="chip">partial</span>`);
+  if (period.compareLabel) bits.push(`vs ${escapeHtml(period.compareLabel)}`);
+  else if (period.compareNote) bits.push(escapeHtml(period.compareNote));
+  return `
+    <div class="attr-controls">
+      <div class="pills attr-periods" role="tablist" aria-label="Period">${periods}</div>
+      <p class="hint attr-compare">${bits.join(" · ")}</p>
+    </div>`;
+}
+
+function attrBarsHtml(sources) {
+  if (!sources.length) return `<p class="empty">No sources in this period.</p>`;
+  return `<ul class="attr-src">${sources
+    .map((s) => {
+      const share = Number(s.sharePct);
+      const width = Number.isFinite(share) ? Math.max(0, Math.min(100, share)) : 0;
+      const shown = width === 0 && Number(s.amountLakh) > 0 ? 1.2 : width;
+      const color = ATTR_COLOR[s.source] || "#1c1915";
+      const fill = s.source === "unknown" ? `background-color:${ATTR_COLOR.unknown}` : `background:${color}`;
+      const hatch = s.source === "unknown" ? " attr-fill-unknown" : "";
+      const shareTxt = s.sharePct == null ? "—" : `${fmt.num(s.sharePct, 1)}%`;
+      return `<li>
+        <div class="attr-src-name${attrMuted(s.source)}">${attrSwatch(s.source)}<span>${escapeHtml(s.label)}</span></div>
+        <div class="attr-track" aria-hidden="true"><div class="attr-fill${hatch}" style="width:${shown}%;${fill}"></div></div>
+        <div class="attr-val"><b>${fmt.lakh(s.amountLakh)}</b><span>${shareTxt}</span>${attrDelta(s)}</div>
+      </li>`;
+    })
+    .join("")}</ul>`;
+}
+
+function attrMatrixHtml(data, period, mode) {
+  const block = data.sourceByCategory?.[period.id];
+  if (!block) return "";
+  const cats = block.categories || [];
+  const range = sameMonthDayRange(block.range, true);
+  const modeLabel = mode === "col" ? "share of the category (column)" : "share of the source (row)";
+  const head = `<tr><th>Source</th>${cats
+    .map((c) => `<th class="num">${escapeHtml(c.label)}</th>`)
+    .join("")}<th class="num">Total</th></tr>`;
+  const body = (block.rows || [])
+    .map((row) => {
+      const cells = cats
+        .map((c) => {
+          const cell = (row.cells || {})[c.id] || {};
+          const pct = mode === "col" ? cell.colPct : cell.rowPct;
+          const alpha = Math.max(0, Math.min(0.5, ((Number(pct) || 0) / 100) * 0.5));
+          const pctTxt = pct == null || pct === "" ? "—" : `${fmt.num(pct, 1)}%`;
+          return `<td class="num attr-heat" style="--heat:${alpha.toFixed(3)}" data-label="${escapeHtml(c.label)}">${fmt.lakh(cell.amountLakh)}<span class="attr-sub">${pctTxt}</span></td>`;
+        })
+        .join("");
+      return `<tr><td data-label="Source">${attrSwatch(row.source)}<span class="${attrMuted(row.source).trim()}">${escapeHtml(row.label)}</span></td>${cells}<td class="num" data-label="Total">${fmt.lakh(row.totalLakh)}</td></tr>`;
+    })
+    .join("");
+  const totalCells = cats
+    .map((c) => `<td class="num" data-label="${escapeHtml(c.label)}">${fmt.lakh((block.columnTotalsLakh || {})[c.id])}</td>`)
+    .join("");
+  const foot = `<tr class="attr-total"><td data-label="Source">Total</td>${totalCells}<td class="num" data-label="Total">${fmt.lakh(block.totalLakh)}</td></tr>`;
+  const partial = period.partial ? ` <span class="chip">partial</span>` : "";
+  return `<section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Source × category</h2>
+        <p class="hint">${escapeHtml(range || period.id)}${partial} · tint is ${escapeHtml(modeLabel)}</p>
+      </div>
+      <div class="actions" role="group" aria-label="Matrix percent">
+        <button type="button" class="attr-toggle" data-attr-matrix="row" aria-pressed="${mode === "row" ? "true" : "false"}">Row %</button>
+        <button type="button" class="attr-toggle" data-attr-matrix="col" aria-pressed="${mode === "col" ? "true" : "false"}">Column %</button>
+      </div>
+    </div>
+    <div class="table-wrap attr-scroll">
+      <table id="attr-matrix"><thead>${head}</thead><tbody>${body}${foot}</tbody></table>
+    </div>
+  </section>`;
+}
+
+function renderAttribution(data) {
+  const tab = (data.tabs || []).find((t) => t.id === "all") || (data.tabs || [])[0];
+  if (!tab || !(tab.periods || []).length) {
+    app.replaceChildren(el(`
+      ${pageChrome(data.title || "Sales attribution", "No periods in this snapshot.", data.asOf)}
+    `));
+    return;
+  }
+  const periodIds = new Set(tab.periods.map((p) => p.id));
+  let curPeriod = attrRead(ATTR_PERIOD_KEY, data.defaultPeriod, periodIds);
+  let matrixMode = "row";
+
+  const paint = () => {
+    const period =
+      tab.periods.find((p) => p.id === curPeriod) ||
+      tab.periods.find((p) => p.id === data.defaultPeriod) ||
+      tab.periods[0];
+    curPeriod = period.id;
+    const compareHint = period.compareLabel
+      ? `Change vs ${escapeHtml(period.compareLabel)}.`
+      : escapeHtml(period.compareNote || "");
+    app.replaceChildren(el(`
+      ${pageChrome(data.title || "Sales attribution", data.note || "Other and Unknown are untagged, so channel shares are indicative.", data.asOf)}
+      ${sampleBanner(data.sample)}
+      ${attrControlsHtml(tab, period)}
+      <section class="panel" id="attr-panel">
+        <div class="panel-head">
+          <h2>Revenue by source</h2>
+          <p class="hint">${compareHint}</p>
+        </div>
+        ${attrBarsHtml(period.sources || [])}
+      </section>
+      ${attrMatrixHtml(data, period, matrixMode)}
+    `));
+    app.querySelectorAll("[data-attr-period]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-period");
+        if (!id || id === curPeriod) return;
+        curPeriod = id;
+        attrWrite(ATTR_PERIOD_KEY, id);
+        paint();
+      });
+    });
+    app.querySelectorAll("[data-attr-matrix]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-matrix");
+        if (!id || id === matrixMode) return;
+        matrixMode = id;
+        paint();
+      });
+    });
+    bindPrint();
+  };
+  paint();
+}
+
 const renderers = {
   label: renderLabels,
   rm: renderInventory,
   gumming: renderGumming,
+  attribution: renderAttribution,
 };
 
 function renderError(err) {

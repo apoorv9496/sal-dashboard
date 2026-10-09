@@ -1,7 +1,7 @@
 # SAL Papers / Dubble — weekly ops dashboard
 
 Static briefing site for **SAL Papers / Dubble** (B2B label stock).  
-Home is a sales overview. Three reports sit under it:
+Home is a sales overview. Four reports sit under it:
 
 | Route | Report | Data file |
 | --- | --- | --- |
@@ -9,6 +9,7 @@ Home is a sales overview. Three reports sit under it:
 | `#label` | Labels management report | `data/labels.json` |
 | `#rm` | Inventory management / RM stock | `data/inventory.json` |
 | `#gumming` | Gumming sheets management report | `data/gumming.json` |
+| `#attribution` | Sales attribution — revenue by customer source | `data/attribution.json` |
 
 If `data/home.json` fails to load, `#home` falls back to the report cards only.
 
@@ -16,7 +17,7 @@ Files with `"sample": true` are bannered in the UI. Do not use sample figures fo
 
 ## Sales figures — own group companies
 
-Every sales figure on `#home`, `#label`, and `#gumming` **excludes only** billing to these own group companies:
+Every sales figure on `#home`, `#label`, `#gumming`, and `#attribution` **excludes only** billing to these own group companies:
 
 - M/S SAL PAPERS PVT LTD
 - M/S SHREE ARIHANT LAMINATES
@@ -40,6 +41,7 @@ After GitHub Pages is enabled (see below):
 - Labels: https://apoorv9496.github.io/sal-dashboard/#label  
 - Inventory / RM: https://apoorv9496.github.io/sal-dashboard/#rm  
 - Gumming sheets: https://apoorv9496.github.io/sal-dashboard/#gumming  
+- Sales attribution: https://apoorv9496.github.io/sal-dashboard/#attribution  
 
 No Node runtime on Pages. The site is HTML + CSS + vanilla JS that `fetch`es the JSON files.
 
@@ -68,7 +70,7 @@ Then open http://localhost:8080/
 
 Weekly refresh is a **data commit**, not an HTML edit.
 
-1. Replace `data/labels.json`, `data/gumming.json`, `data/inventory.json`, and `data/home.json` with that week’s extract (keep the same keys). Rebuild `data/home.json` from Sales Analysis (Total Bill Amount, GST-inclusive); do not total it by hand in the page.
+1. Replace `data/labels.json`, `data/gumming.json`, `data/inventory.json`, `data/home.json`, and `data/attribution.json` with that week’s extract (keep the same keys). Rebuild `data/home.json` and `data/attribution.json` from Sales Analysis (Total Bill Amount, GST-inclusive); do not total them by hand in the page. `#attribution` reads `Buyer_Source` as already aggregated in `data/attribution.json`.
 2. Keep the own-company exclusion (only M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES) and keep production planning on the past 3 complete months.
 3. Set `asOf` on each file to the Monday date (`YYYY-MM-DD`).
 4. Set `lastUpdated` in `data/reports.json` to the same Monday.
@@ -287,6 +289,12 @@ Matches the weekly **inventory management** report (Dashboard tab 4 / RM mail). 
 
 `excess` and `shortage` share the same row shape. `width` is mm; use `null` when the spec is not a slit width. `micron` (films) and `gsm` (papers) are optional. `notes` is optional — use it for **Also watch** lines. `severity` is `urgent` | `watch` | `info`.
 
+### `data/attribution.json`
+
+Sales attribution for `#attribution`. Amounts are ₹ lakh, GST-inclusive Total Bill Amount, credited entirely to the customer’s recorded `Buyer_Source` (single source). The page does not recompute them.
+
+The page is two panels driven by the period pills (month-to-date, last month, last 3 months, trailing 12 months, lifetime). The choice is remembered in `sessionStorage` (`salAttrPeriod`). Revenue by source uses all categories. Source × category is the category split, so there are no category tabs. Other and Unknown are untagged. Weekly rebuild: replace this file and keep the same keys; set `asOf` to the Monday date.
+
 ## Layout
 
 ```
@@ -299,6 +307,7 @@ data/home.json             Sales overview
 data/labels.json
 data/gumming.json
 data/inventory.json
+data/attribution.json      Sales attribution (`#attribution`)
 .github/workflows/deploy-pages.yml
 ```
 

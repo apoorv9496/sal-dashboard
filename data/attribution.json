@@ -1,0 +1,1483 @@
+{
+  "asOf": "2026-10-09",
+  "sample": false,
+  "title": "Sales attribution",
+  "source": "Sales Analysis · ERP_Sales_Data · Total Bill Amount (col 81, GST-inclusive) · source = Buyer_Source (col 115, customer-master lookup)",
+  "lastInvoiceDate": "2026-10-08",
+  "dataStart": "2025-06-02",
+  "note": "GST-incl. Total Bill Amount; own group companies excluded; current month MTD to 2026-10-08. One recorded source per customer (Buyer_Source). Other + Unknown = 80.8% of 12-month revenue, so channel shares are indicative.",
+  "defaultPeriod": "lastMonth",
+  "periodKeys": [
+    "mtd",
+    "lastMonth",
+    "last3m",
+    "t12m",
+    "lifetime"
+  ],
+  "tabs": [
+    {
+      "id": "all",
+      "label": "All",
+      "periods": [
+        {
+          "id": "mtd",
+          "label": "Oct MTD (1–8)",
+          "range": [
+            "2026-10-01",
+            "2026-10-08"
+          ],
+          "partial": true,
+          "compareLabel": "Sep 1–8",
+          "compareRange": [
+            "2026-09-01",
+            "2026-09-08"
+          ],
+          "compareNote": null,
+          "totals": {
+            "amountLakh": 119.22,
+            "knownSourceSharePct": 15.0
+          },
+          "sources": [
+            {
+              "source": "other",
+              "label": "Other (as recorded)",
+              "amountLakh": 101.38,
+              "sharePct": 85.0,
+              "changePct": -11.4,
+              "prev": {
+                "amountLakh": 114.39
+              }
+            },
+            {
+              "source": "direct",
+              "label": "Direct",
+              "amountLakh": 13.71,
+              "sharePct": 11.5,
+              "changePct": -65.2,
+              "prev": {
+                "amountLakh": 39.42
+              }
+            },
+            {
+              "source": "indiamart",
+              "label": "IndiaMART",
+              "amountLakh": 3.06,
+              "sharePct": 2.6,
+              "changePct": 26.5,
+              "prev": {
+                "amountLakh": 2.42
+              }
+            },
+            {
+              "source": "reference",
+              "label": "Reference",
+              "amountLakh": 0.63,
+              "sharePct": 0.5,
+              "changePct": -93.8,
+              "prev": {
+                "amountLakh": 10.17
+              }
+            },
+            {
+              "source": "exhibition",
+              "label": "Exhibition",
+              "amountLakh": 0.45,
+              "sharePct": 0.4,
+              "changePct": null,
+              "prev": {
+                "amountLakh": 0.0
+              }
+            },
+            {
+              "source": "social",
+              "label": "Social media",
+              "amountLakh": 0.0,
+              "sharePct": 0.0,
+              "changePct": -100.0,
+              "prev": {
+                "amountLakh": 0.96
+              }
+            }
+          ]
+        },
+        {
+          "id": "lastMonth",
+          "label": "Sep 2026",
+          "range": [
+            "2026-09-01",
+            "2026-09-30"
+          ],
+          "partial": false,
+          "compareLabel": "Aug 2026",
+          "compareRange": [
+            "2026-08-01",
+            "2026-08-31"
+          ],
+          "compareNote": null,
+          "totals": {
+            "amountLakh": 750.97,
+            "knownSourceSharePct": 23.3
+          },
+          "sources": [
+            {
+              "source": "other",
+              "label": "Other (as recorded)",
+              "amountLakh": 575.65,
+              "sharePct": 76.7,
+              "changePct": 60.7,
+              "prev": {
+                "amountLakh": 358.2
+              }
+            },
+            {
+              "source": "direct",
+              "label": "Direct",
+              "amountLakh": 149.07,
+              "sharePct": 19.9,
+              "changePct": 31.3,
+              "prev": {
+                "amountLakh": 113.53
+              }
+            },
+            {
+              "source": "reference",
+              "label": "Reference",
+              "amountLakh": 16.66,
+              "sharePct": 2.2,
+              "changePct": 10237.6,
+              "prev": {
+                "amountLakh": 0.16
+              }
+            },
+            {
+              "source": "indiamart",
+              "label": "IndiaMART",
+              "amountLakh": 8.63,
+              "sharePct": 1.1,
+              "changePct": 4.6,
+              "prev": {
+                "amountLakh": 8.25
+              }
+            },
+            {
+              "source": "social",
+              "label": "Social media",
+              "amountLakh": 0.96,
+              "sharePct": 0.1,
+              "changePct": null,
+              "prev": {
+                "amountLakh": 0.0
+              }
+            },
+            {
+              "source": "exhibition",
+              "label": "Exhibition",
+              "amountLakh": 0.0,
+              "sharePct": 0.0,
+              "changePct": -100.0,
+              "prev": {
+                "amountLakh": 2.76
+              }
+            }
+          ]
+        },
+        {
+          "id": "last3m",
+          "label": "Jul–Sep 2026",
+          "range": [
+            "2026-07-01",
+            "2026-09-30"
+          ],
+          "partial": false,
+          "compareLabel": "Apr–Jun 2026",
+          "compareRange": [
+            "2026-04-01",
+            "2026-06-30"
+          ],
+          "compareNote": null,
+          "totals": {
+            "amountLakh": 1879.96,
+            "knownSourceSharePct": 24.3
+          },
+          "sources": [
+            {
+              "source": "other",
+              "label": "Other (as recorded)",
+              "amountLakh": 1423.37,
+              "sharePct": 75.7,
+              "changePct": 13.1,
+              "prev": {
+                "amountLakh": 1258.54
+              }
+            },
+            {
+              "source": "direct",
+              "label": "Direct",
+              "amountLakh": 402.13,
+              "sharePct": 21.4,
+              "changePct": 302.3,
+              "prev": {
+                "amountLakh": 99.96
+              }
+            },
+            {
+              "source": "indiamart",
+              "label": "IndiaMART",
+              "amountLakh": 28.54,
+              "sharePct": 1.5,
+              "changePct": 52.1,
+              "prev": {
+                "amountLakh": 18.77
+              }
+            },
+            {
+              "source": "reference",
+              "label": "Reference",
+              "amountLakh": 16.82,
+              "sharePct": 0.9,
+              "changePct": -29.4,
+              "prev": {
+                "amountLakh": 23.83
+              }
+            },
+            {
+              "source": "exhibition",
+              "label": "Exhibition",
+              "amountLakh": 6.47,
+              "sharePct": 0.3,
+              "changePct": -20.5,
+              "prev": {
+                "amountLakh": 8.14
+              }
+            },
+            {
+              "source": "social",
+              "label": "Social media",
+              "amountLakh": 2.62,
+              "sharePct": 0.1,
+              "changePct": -82.9,
+              "prev": {
+                "amountLakh": 15.34
+              }
+            },
+            {
+              "source": "google",
+              "label": "Google",
+              "amountLakh": 0.0,
+              "sharePct": 0.0,
+              "changePct": -100.0,
+              "prev": {
+                "amountLakh": 0.74
+              }
+            },
+            {
+              "source": "unknown",
+              "label": "Unknown (blank)",
+              "amountLakh": 0.0,
+              "sharePct": 0.0,
+              "changePct": -100.0,
+              "prev": {
+                "amountLakh": 260.0
+              }
+            }
+          ]
+        },
+        {
+          "id": "t12m",
+          "label": "12 months (Oct 2025–Sep 2026)",
+          "range": [
+            "2025-10-01",
+            "2026-09-30"
+          ],
+          "partial": false,
+          "compareLabel": null,
+          "compareRange": null,
+          "compareNote": "Comparison window starts before data begins (2025-06-02); no change shown.",
+          "totals": {
+            "amountLakh": 7361.18,
+            "knownSourceSharePct": 19.2
+          },
+          "sources": [
+            {
+              "source": "other",
+              "label": "Other (as recorded)",
+              "amountLakh": 5487.75,
+              "sharePct": 74.5,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "direct",
+              "label": "Direct",
+              "amountLakh": 791.75,
+              "sharePct": 10.8,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "unknown",
+              "label": "Unknown (blank)",
+              "amountLakh": 458.92,
+              "sharePct": 6.2,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "reference",
+              "label": "Reference",
+              "amountLakh": 420.86,
+              "sharePct": 5.7,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "indiamart",
+              "label": "IndiaMART",
+              "amountLakh": 91.13,
+              "sharePct": 1.2,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "exhibition",
+              "label": "Exhibition",
+              "amountLakh": 82.18,
+              "sharePct": 1.1,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "social",
+              "label": "Social media",
+              "amountLakh": 26.55,
+              "sharePct": 0.4,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "google",
+              "label": "Google",
+              "amountLakh": 2.03,
+              "sharePct": 0.0,
+              "changePct": null,
+              "prev": null
+            }
+          ]
+        },
+        {
+          "id": "lifetime",
+          "label": "All data (Jun 2025–Oct 2026 MTD)",
+          "range": [
+            "2025-06-02",
+            "2026-10-08"
+          ],
+          "partial": true,
+          "compareLabel": null,
+          "compareRange": null,
+          "compareNote": null,
+          "totals": {
+            "amountLakh": 9911.43,
+            "knownSourceSharePct": 16.8
+          },
+          "sources": [
+            {
+              "source": "other",
+              "label": "Other (as recorded)",
+              "amountLakh": 7789.7,
+              "sharePct": 78.6,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "direct",
+              "label": "Direct",
+              "amountLakh": 922.42,
+              "sharePct": 9.3,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "unknown",
+              "label": "Unknown (blank)",
+              "amountLakh": 458.92,
+              "sharePct": 4.6,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "reference",
+              "label": "Reference",
+              "amountLakh": 432.89,
+              "sharePct": 4.4,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "indiamart",
+              "label": "IndiaMART",
+              "amountLakh": 148.65,
+              "sharePct": 1.5,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "exhibition",
+              "label": "Exhibition",
+              "amountLakh": 129.31,
+              "sharePct": 1.3,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "social",
+              "label": "Social media",
+              "amountLakh": 26.55,
+              "sharePct": 0.3,
+              "changePct": null,
+              "prev": null
+            },
+            {
+              "source": "google",
+              "label": "Google",
+              "amountLakh": 2.99,
+              "sharePct": 0.0,
+              "changePct": null,
+              "prev": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceByCategory": {
+    "mtd": {
+      "range": [
+        "2026-10-01",
+        "2026-10-08"
+      ],
+      "categories": [
+        {
+          "id": "label",
+          "label": "Labels"
+        },
+        {
+          "id": "gumming",
+          "label": "Gumming sheets"
+        },
+        {
+          "id": "roll",
+          "label": "Roll form"
+        },
+        {
+          "id": "other",
+          "label": "Other / misc"
+        }
+      ],
+      "rows": [
+        {
+          "source": "indiamart",
+          "label": "IndiaMART",
+          "totalLakh": 3.06,
+          "cells": {
+            "label": {
+              "amountLakh": 1.19,
+              "rowPct": 39.0,
+              "colPct": 72.8
+            },
+            "gumming": {
+              "amountLakh": 1.4,
+              "rowPct": 45.7,
+              "colPct": 2.1
+            },
+            "roll": {
+              "amountLakh": 0.47,
+              "rowPct": 15.3,
+              "colPct": 1.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "reference",
+          "label": "Reference",
+          "totalLakh": 0.63,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.63,
+              "rowPct": 100.0,
+              "colPct": 17.4
+            }
+          }
+        },
+        {
+          "source": "direct",
+          "label": "Direct",
+          "totalLakh": 13.71,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 9.96,
+              "rowPct": 72.6,
+              "colPct": 15.2
+            },
+            "roll": {
+              "amountLakh": 1.33,
+              "rowPct": 9.7,
+              "colPct": 2.8
+            },
+            "other": {
+              "amountLakh": 2.41,
+              "rowPct": 17.6,
+              "colPct": 67.2
+            }
+          }
+        },
+        {
+          "source": "exhibition",
+          "label": "Exhibition",
+          "totalLakh": 0.45,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 0.45,
+              "rowPct": 100.0,
+              "colPct": 0.7
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "other",
+          "label": "Other (as recorded)",
+          "totalLakh": 101.38,
+          "cells": {
+            "label": {
+              "amountLakh": 0.45,
+              "rowPct": 0.4,
+              "colPct": 27.2
+            },
+            "gumming": {
+              "amountLakh": 53.83,
+              "rowPct": 53.1,
+              "colPct": 82.0
+            },
+            "roll": {
+              "amountLakh": 46.55,
+              "rowPct": 45.9,
+              "colPct": 96.3
+            },
+            "other": {
+              "amountLakh": 0.55,
+              "rowPct": 0.5,
+              "colPct": 15.4
+            }
+          }
+        }
+      ],
+      "columnTotalsLakh": {
+        "label": 1.64,
+        "gumming": 65.64,
+        "roll": 48.35,
+        "other": 3.59
+      },
+      "totalLakh": 119.22
+    },
+    "lastMonth": {
+      "range": [
+        "2026-09-01",
+        "2026-09-30"
+      ],
+      "categories": [
+        {
+          "id": "label",
+          "label": "Labels"
+        },
+        {
+          "id": "gumming",
+          "label": "Gumming sheets"
+        },
+        {
+          "id": "roll",
+          "label": "Roll form"
+        },
+        {
+          "id": "other",
+          "label": "Other / misc"
+        }
+      ],
+      "rows": [
+        {
+          "source": "indiamart",
+          "label": "IndiaMART",
+          "totalLakh": 8.63,
+          "cells": {
+            "label": {
+              "amountLakh": 4.31,
+              "rowPct": 50.0,
+              "colPct": 14.1
+            },
+            "gumming": {
+              "amountLakh": 4.32,
+              "rowPct": 50.0,
+              "colPct": 0.9
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "social",
+          "label": "Social media",
+          "totalLakh": 0.96,
+          "cells": {
+            "label": {
+              "amountLakh": 0.96,
+              "rowPct": 100.0,
+              "colPct": 3.1
+            },
+            "gumming": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "reference",
+          "label": "Reference",
+          "totalLakh": 16.66,
+          "cells": {
+            "label": {
+              "amountLakh": 5.29,
+              "rowPct": 31.8,
+              "colPct": 17.4
+            },
+            "gumming": {
+              "amountLakh": 10.17,
+              "rowPct": 61.0,
+              "colPct": 2.1
+            },
+            "roll": {
+              "amountLakh": 1.2,
+              "rowPct": 7.2,
+              "colPct": 0.6
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "direct",
+          "label": "Direct",
+          "totalLakh": 149.07,
+          "cells": {
+            "label": {
+              "amountLakh": 5.41,
+              "rowPct": 3.6,
+              "colPct": 17.7
+            },
+            "gumming": {
+              "amountLakh": 71.37,
+              "rowPct": 47.9,
+              "colPct": 14.9
+            },
+            "roll": {
+              "amountLakh": 61.98,
+              "rowPct": 41.6,
+              "colPct": 28.9
+            },
+            "other": {
+              "amountLakh": 10.31,
+              "rowPct": 6.9,
+              "colPct": 37.4
+            }
+          }
+        },
+        {
+          "source": "other",
+          "label": "Other (as recorded)",
+          "totalLakh": 575.65,
+          "cells": {
+            "label": {
+              "amountLakh": 14.52,
+              "rowPct": 2.5,
+              "colPct": 47.6
+            },
+            "gumming": {
+              "amountLakh": 392.3,
+              "rowPct": 68.2,
+              "colPct": 82.0
+            },
+            "roll": {
+              "amountLakh": 151.58,
+              "rowPct": 26.3,
+              "colPct": 70.6
+            },
+            "other": {
+              "amountLakh": 17.24,
+              "rowPct": 3.0,
+              "colPct": 62.6
+            }
+          }
+        }
+      ],
+      "columnTotalsLakh": {
+        "label": 30.5,
+        "gumming": 478.16,
+        "roll": 214.76,
+        "other": 27.55
+      },
+      "totalLakh": 750.97
+    },
+    "last3m": {
+      "range": [
+        "2026-07-01",
+        "2026-09-30"
+      ],
+      "categories": [
+        {
+          "id": "label",
+          "label": "Labels"
+        },
+        {
+          "id": "gumming",
+          "label": "Gumming sheets"
+        },
+        {
+          "id": "roll",
+          "label": "Roll form"
+        },
+        {
+          "id": "other",
+          "label": "Other / misc"
+        }
+      ],
+      "rows": [
+        {
+          "source": "indiamart",
+          "label": "IndiaMART",
+          "totalLakh": 28.54,
+          "cells": {
+            "label": {
+              "amountLakh": 9.66,
+              "rowPct": 33.8,
+              "colPct": 17.9
+            },
+            "gumming": {
+              "amountLakh": 18.89,
+              "rowPct": 66.2,
+              "colPct": 1.4
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "social",
+          "label": "Social media",
+          "totalLakh": 2.62,
+          "cells": {
+            "label": {
+              "amountLakh": 0.96,
+              "rowPct": 36.6,
+              "colPct": 1.8
+            },
+            "gumming": {
+              "amountLakh": 1.66,
+              "rowPct": 63.4,
+              "colPct": 0.1
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "reference",
+          "label": "Reference",
+          "totalLakh": 16.82,
+          "cells": {
+            "label": {
+              "amountLakh": 5.34,
+              "rowPct": 31.8,
+              "colPct": 9.9
+            },
+            "gumming": {
+              "amountLakh": 10.28,
+              "rowPct": 61.1,
+              "colPct": 0.8
+            },
+            "roll": {
+              "amountLakh": 1.2,
+              "rowPct": 7.1,
+              "colPct": 0.2
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "direct",
+          "label": "Direct",
+          "totalLakh": 402.13,
+          "cells": {
+            "label": {
+              "amountLakh": 10.23,
+              "rowPct": 2.5,
+              "colPct": 18.9
+            },
+            "gumming": {
+              "amountLakh": 269.51,
+              "rowPct": 67.0,
+              "colPct": 20.7
+            },
+            "roll": {
+              "amountLakh": 101.62,
+              "rowPct": 25.3,
+              "colPct": 21.1
+            },
+            "other": {
+              "amountLakh": 20.77,
+              "rowPct": 5.2,
+              "colPct": 51.3
+            }
+          }
+        },
+        {
+          "source": "exhibition",
+          "label": "Exhibition",
+          "totalLakh": 6.47,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 5.09,
+              "rowPct": 78.7,
+              "colPct": 0.4
+            },
+            "roll": {
+              "amountLakh": 1.38,
+              "rowPct": 21.3,
+              "colPct": 0.3
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "other",
+          "label": "Other (as recorded)",
+          "totalLakh": 1423.37,
+          "cells": {
+            "label": {
+              "amountLakh": 27.83,
+              "rowPct": 2.0,
+              "colPct": 51.5
+            },
+            "gumming": {
+              "amountLakh": 997.89,
+              "rowPct": 70.1,
+              "colPct": 76.6
+            },
+            "roll": {
+              "amountLakh": 377.9,
+              "rowPct": 26.5,
+              "colPct": 78.4
+            },
+            "other": {
+              "amountLakh": 19.76,
+              "rowPct": 1.4,
+              "colPct": 48.7
+            }
+          }
+        }
+      ],
+      "columnTotalsLakh": {
+        "label": 54.01,
+        "gumming": 1303.31,
+        "roll": 482.1,
+        "other": 40.53
+      },
+      "totalLakh": 1879.96
+    },
+    "t12m": {
+      "range": [
+        "2025-10-01",
+        "2026-09-30"
+      ],
+      "categories": [
+        {
+          "id": "label",
+          "label": "Labels"
+        },
+        {
+          "id": "gumming",
+          "label": "Gumming sheets"
+        },
+        {
+          "id": "roll",
+          "label": "Roll form"
+        },
+        {
+          "id": "other",
+          "label": "Other / misc"
+        }
+      ],
+      "rows": [
+        {
+          "source": "indiamart",
+          "label": "IndiaMART",
+          "totalLakh": 91.13,
+          "cells": {
+            "label": {
+              "amountLakh": 28.1,
+              "rowPct": 30.8,
+              "colPct": 14.0
+            },
+            "gumming": {
+              "amountLakh": 60.95,
+              "rowPct": 66.9,
+              "colPct": 1.1
+            },
+            "roll": {
+              "amountLakh": 2.08,
+              "rowPct": 2.3,
+              "colPct": 0.1
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "google",
+          "label": "Google",
+          "totalLakh": 2.03,
+          "cells": {
+            "label": {
+              "amountLakh": 0.04,
+              "rowPct": 2.2,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 1.99,
+              "rowPct": 97.8,
+              "colPct": 0.0
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "social",
+          "label": "Social media",
+          "totalLakh": 26.55,
+          "cells": {
+            "label": {
+              "amountLakh": 6.67,
+              "rowPct": 25.1,
+              "colPct": 3.3
+            },
+            "gumming": {
+              "amountLakh": 17.45,
+              "rowPct": 65.7,
+              "colPct": 0.3
+            },
+            "roll": {
+              "amountLakh": 2.43,
+              "rowPct": 9.1,
+              "colPct": 0.2
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "reference",
+          "label": "Reference",
+          "totalLakh": 420.86,
+          "cells": {
+            "label": {
+              "amountLakh": 7.02,
+              "rowPct": 1.7,
+              "colPct": 3.5
+            },
+            "gumming": {
+              "amountLakh": 406.85,
+              "rowPct": 96.7,
+              "colPct": 7.4
+            },
+            "roll": {
+              "amountLakh": 1.2,
+              "rowPct": 0.3,
+              "colPct": 0.1
+            },
+            "other": {
+              "amountLakh": 5.79,
+              "rowPct": 1.4,
+              "colPct": 4.4
+            }
+          }
+        },
+        {
+          "source": "direct",
+          "label": "Direct",
+          "totalLakh": 791.75,
+          "cells": {
+            "label": {
+              "amountLakh": 25.1,
+              "rowPct": 3.2,
+              "colPct": 12.5
+            },
+            "gumming": {
+              "amountLakh": 485.09,
+              "rowPct": 61.3,
+              "colPct": 8.8
+            },
+            "roll": {
+              "amountLakh": 235.27,
+              "rowPct": 29.7,
+              "colPct": 15.5
+            },
+            "other": {
+              "amountLakh": 46.3,
+              "rowPct": 5.8,
+              "colPct": 35.2
+            }
+          }
+        },
+        {
+          "source": "exhibition",
+          "label": "Exhibition",
+          "totalLakh": 82.18,
+          "cells": {
+            "label": {
+              "amountLakh": 56.43,
+              "rowPct": 68.7,
+              "colPct": 28.1
+            },
+            "gumming": {
+              "amountLakh": 18.33,
+              "rowPct": 22.3,
+              "colPct": 0.3
+            },
+            "roll": {
+              "amountLakh": 7.43,
+              "rowPct": 9.0,
+              "colPct": 0.5
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "other",
+          "label": "Other (as recorded)",
+          "totalLakh": 5487.75,
+          "cells": {
+            "label": {
+              "amountLakh": 77.24,
+              "rowPct": 1.4,
+              "colPct": 38.5
+            },
+            "gumming": {
+              "amountLakh": 4063.83,
+              "rowPct": 74.1,
+              "colPct": 73.8
+            },
+            "roll": {
+              "amountLakh": 1271.96,
+              "rowPct": 23.2,
+              "colPct": 83.7
+            },
+            "other": {
+              "amountLakh": 74.73,
+              "rowPct": 1.4,
+              "colPct": 56.8
+            }
+          }
+        },
+        {
+          "source": "unknown",
+          "label": "Unknown (blank)",
+          "totalLakh": 458.92,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 454.06,
+              "rowPct": 98.9,
+              "colPct": 8.2
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 4.87,
+              "rowPct": 1.1,
+              "colPct": 3.7
+            }
+          }
+        }
+      ],
+      "columnTotalsLakh": {
+        "label": 200.61,
+        "gumming": 5508.54,
+        "roll": 1520.35,
+        "other": 131.68
+      },
+      "totalLakh": 7361.18
+    },
+    "lifetime": {
+      "range": [
+        "2025-06-02",
+        "2026-10-08"
+      ],
+      "categories": [
+        {
+          "id": "label",
+          "label": "Labels"
+        },
+        {
+          "id": "gumming",
+          "label": "Gumming sheets"
+        },
+        {
+          "id": "roll",
+          "label": "Roll form"
+        },
+        {
+          "id": "other",
+          "label": "Other / misc"
+        }
+      ],
+      "rows": [
+        {
+          "source": "indiamart",
+          "label": "IndiaMART",
+          "totalLakh": 148.65,
+          "cells": {
+            "label": {
+              "amountLakh": 30.5,
+              "rowPct": 20.5,
+              "colPct": 9.9
+            },
+            "gumming": {
+              "amountLakh": 112.66,
+              "rowPct": 75.8,
+              "colPct": 1.5
+            },
+            "roll": {
+              "amountLakh": 5.48,
+              "rowPct": 3.7,
+              "colPct": 0.3
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "google",
+          "label": "Google",
+          "totalLakh": 2.99,
+          "cells": {
+            "label": {
+              "amountLakh": 0.04,
+              "rowPct": 1.5,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 2.94,
+              "rowPct": 98.5,
+              "colPct": 0.0
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "social",
+          "label": "Social media",
+          "totalLakh": 26.55,
+          "cells": {
+            "label": {
+              "amountLakh": 6.67,
+              "rowPct": 25.1,
+              "colPct": 2.2
+            },
+            "gumming": {
+              "amountLakh": 17.45,
+              "rowPct": 65.7,
+              "colPct": 0.2
+            },
+            "roll": {
+              "amountLakh": 2.43,
+              "rowPct": 9.1,
+              "colPct": 0.1
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "reference",
+          "label": "Reference",
+          "totalLakh": 432.89,
+          "cells": {
+            "label": {
+              "amountLakh": 7.02,
+              "rowPct": 1.6,
+              "colPct": 2.3
+            },
+            "gumming": {
+              "amountLakh": 416.85,
+              "rowPct": 96.3,
+              "colPct": 5.6
+            },
+            "roll": {
+              "amountLakh": 1.2,
+              "rowPct": 0.3,
+              "colPct": 0.1
+            },
+            "other": {
+              "amountLakh": 7.82,
+              "rowPct": 1.8,
+              "colPct": 2.7
+            }
+          }
+        },
+        {
+          "source": "direct",
+          "label": "Direct",
+          "totalLakh": 922.42,
+          "cells": {
+            "label": {
+              "amountLakh": 50.1,
+              "rowPct": 5.4,
+              "colPct": 16.2
+            },
+            "gumming": {
+              "amountLakh": 547.62,
+              "rowPct": 59.4,
+              "colPct": 7.4
+            },
+            "roll": {
+              "amountLakh": 268.39,
+              "rowPct": 29.1,
+              "colPct": 13.9
+            },
+            "other": {
+              "amountLakh": 56.31,
+              "rowPct": 6.1,
+              "colPct": 19.5
+            }
+          }
+        },
+        {
+          "source": "exhibition",
+          "label": "Exhibition",
+          "totalLakh": 129.31,
+          "cells": {
+            "label": {
+              "amountLakh": 101.02,
+              "rowPct": 78.1,
+              "colPct": 32.7
+            },
+            "gumming": {
+              "amountLakh": 18.78,
+              "rowPct": 14.5,
+              "colPct": 0.3
+            },
+            "roll": {
+              "amountLakh": 9.51,
+              "rowPct": 7.4,
+              "colPct": 0.5
+            },
+            "other": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            }
+          }
+        },
+        {
+          "source": "other",
+          "label": "Other (as recorded)",
+          "totalLakh": 7789.7,
+          "cells": {
+            "label": {
+              "amountLakh": 113.92,
+              "rowPct": 1.5,
+              "colPct": 36.8
+            },
+            "gumming": {
+              "amountLakh": 5817.23,
+              "rowPct": 74.7,
+              "colPct": 78.7
+            },
+            "roll": {
+              "amountLakh": 1638.63,
+              "rowPct": 21.0,
+              "colPct": 85.1
+            },
+            "other": {
+              "amountLakh": 219.92,
+              "rowPct": 2.8,
+              "colPct": 76.1
+            }
+          }
+        },
+        {
+          "source": "unknown",
+          "label": "Unknown (blank)",
+          "totalLakh": 458.92,
+          "cells": {
+            "label": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "gumming": {
+              "amountLakh": 454.06,
+              "rowPct": 98.9,
+              "colPct": 6.1
+            },
+            "roll": {
+              "amountLakh": 0.0,
+              "rowPct": 0.0,
+              "colPct": 0.0
+            },
+            "other": {
+              "amountLakh": 4.87,
+              "rowPct": 1.1,
+              "colPct": 1.7
+            }
+          }
+        }
+      ],
+      "columnTotalsLakh": {
+        "label": 309.28,
+        "gumming": 7387.6,
+        "roll": 1925.64,
+        "other": 288.92
+      },
+      "totalLakh": 9911.43
+    }
+  }
+}
