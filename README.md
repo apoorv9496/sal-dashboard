@@ -293,9 +293,7 @@ Matches the weekly **inventory management** report (Dashboard tab 4 / RM mail). 
 
 Sales attribution for `#attribution`. Amounts are ₹ lakh, GST-inclusive Total Bill Amount, credited entirely to the customer’s recorded `Buyer_Source` (single source). The page does not recompute them.
 
-Category tabs match `#home`: All, Labels, Gumming sheets, Roll form, Other / misc. Period pills are month-to-date, last month, last 3 months, trailing 12 months, and lifetime. The choice is remembered in `sessionStorage` (`salAttrTab`, `salAttrPeriod`). The current month is partial, drawn as a hollow stacked column, the same way `#home` marks month-to-date.
-
-`Other` and `Unknown` are a large share of revenue. The page shows that data-quality note and lists CAC, ROI, leads, and multi-touch as unavailable. Weekly rebuild: replace this file and keep the same keys; set `asOf` to the Monday date.
+The page is two panels driven by the period pills (month-to-date, last month, last 3 months, trailing 12 months, lifetime). The choice is remembered in `sessionStorage` (`salAttrPeriod`). Revenue by source uses all categories. Source × category is the category split, so there are no category tabs. Other and Unknown are untagged. Weekly rebuild: replace this file and keep the same keys; set `asOf` to the Monday date.
 
 ## Layout
 
