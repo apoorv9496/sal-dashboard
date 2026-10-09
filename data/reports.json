@@ -31,6 +31,15 @@
       "dataFile": "data/gumming.json",
       "status": "active",
       "asOf": "2026-10-09"
+    },
+    {
+      "id": "attribution",
+      "title": "Sales attribution",
+      "subtitle": "Revenue by customer source",
+      "hash": "#attribution",
+      "dataFile": "data/attribution.json",
+      "status": "active",
+      "asOf": "2026-10-09"
     }
   ]
 }

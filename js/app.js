@@ -864,6 +864,17 @@ function cardStats(id, data) {
       <div><span class="stat-label">MTD</span><span class="stat-value">${fmt.lakh(data.header?.mtd?.amountLakh)}</span></div>
       <div><span class="stat-label">Active / pool</span><span class="stat-value">${fmt.num(ai.active)} / ${fmt.num(ai.pool)}</span></div>`;
   }
+  if (id === "attribution") {
+    const all = (data.tabs || []).find((t) => t.id === "all") || data.tabs?.[0];
+    const period =
+      (all?.periods || []).find((p) => p.id === "lastMonth") || (all?.periods || [])[0];
+    const share = period?.totals?.knownSourceSharePct;
+    const top = (period?.sources || []).find((s) => s.source !== "other" && s.source !== "unknown");
+    const topTxt = top ? `${escapeHtml(top.label)} ${fmt.lakh(top.amountLakh)}` : "—";
+    return `
+      <div><span class="stat-label">Known source (last month)</span><span class="stat-value">${share == null ? "—" : fmt.pct(share)}</span></div>
+      <div><span class="stat-label">Top channel</span><span class="stat-value">${topTxt}</span></div>`;
+  }
   return `
     <div><span class="stat-label">As of</span><span class="stat-value">${escapeHtml(fmt.date(data.asOf))}</span></div>`;
 }
@@ -1289,10 +1300,699 @@ function renderGumming(data) {
   bindGummingLostIssueSelects();
 }
 
+const ATTR_TAB_KEY = "salAttrTab";
+const ATTR_PERIOD_KEY = "salAttrPeriod";
+const ATTR_COLOR = {
+  indiamart: "#2c4a6e",
+  google: "#3a7d44",
+  social: "#6b4fa0",
+  reference: "#9a4d24",
+  direct: "#1c1915",
+  exhibition: "#8a5a12",
+  other: "#9b9387",
+  unknown: "#c9c2b6",
+};
+
+function attrRead(key, fallback, allowed) {
+  let stored = "";
+  try {
+    stored = sessionStorage.getItem(key) || "";
+  } catch (_) {
+    stored = "";
+  }
+  if (allowed.has(stored)) return stored;
+  if (allowed.has(fallback)) return fallback;
+  const first = allowed.values().next().value;
+  return first || "";
+}
+
+function attrWrite(key, value) {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (_) {
+    /* ignore quota / private mode */
+  }
+}
+
+function attrChannels(data) {
+  return (data.channels || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
+
+function attrOrdinal(n) {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return "";
+  const k = v % 100;
+  if (k >= 11 && k <= 13) return `${v}th`;
+  if (v % 10 === 1) return `${v}st`;
+  if (v % 10 === 2) return `${v}nd`;
+  if (v % 10 === 3) return `${v}rd`;
+  return `${v}th`;
+}
+
+function attrYmLabel(ym) {
+  const [y, m] = String(ym || "").split("-").map(Number);
+  if (!y || !m) return String(ym || "");
+  return `${MONTHS_SHORT[m - 1]}'${String(y).slice(2)}`;
+}
+
+function attrSwatch(id) {
+  if (id === "unknown") return `<i class="swatch attr-swatch-unknown" aria-hidden="true"></i>`;
+  const color = ATTR_COLOR[id] || "#1c1915";
+  return `<i class="swatch" style="background:${color}" aria-hidden="true"></i>`;
+}
+
+function attrMuted(id) {
+  return id === "other" || id === "unknown" ? " attr-muted" : "";
+}
+
+function attrDelta(src) {
+  if (src?._total) return "—";
+  if (src?.changePct != null && src.changePct !== "") return fmt.delta(src.changePct);
+  const prevAmt = src?.prev && src.prev.amountLakh != null ? Number(src.prev.amountLakh) : null;
+  const now = src?.amountLakh == null || src.amountLakh === "" ? null : Number(src.amountLakh);
+  if (now === 0 && prevAmt > 0) return fmt.delta(-100);
+  return "—";
+}
+
+function attrLede(data) {
+  const buyers = (data.definition?.excludedBuyers || []).join(", ");
+  const who = buyers ? ` Excludes ${buyers}.` : "";
+  return `Revenue credited entirely to each customer's recorded source.${who} Amounts are GST-inclusive.`;
+}
+
+function attrTabsHtml(tabs, cur) {
+  return tabs
+    .map((t) => {
+      const selected = t.id === cur ? "true" : "false";
+      return `<button type="button" role="tab" id="attr-tab-${escapeHtml(t.id)}" aria-selected="${selected}" aria-controls="attr-panel" data-attr-tab="${escapeHtml(t.id)}">${escapeHtml(t.label)}</button>`;
+    })
+    .join("");
+}
+
+function attrControlsHtml(tab, period) {
+  const periods = (tab.periods || [])
+    .map((p) => {
+      const on = p.id === period.id;
+      return `<button type="button" class="pill${on ? " pill-active" : ""}" role="tab" aria-selected="${on ? "true" : "false"}" data-attr-period="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>`;
+    })
+    .join("");
+  const bits = [];
+  if (period.partial) bits.push(`<span class="chip">partial</span>`);
+  if (period.compareLabel) bits.push(`vs ${escapeHtml(period.compareLabel)}`);
+  else if (period.compareNote) bits.push(escapeHtml(period.compareNote));
+  if (tab.salesCategory) bits.push(escapeHtml(tab.salesCategory));
+  return `
+    <div class="attr-controls">
+      <div class="pills attr-periods" role="tablist" aria-label="Period">${periods}</div>
+      <p class="hint attr-compare">${bits.join(" · ")}</p>
+    </div>`;
+}
+
+function attrCaveatHtml(dq) {
+  const hit = (dq?.notes || []).find((n) => /indicative/i.test(n));
+  if (!hit) return "";
+  return `<div class="banner" role="status">${escapeHtml(hit)}</div>`;
+}
+
+function attrKpisHtml(tab, period) {
+  const t = period.totals || {};
+  const compare = period.compareLabel ? `vs ${escapeHtml(period.compareLabel)}` : escapeHtml(period.label || "");
+  const cards = [
+    `<div class="kpi"><span>Revenue</span><strong>${fmt.lakh(t.amountLakh)}</strong><small>${compare}</small></div>`,
+    `<div class="kpi"><span>Invoices</span><strong>${fmt.num(t.invoices)}</strong><small>${escapeHtml(period.label || "")}</small></div>`,
+    `<div class="kpi"><span>Customers billed</span><strong>${fmt.num(t.customers)}</strong></div>`,
+  ];
+  if (t.newCustomers != null) {
+    const note =
+      period.newCustomersReliable === false
+        ? `<span class="flag">history starts Jun 2025</span>`
+        : "first invoice in this period";
+    cards.push(`<div class="kpi"><span>New customers</span><strong>${fmt.num(t.newCustomers)}</strong><small>${note}</small></div>`);
+  }
+  cards.push(`<div class="kpi"><span>Avg invoice value</span><strong>${fmt.lakh2(t.aovLakh)}</strong></div>`);
+  cards.push(
+    `<div class="kpi"><span>Known source</span><strong>${fmt.pct(t.knownSourceSharePct)}</strong><small>excl. Other and Unknown</small></div>`
+  );
+  return `<section class="kpis attr" id="attr-panel" role="tabpanel" aria-labelledby="attr-tab-${escapeHtml(tab.id)}">${cards.join("")}</section>`;
+}
+
+function attrBarsHtml(sources) {
+  if (!sources.length) return `<p class="empty">No sources in this period.</p>`;
+  return `<ul class="attr-src">${sources
+    .map((s) => {
+      const share = Number(s.sharePct);
+      const width = Number.isFinite(share) ? Math.max(0, Math.min(100, share)) : 0;
+      const shown = width === 0 && Number(s.amountLakh) > 0 ? 1.2 : width;
+      const color = ATTR_COLOR[s.source] || "#1c1915";
+      const fill =
+        s.source === "unknown"
+          ? `background-color:${ATTR_COLOR.unknown}`
+          : `background:${color}`;
+      const hatch = s.source === "unknown" ? " attr-fill-unknown" : "";
+      const shareTxt = s.sharePct == null ? "—" : `${fmt.num(s.sharePct, 1)}%`;
+      return `<li>
+        <div class="attr-src-name${attrMuted(s.source)}">${attrSwatch(s.source)}<span>${escapeHtml(s.label)}</span></div>
+        <div class="attr-track" aria-hidden="true"><div class="attr-fill${hatch}" style="width:${shown}%;${fill}"></div></div>
+        <div class="attr-val"><b>${fmt.lakh(s.amountLakh)}</b><span>${shareTxt}</span>${attrDelta(s)}</div>
+      </li>`;
+    })
+    .join("")}</ul>`;
+}
+
+function attrTableWrap(html) {
+  return html.replace(`class="table-wrap"`, `class="table-wrap attr-scroll"`);
+}
+
+function attrScorecardHtml(period) {
+  const totals = period.totals || {};
+  const sources = period.sources || [];
+  const showNew =
+    totals.newCustomers != null ||
+    sources.some((s) => s.newCustomers != null || s.newRevenuePct != null);
+  const cols = [
+    {
+      key: "label",
+      label: "Source",
+      value: (r) =>
+        r._total
+          ? "Total"
+          : `${attrSwatch(r.source)}<span class="cat-name${attrMuted(r.source)}">${escapeHtml(r.label)}</span>`,
+    },
+    { key: "amountLakh", label: "Revenue", align: "right", value: (r) => fmt.lakh(r.amountLakh) },
+    {
+      key: "sharePct",
+      label: "Share %",
+      align: "right",
+      value: (r) => {
+        if (r._total) return r.amountLakh == null ? "—" : "100%";
+        return r.sharePct == null ? "—" : `${fmt.num(r.sharePct, 1)}%`;
+      },
+    },
+    { key: "changePct", label: "Δ vs compare", align: "right", value: (r) => attrDelta(r) },
+    { key: "invoices", label: "Invoices", align: "right", value: (r) => fmt.num(r.invoices) },
+    { key: "customers", label: "Customers", align: "right", value: (r) => fmt.num(r.customers) },
+  ];
+  if (showNew) {
+    cols.push({
+      key: "newCustomers",
+      label: "New customers",
+      align: "right",
+      value: (r) => (r.newCustomers == null ? "—" : fmt.num(r.newCustomers)),
+    });
+  }
+  cols.push(
+    { key: "aovLakh", label: "AOV", align: "right", value: (r) => fmt.lakh2(r.aovLakh) },
+    {
+      key: "revenuePerCustomerLakh",
+      label: "Revenue / customer",
+      align: "right",
+      value: (r) => fmt.lakh2(r.revenuePerCustomerLakh),
+    }
+  );
+  if (showNew) {
+    cols.push({
+      key: "newRevenuePct",
+      label: "New-customer revenue %",
+      align: "right",
+      value: (r) => (r.newRevenuePct == null ? "—" : `${fmt.num(r.newRevenuePct, 1)}%`),
+    });
+  }
+  const totalRow = {
+    _total: true,
+    label: "Total",
+    amountLakh: totals.amountLakh,
+    invoices: totals.invoices,
+    customers: totals.customers,
+    newCustomers: totals.newCustomers,
+    aovLakh: totals.aovLakh,
+    revenuePerCustomerLakh: null,
+    newRevenuePct: null,
+  };
+  return attrTableWrap(
+    table(cols, sources.concat([totalRow]), "attr-score", (r) => (r._total ? "attr-total" : ""))
+  );
+}
+
+function attrMonthTitle(m, channels) {
+  const head = m.partial && m.throughDay ? `${m.label} · to ${attrOrdinal(m.throughDay)}` : m.label || m.month;
+  const lines = [head];
+  channels.forEach((ch) => {
+    const bag = m.bySource || {};
+    if (!Object.prototype.hasOwnProperty.call(bag, ch.id)) return;
+    lines.push(`${ch.label}: ${fmt.lakh(bag[ch.id])}`);
+  });
+  lines.push(`Total: ${fmt.lakh(m.totalLakh)}`);
+  return lines.join("\n");
+}
+
+function attrTrendHint(tab, mode) {
+  const months = tab.monthlyTrend || [];
+  const last = months[months.length - 1];
+  const bits = ["₹ (L = lakh, Cr = crore), GST-incl."];
+  if (mode === "pct") bits.push("each column sums to 100%");
+  if (last?.partial && last.throughDay) {
+    bits.push(`${last.label} · to ${attrOrdinal(last.throughDay)} is month-to-date (hollow column)`);
+  } else if (last?.partial) {
+    bits.push(`${last.label || "Latest month"} is month-to-date (hollow column)`);
+  }
+  bits.push("dots are new customers; grey means history starts Jun 2025");
+  return bits.join(" · ");
+}
+
+function attrTrendSvg(tab, channels, mode) {
+  const months = tab.monthlyTrend || [];
+  if (!months.length) return `<p class="empty">No monthly trend in this snapshot.</p>`;
+  const W = 1060;
+  const plotH = 198;
+  const pl = 54;
+  const pr = 18;
+  const pt = 16;
+  const n = months.length;
+  const slot = (W - pl - pr) / n;
+  const barW = Math.min(34, slot * 0.58);
+  const pctMode = mode === "pct";
+  const totals = months.map((m) => Number(m.totalLakh) || 0);
+  let max;
+  let step;
+  if (pctMode) {
+    max = 100;
+    step = 25;
+  } else {
+    const nice = niceChartMax(totals);
+    max = nice.max;
+    step = nice.step;
+  }
+  const yBase = pt + plotH;
+  const Hh = yBase + 56;
+  const cx = (i) => pl + slot * (i + 0.5);
+  const yOf = (v) => pt + plotH * (1 - Number(v) / (max || 1));
+  const rnd = (v) => Math.round(Number(v) * 10) / 10;
+  let g = "";
+  const ticks = Math.max(1, Math.round(max / step));
+  for (let i = 0; i <= ticks; i++) {
+    const v = i * step;
+    const y = yOf(v);
+    const lab = pctMode ? `${fmt.num(v, 0)}%` : axisTickLabel(v, max);
+    g += `<line x1="${pl}" x2="${W - pr}" y1="${rnd(y)}" y2="${rnd(y)}" stroke="#e6ddd0"/>`;
+    g += `<text x="${pl - 6}" y="${rnd(y) + 4}" font-size="10" text-anchor="end" fill="#6b645a">${escapeHtml(lab)}</text>`;
+  }
+  months.forEach((m, i) => {
+    const total = Number(m.totalLakh) || 0;
+    const partial = Boolean(m.partial);
+    const x = cx(i) - barW / 2;
+    let cursor = yBase;
+    const title = escapeHtml(attrMonthTitle(m, channels));
+    channels.forEach((ch) => {
+      const raw = Number((m.bySource || {})[ch.id] || 0);
+      if (!(raw > 0)) return;
+      const plotted = pctMode ? (total > 0 ? (raw / total) * 100 : 0) : raw;
+      const h = (plotted / (max || 1)) * plotH;
+      if (!(h > 0)) return;
+      cursor -= h;
+      const color = ATTR_COLOR[ch.id] || "#1c1915";
+      const fill = ch.id === "unknown" ? "url(#attrHatch)" : color;
+      if (partial) {
+        g += `<rect x="${rnd(x)}" y="${rnd(cursor)}" width="${rnd(barW)}" height="${rnd(Math.max(h, 0))}" fill="#fffdf8" stroke="${color}" stroke-width="1.4" stroke-dasharray="3 2"><title>${title}</title></rect>`;
+      } else {
+        g += `<rect x="${rnd(x)}" y="${rnd(cursor)}" width="${rnd(barW)}" height="${rnd(Math.max(h, 0))}" fill="${fill}"><title>${title}</title></rect>`;
+      }
+    });
+    g += `<text x="${rnd(cx(i))}" y="${yBase + 16}" font-size="10" text-anchor="middle" fill="#6b645a">${escapeHtml(m.label || "")}</text>`;
+    if (partial && m.throughDay) {
+      g += `<text x="${rnd(cx(i))}" y="${yBase + 28}" font-size="9" text-anchor="middle" fill="#8a5a12">to ${escapeHtml(attrOrdinal(m.throughDay))}</text>`;
+    }
+    const news = channels.filter((ch) => Number((m.newCustomersBySource || {})[ch.id]) > 0);
+    const reliable = m.newCustomersReliable !== false;
+    const gap = 8;
+    const origin = cx(i) - ((news.length - 1) * gap) / 2;
+    news.forEach((ch, di) => {
+      const count = (m.newCustomersBySource || {})[ch.id];
+      const fill = reliable ? ATTR_COLOR[ch.id] || "#1c1915" : "#c9c2b6";
+      const note = `${ch.label}: ${fmt.num(count)} new${reliable ? "" : " (history starts Jun 2025)"}`;
+      g += `<circle cx="${rnd(origin + di * gap)}" cy="${yBase + 42}" r="3.2" fill="${fill}"><title>${escapeHtml(note)}</title></circle>`;
+    });
+    if (i === n - 1 && !pctMode && total > 0) {
+      const top = Math.max(12, yOf(total) - 8);
+      g += `<text x="${rnd(cx(i))}" y="${rnd(top)}" font-size="11" font-weight="700" text-anchor="middle" fill="#1c1915">${escapeHtml(fmt.lakh(total))}</text>`;
+    }
+  });
+  const label = escapeHtml(tab.label || "sales");
+  return `<svg class="trend-svg" viewBox="0 0 ${W} ${Hh}" width="100%" role="img" aria-label="Monthly revenue by source for ${label}"><defs><pattern id="attrHatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" fill="#c9c2b6"/><line x1="0" y1="0" x2="0" y2="6" stroke="#1c1915" stroke-opacity="0.28" stroke-width="2"/></pattern></defs>${g}</svg>`;
+}
+
+function attrLegendHtml(channels) {
+  return `<div class="attr-legend">${channels
+    .map((ch) => `<span class="${attrMuted(ch.id).trim()}">${attrSwatch(ch.id)}${escapeHtml(ch.label)}</span>`)
+    .join("")}</div>`;
+}
+
+function attrNewRepeatHtml(period) {
+  const totals = period.totals || {};
+  if (totals.newRevenueLakh == null && totals.repeatRevenueLakh == null) return "";
+  const sources = (period.sources || []).filter((s) => s.newRevenueLakh != null || s.repeatRevenueLakh != null);
+  if (!sources.length) return "";
+  const rows = sources
+    .map((s) => {
+      const newW =
+        s.newRevenuePct == null || !Number.isFinite(Number(s.newRevenuePct))
+          ? 0
+          : Math.max(0, Math.min(100, Number(s.newRevenuePct)));
+      const repW = Math.max(0, 100 - newW);
+      const color = ATTR_COLOR[s.source] || "#1c1915";
+      const hatch = s.source === "unknown" ? " attr-fill-unknown" : "";
+      return `<li>
+        <div class="attr-src-name${attrMuted(s.source)}">${attrSwatch(s.source)}<span>${escapeHtml(s.label)}</span></div>
+        <div class="attr-nr-track" title="${escapeHtml(`New ${fmt.lakh(s.newRevenueLakh)} · Repeat ${fmt.lakh(s.repeatRevenueLakh)}`)}">
+          <div class="attr-nr-new" style="width:${newW}%;background:${color}"></div>
+          <div class="attr-nr-rep${hatch}" style="width:${repW}%;background:${color}"></div>
+        </div>
+        <div class="attr-val"><span>New ${fmt.lakh(s.newRevenueLakh)}</span><span>Repeat ${fmt.lakh(s.repeatRevenueLakh)}</span></div>
+      </li>`;
+    })
+    .join("");
+  const flag =
+    period.newCustomersReliable === false ? ` <span class="flag">history starts Jun 2025</span>` : "";
+  return `<section class="panel">
+    <div class="panel-head">
+      <h2>New vs repeat revenue</h2>
+      <p class="hint">New = customer's first-ever invoice is in this period.${flag}</p>
+    </div>
+    <ul class="attr-src attr-nr">${rows}</ul>
+    <p class="hint attr-legend-note"><i class="attr-key attr-key-solid" aria-hidden="true"></i> New <i class="attr-key attr-key-soft" aria-hidden="true"></i> Repeat</p>
+  </section>`;
+}
+
+function attrMatrixHtml(data, period, mode) {
+  const allowed = ["mtd", "lastMonth", "t12m"];
+  const key = allowed.includes(period.id) ? period.id : "t12m";
+  const block = data.sourceByCategory?.[key];
+  if (!block) return "";
+  const cats = block.categories || [];
+  const range = sameMonthDayRange(block.range, true);
+  const fallback = key !== period.id;
+  const modeLabel = mode === "col" ? "share of the category (column)" : "share of the source (row)";
+  const head = `<tr><th>Source</th>${cats
+    .map((c) => `<th class="num">${escapeHtml(c.label)}</th>`)
+    .join("")}<th class="num">Total</th></tr>`;
+  const body = (block.rows || [])
+    .map((row) => {
+      const cells = cats
+        .map((c) => {
+          const cell = (row.cells || {})[c.id] || {};
+          const pct = mode === "col" ? cell.colPct : cell.rowPct;
+          const alpha = Math.max(0, Math.min(0.5, ((Number(pct) || 0) / 100) * 0.5));
+          const pctTxt = pct == null || pct === "" ? "—" : `${fmt.num(pct, 1)}%`;
+          return `<td class="num attr-heat" style="--heat:${alpha.toFixed(3)}" data-label="${escapeHtml(c.label)}">${fmt.lakh(cell.amountLakh)}<span class="attr-sub">${pctTxt}</span></td>`;
+        })
+        .join("");
+      return `<tr><td data-label="Source">${attrSwatch(row.source)}<span class="${attrMuted(row.source).trim()}">${escapeHtml(row.label)}</span></td>${cells}<td class="num" data-label="Total">${fmt.lakh(row.totalLakh)}</td></tr>`;
+    })
+    .join("");
+  const totalCells = cats
+    .map(
+      (c) =>
+        `<td class="num" data-label="${escapeHtml(c.label)}">${fmt.lakh((block.columnTotalsLakh || {})[c.id])}</td>`
+    )
+    .join("");
+  const foot = `<tr class="attr-total"><td data-label="Source">Total</td>${totalCells}<td class="num" data-label="Total">${fmt.lakh(block.totalLakh)}</td></tr>`;
+  const partial = key === "mtd" ? ` <span class="chip">partial</span>` : "";
+  const note = fallback
+    ? `<p class="hint">This period is not in the category matrix. Showing 12 months${range ? ` (${escapeHtml(range)})` : ""}.</p>`
+    : "";
+  return `<section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Source × category</h2>
+        <p class="hint">${escapeHtml(range || key)}${partial} · tint is ${escapeHtml(modeLabel)}</p>
+        ${note}
+      </div>
+      <div class="actions" role="group" aria-label="Matrix percent">
+        <button type="button" class="attr-toggle" data-attr-matrix="row" aria-pressed="${mode === "row" ? "true" : "false"}">Row %</button>
+        <button type="button" class="attr-toggle" data-attr-matrix="col" aria-pressed="${mode === "col" ? "true" : "false"}">Column %</button>
+      </div>
+    </div>
+    <div class="table-wrap attr-scroll">
+      <table id="attr-matrix"><thead>${head}</thead><tbody>${body}${foot}</tbody></table>
+    </div>
+  </section>`;
+}
+
+function attrCohortsHtml(data, channels) {
+  const rows = data.acquisitionCohorts || [];
+  if (!rows.length) return "";
+  const head = `<tr><th>Month</th>${channels
+    .map((c) => `<th class="num">${escapeHtml(c.label)}</th>`)
+    .join("")}</tr>`;
+  const body = rows
+    .map((row) => {
+      const cells = channels
+        .map((c) => {
+          const b = (row.bySource || {})[c.id];
+          const txt = !b
+            ? "—"
+            : `${fmt.num(b.customers)}<span class="attr-sub">${fmt.lakh(b.revenueToDateLakh)}</span>`;
+          return `<td class="num" data-label="${escapeHtml(c.label)}">${txt}</td>`;
+        })
+        .join("");
+      const flag = row.reliable === false ? ` <span class="flag">history starts Jun 2025</span>` : "";
+      const cls = row.reliable === false ? ` class="attr-unreliable"` : "";
+      return `<tr${cls}><td data-label="Month">${escapeHtml(attrYmLabel(row.month))}${flag}</td>${cells}</tr>`;
+    })
+    .join("");
+  return `<section class="panel">
+    <div class="panel-head">
+      <h2>Customers acquired by source</h2>
+      <p class="hint">First invoice in that month. The sub-line is revenue since, through the latest invoice. Grey rows are before the history is reliable.</p>
+    </div>
+    <div class="table-wrap attr-scroll">
+      <table id="attr-cohorts"><thead>${head}</thead><tbody>${body}</tbody></table>
+    </div>
+  </section>`;
+}
+
+function attrTopHtml(sources) {
+  if (!sources.length) return "";
+  let opened = false;
+  const cards = sources
+    .map((s) => {
+      const people = s.topCustomers || [];
+      const open = !opened && people.length ? " open" : "";
+      if (people.length) opened = true;
+      const items = people.length
+        ? people
+            .map((c) => {
+              const chip = c.isNew === true ? ` <span class="chip attr-new">new</span>` : "";
+              const share = c.sharePct == null ? "—" : `${fmt.num(c.sharePct, 1)}%`;
+              return `<li><span>${escapeHtml(c.customer)}${chip}</span><span class="attr-cust-amt">${fmt.lakh(c.amountLakh)} <span class="attr-inline-muted">${share}</span></span></li>`;
+            })
+            .join("")
+        : `<li class="attr-none">No customers in this period.</li>`;
+      return `<details class="attr-acc"${open}>
+        <summary><span class="attr-acc-line"><span class="attr-src-name${attrMuted(s.source)}">${attrSwatch(s.source)}<span>${escapeHtml(s.label)}</span></span><span class="attr-acc-meta">${fmt.lakh(s.amountLakh)}</span></span></summary>
+        <ul class="attr-cust">${items}</ul>
+      </details>`;
+    })
+    .join("");
+  return `<section class="panel">
+    <div class="panel-head">
+      <h2>Top customers per source</h2>
+      <p class="hint">Share is of that source. "new" means the customer's first invoice is in this period.</p>
+    </div>
+    ${cards}
+  </section>`;
+}
+
+function attrQualityHtml(dq) {
+  if (!dq) return "";
+  const notes = (dq.notes || [])
+    .map((n) => {
+      const kind = /indicative|unknown|other/i.test(n) ? "watch" : "info";
+      return `<li>${badge(kind)}<span>${escapeHtml(n)}</span></li>`;
+    })
+    .join("");
+  const months = (dq.byMonth || [])
+    .map((m) => {
+      const u = Math.max(0, Math.min(100, Number(m.unknownPct) || 0));
+      const o = Math.max(0, Math.min(100, Number(m.otherPct) || 0));
+      const lab = attrYmLabel(m.month);
+      const short = lab.replace(/'\d\d$/, "");
+      return `<div class="attr-dq-col"><div class="attr-dq-track" title="${escapeHtml(`${lab}: Other ${fmt.num(o, 1)}% · Unknown ${fmt.num(u, 1)}%`)}"><div class="attr-dq-unk" style="height:${u}%"></div><div class="attr-dq-oth" style="height:${o}%"></div></div><span>${escapeHtml(short)}</span></div>`;
+    })
+    .join("");
+  const unknown = dq.unknownCustomers || [];
+  const who = unknown.length
+    ? `<p class="hint">Unknown customers: ${unknown.map((n) => escapeHtml(n)).join(", ")}</p>`
+    : `<p class="hint">Unknown customers: none</p>`;
+  const mapped =
+    dq.unmappedRaw && typeof dq.unmappedRaw === "object" ? Object.entries(dq.unmappedRaw) : [];
+  const unmapped = mapped.length
+    ? `<p class="hint">Unmapped raw values: ${mapped
+        .map(([k, v]) => `${escapeHtml(k)} (${fmt.num(v)})`)
+        .join(", ")}</p>`
+    : "";
+  const inconsistent = Array.isArray(dq.inconsistentCustomers) ? dq.inconsistentCustomers.length : 0;
+  return `<section class="panel" id="attr-quality">
+    <div class="panel-head">
+      <h2>Data quality</h2>
+      <p class="hint">Other and Unknown as a share of revenue, by month.</p>
+    </div>
+    ${notes ? `<ul class="notes">${notes}</ul>` : ""}
+    <div class="attr-dq-legend"><span><i class="swatch" style="background:#9b9387" aria-hidden="true"></i>Other</span><span>${attrSwatch("unknown")}Unknown</span></div>
+    <div class="attr-dq">${months}</div>
+    ${who}
+    <p class="hint">Customers with more than one Buyer_Source: ${fmt.num(inconsistent)}</p>
+    ${unmapped}
+  </section>`;
+}
+
+function attrUnavailableHtml(items) {
+  if (!items || !items.length) return "";
+  const lis = items
+    .map(
+      (m) =>
+        `<li><strong>${escapeHtml(m.metric)}</strong><span>${escapeHtml(m.reason)}</span></li>`
+    )
+    .join("");
+  return `<section class="panel">
+    <div class="panel-head"><h2>Not available</h2></div>
+    <p class="hint">Not calculated. Sales Analysis has no spend, lead, or touchpoint history for these.</p>
+    <ul class="attr-na">${lis}</ul>
+  </section>`;
+}
+
+function attrFooterHtml(data) {
+  const lines = [];
+  if (data.source) lines.push(escapeHtml(data.source));
+  if (data.attributionModel?.type) lines.push(escapeHtml(data.attributionModel.type));
+  (data.notes?.text || []).forEach((t) => lines.push(escapeHtml(t)));
+  lines.push(
+    `As of ${escapeHtml(fmt.date(data.asOf))} · last invoice ${escapeHtml(fmt.date(data.lastInvoiceDate))}`
+  );
+  return lines.map((line) => `<p class="source">${line}</p>`).join("");
+}
+
+function renderAttribution(data) {
+  const tabs = data.tabs || [];
+  if (!tabs.length) {
+    app.replaceChildren(el(`
+      ${pageChrome(data.title || "Sales attribution", "No category tabs in this snapshot.", data.asOf)}
+    `));
+    return;
+  }
+  const tabIds = new Set(tabs.map((t) => t.id));
+  const periodIds = new Set((tabs[0].periods || []).map((p) => p.id));
+  let curTab = attrRead(ATTR_TAB_KEY, data.defaultTab, tabIds);
+  let curPeriod = attrRead(ATTR_PERIOD_KEY, data.defaultPeriod, periodIds);
+  let stackMode = "abs";
+  let matrixMode = "row";
+  const channels = attrChannels(data);
+
+  const paint = () => {
+    const tab = tabs.find((t) => t.id === curTab) || tabs[0];
+    curTab = tab.id;
+    const period =
+      (tab.periods || []).find((p) => p.id === curPeriod) ||
+      (tab.periods || []).find((p) => p.id === data.defaultPeriod) ||
+      (tab.periods || [])[0];
+    if (!period) {
+      app.replaceChildren(el(`
+        ${pageChrome(data.title || "Sales attribution", "No periods in this snapshot.", data.asOf)}
+      `));
+      return;
+    }
+    curPeriod = period.id;
+    const compareHint = period.compareLabel
+      ? `Change vs ${escapeHtml(period.compareLabel)}.`
+      : escapeHtml(period.compareNote || "No prior-period comparison.");
+    const newFlag =
+      period.newCustomersReliable === false ? " · new customers are flagged (history starts Jun 2025)" : "";
+    app.replaceChildren(el(`
+      ${pageChrome(data.title || "Sales attribution", attrLede(data), data.asOf)}
+      ${sampleBanner(data.sample)}
+      <div class="tabs" role="tablist" aria-label="Sales category">${attrTabsHtml(tabs, curTab)}</div>
+      ${attrControlsHtml(tab, period)}
+      ${attrCaveatHtml(data.dataQuality)}
+      ${attrKpisHtml(tab, period)}
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Revenue by source</h2>
+          <p class="hint">${compareHint} Sorted by revenue.</p>
+        </div>
+        ${attrBarsHtml(period.sources || [])}
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Source scorecard</h2>
+          <p class="hint">${escapeHtml(period.label || "")}${newFlag}</p>
+        </div>
+        ${attrScorecardHtml(period)}
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Monthly trend by source</h2>
+            <p class="hint">${escapeHtml(attrTrendHint(tab, stackMode))}</p>
+          </div>
+          <div class="actions" role="group" aria-label="Trend scale">
+            <button type="button" class="attr-toggle" data-attr-stack="abs" aria-pressed="${stackMode === "abs" ? "true" : "false"}">Amount</button>
+            <button type="button" class="attr-toggle" data-attr-stack="pct" aria-pressed="${stackMode === "pct" ? "true" : "false"}">100%</button>
+          </div>
+        </div>
+        ${attrTrendSvg(tab, channels, stackMode)}
+        ${attrLegendHtml(channels)}
+      </section>
+      ${attrNewRepeatHtml(period)}
+      ${tab.id === "all" ? attrMatrixHtml(data, period, matrixMode) : ""}
+      ${attrCohortsHtml(data, channels)}
+      ${attrTopHtml(period.sources || [])}
+      ${attrQualityHtml(data.dataQuality)}
+      ${attrUnavailableHtml(data.unavailableMetrics)}
+      ${attrFooterHtml(data)}
+    `));
+    app.querySelectorAll("[data-attr-tab]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-tab");
+        if (!id || id === curTab) return;
+        curTab = id;
+        attrWrite(ATTR_TAB_KEY, id);
+        paint();
+      });
+    });
+    app.querySelectorAll("[data-attr-period]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-period");
+        if (!id || id === curPeriod) return;
+        curPeriod = id;
+        attrWrite(ATTR_PERIOD_KEY, id);
+        paint();
+      });
+    });
+    app.querySelectorAll("[data-attr-stack]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-stack");
+        if (!id || id === stackMode) return;
+        stackMode = id;
+        paint();
+      });
+    });
+    app.querySelectorAll("[data-attr-matrix]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-attr-matrix");
+        if (!id || id === matrixMode) return;
+        matrixMode = id;
+        paint();
+      });
+    });
+    bindPrint();
+  };
+  paint();
+}
+
 const renderers = {
   label: renderLabels,
   rm: renderInventory,
   gumming: renderGumming,
+  attribution: renderAttribution,
 };
 
 function renderError(err) {
