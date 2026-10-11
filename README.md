@@ -1,7 +1,7 @@
 # SAL Papers / Dubble — weekly ops dashboard
 
 Static briefing site for **SAL Papers / Dubble** (B2B label stock).  
-Home is a sales overview. Four reports sit under it:
+Home is a sales overview. Five reports sit under it:
 
 | Route | Report | Data file |
 | --- | --- | --- |
@@ -10,6 +10,7 @@ Home is a sales overview. Four reports sit under it:
 | `#rm` | Inventory management / RM stock | `data/inventory.json` |
 | `#gumming` | Gumming sheets management report | `data/gumming.json` |
 | `#attribution` | Sales attribution — revenue by customer source | `data/attribution.json` |
+| `#customers` | Customers — revenue, AOV, tier and follow-ups | `data/customers.json` |
 
 If `data/home.json` fails to load, `#home` falls back to the report cards only.
 
@@ -17,7 +18,7 @@ Files with `"sample": true` are bannered in the UI. Do not use sample figures fo
 
 ## Sales figures — own group companies
 
-Every sales figure on `#home`, `#label`, `#gumming`, and `#attribution` **excludes only** billing to these own group companies:
+Every sales figure on `#home`, `#label`, `#gumming`, `#attribution`, and `#customers` **excludes only** billing to these own group companies:
 
 - M/S SAL PAPERS PVT LTD
 - M/S SHREE ARIHANT LAMINATES
@@ -42,6 +43,7 @@ After GitHub Pages is enabled (see below):
 - Inventory / RM: https://apoorv9496.github.io/sal-dashboard/#rm  
 - Gumming sheets: https://apoorv9496.github.io/sal-dashboard/#gumming  
 - Sales attribution: https://apoorv9496.github.io/sal-dashboard/#attribution  
+- Customers: https://apoorv9496.github.io/sal-dashboard/#customers  
 
 No Node runtime on Pages. The site is HTML + CSS + vanilla JS that `fetch`es the JSON files.
 
@@ -70,7 +72,7 @@ Then open http://localhost:8080/
 
 Weekly refresh is a **data commit**, not an HTML edit.
 
-1. Replace `data/labels.json`, `data/gumming.json`, `data/inventory.json`, `data/home.json`, and `data/attribution.json` with that week’s extract (keep the same keys). Rebuild `data/home.json` and `data/attribution.json` from Sales Analysis (Total Bill Amount, GST-inclusive); do not total them by hand in the page. `#attribution` reads `Buyer_Source` as already aggregated in `data/attribution.json`.
+1. Replace `data/labels.json`, `data/gumming.json`, `data/inventory.json`, `data/home.json`, `data/attribution.json`, and `data/customers.json` with that week’s extract (keep the same keys). Rebuild `data/home.json`, `data/attribution.json`, and `data/customers.json` from Sales Analysis (Total Bill Amount, GST-inclusive); do not total them by hand in the page. `#attribution` reads `Buyer_Source` as already aggregated in `data/attribution.json`. `#customers` recomputes range revenue, AOV, change and A/B/C tiers in the browser from `customers[].inv`.
 2. Keep the own-company exclusion (only M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES) and keep production planning on the past 3 complete months.
 3. Set `asOf` on each file to the Monday date (`YYYY-MM-DD`).
 4. Set `lastUpdated` in `data/reports.json` to the same Monday.
@@ -295,6 +297,33 @@ Sales attribution for `#attribution`. Amounts are ₹ lakh, GST-inclusive Total 
 
 The page is two panels driven by the period pills (month-to-date, last month, last 3 months, trailing 12 months, lifetime). The choice is remembered in `sessionStorage` (`salAttrPeriod`). Revenue by source uses all categories. Source × category is the category split, so there are no category tabs. Other and Unknown are untagged. Weekly rebuild: replace this file and keep the same keys; set `asOf` to the Monday date.
 
+### `data/customers.json`
+
+Customer list for `#customers`. Invoice amounts are integer rupees, GST-inclusive Total Bill Amount. The page recomputes revenue, AOV, change versus the previous period, and A/B/C tiers for the selected range. Follow-up fields on each customer (`fu`) are precomputed and are not recalculated when the range changes.
+
+Period pills match `#attribution` (plus FY to date and a custom range) and are remembered in `sessionStorage` (`salCustPreset`, `salCustFrom`, `salCustTo`). Filters are remembered in `salCustFilters`. Amounts use the shared Indian formatter (`fmtINR`): crores from ₹1 Cr, lakhs below that, full figures under ₹1 lakh. On screens 680px and under, the table becomes a card list.
+
+```json
+{
+  "asOf": "2026-10-10",
+  "dataStart": "2025-06-02",
+  "defaultPreset": "last3m",
+  "categories": [{ "id": "label", "label": "Labels" }],
+  "customers": [{
+    "n": "EXAMPLE CO",
+    "mp": 0,
+    "src": 0,
+    "status": "active",
+    "last": "2026-09-30",
+    "last3": [["2026-09-30", "CALS SHEET 18×23 inch", "gumming"]],
+    "fu": { "n": 4, "gap": 12, "gapEff": 12, "since": 10, "next": "2026-10-10", "callNow": true, "status": "callThisWeek" },
+    "inv": [[14, "SAL/25-26/0301", 49654, 1]]
+  }]
+}
+```
+
+`inv[]` is `[dayOffset from dataStart, invoiceNo, amountRupees, categoryIndex]`. `mp` / `src` index `marketingPersons` / `sources`. Active means the last invoice is after `status.activeCutoffExclusive` (45 days before `asOf`). Due this week is Call this week plus Overdue.
+
 ## Layout
 
 ```
@@ -308,6 +337,7 @@ data/labels.json
 data/gumming.json
 data/inventory.json
 data/attribution.json      Sales attribution (`#attribution`)
+data/customers.json         Customers, AOV and follow-ups (`#customers`)
 .github/workflows/deploy-pages.yml
 ```
 
