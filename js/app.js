@@ -424,12 +424,13 @@ function sampleBanner(isSample) {
   return `<div class="banner" role="status">Sample placeholder data — replace the JSON files under <code>data/</code> on Monday. Not live ERP figures.</div>`;
 }
 
-function pageChrome(title, lede, asOf, extra = "") {
+function pageChrome(title, lede, asOf, extra = "", ledeId = "") {
+  const ledeAttr = ledeId ? ` id="${escapeHtml(ledeId)}"` : "";
   return `
     <div class="page-head">
       <div>
         <h1>${escapeHtml(title)}</h1>
-        <p class="lede">${escapeHtml(lede)}</p>
+        <p class="lede"${ledeAttr}>${escapeHtml(lede)}</p>
       </div>
       <div class="meta-stack">
         <span>Snapshot as of</span>
@@ -1521,11 +1522,8 @@ const CUST_COLS = [
   ["revenue", "Revenue", "num"],
   ["aov", "AOV", "num"],
   ["delta", "Δ vs prev period", "num"],
-  ["tier", "Tier", ""],
   ["status", "Status", ""],
-  ["items", "Last 3 items", ""],
   ["follow", "Next follow-up", ""],
-  ["gap", "Orders every", "num"],
 ];
 const CUST_SORTS = [
   ["revenue:desc", "Revenue (high to low)"],
@@ -1540,20 +1538,15 @@ const CUST_SORTS = [
   ["mp:desc", "Marketing person (Z–A)"],
   ["source:asc", "Source (A–Z)"],
   ["source:desc", "Source (Z–A)"],
-  ["tier:asc", "Tier (A–C)"],
-  ["tier:desc", "Tier (C–A)"],
   ["status:asc", "Status (Active first)"],
   ["status:desc", "Status (Inactive first)"],
   ["follow:asc", "Next follow-up (soonest)"],
   ["follow:desc", "Next follow-up (latest)"],
-  ["gap:asc", "Orders every (shortest)"],
-  ["gap:desc", "Orders every (longest)"],
-  ["items:asc", "Last 3 items (A–Z)"],
-  ["items:desc", "Last 3 items (Z–A)"],
   ["due", "Due this week (overdue first)"],
 ];
-const CUST_TEXT_COLS = new Set(["company", "mp", "source", "tier", "status", "items", "follow"]);
-const CUST_NUM_COLS = new Set(["revenue", "aov", "delta", "gap"]);
+const CUST_COL_KEYS = new Set(CUST_COLS.map(([key]) => key));
+const CUST_TEXT_COLS = new Set(["company", "mp", "source", "tier", "status", "follow"]);
+const CUST_NUM_COLS = new Set(["revenue", "aov", "delta"]);
 let detachCustUi = null;
 
 function custIso(y, m, d) {
@@ -1755,6 +1748,7 @@ function custStrList(value, allowed) {
 
 function renderCustomers(data) {
   const customers = data.customers || [];
+  const idByCust = new Map(customers.map((c, i) => [c, String(i)]));
   const persons = data.marketingPersons || [];
   const sources = data.sources || [];
   const follow = data.followUp || { statuses: [], dueThisWeek: [] };
@@ -1781,15 +1775,17 @@ function renderCustomers(data) {
     toStored = "";
   }
   const clampDate = (iso) => (/^\d{4}-\d{2}-\d{2}$/.test(iso) && iso >= data.dataStart && iso <= data.asOf ? iso : "");
+  const explicitView = storedFilters.view === "all" || storedFilters.view === "due";
+  const storedSort = CUST_COL_KEYS.has(storedFilters.sortKey) ? storedFilters.sortKey : "revenue";
   const state = {
     preset: attrRead(CUST_PRESET_KEY, data.defaultPreset || "last3m", presetIds),
     from: clampDate(fromStored),
     to: clampDate(toStored),
     q: typeof storedFilters.q === "string" ? storedFilters.q : "",
     cols: initialCols(),
-    due: Boolean(storedFilters.due),
-    dueSort: Boolean(storedFilters.dueSort),
-    sortKey: CUST_DEFAULT_DIR[storedFilters.sortKey] ? storedFilters.sortKey : "revenue",
+    due: explicitView ? storedFilters.view === "due" : true,
+    dueSort: explicitView ? Boolean(storedFilters.dueSort) : true,
+    sortKey: storedSort,
     sortDir: storedFilters.sortDir === "asc" || storedFilters.sortDir === "desc" ? storedFilters.sortDir : "desc",
     dueSaved: null,
   };
@@ -1800,7 +1796,7 @@ function renderCustomers(data) {
       : custStrList(saved.fu, fuAllowed);
     state.dueSaved = {
       follow: savedFollow.length || Array.isArray(saved.follow) ? savedFollow : null,
-      sortKey: CUST_DEFAULT_DIR[saved.sortKey] ? saved.sortKey : "revenue",
+      sortKey: CUST_COL_KEYS.has(saved.sortKey) ? saved.sortKey : "revenue",
       sortDir: saved.sortDir === "asc" ? "asc" : "desc",
       dueSort: Boolean(saved.dueSort),
     };
@@ -1810,6 +1806,7 @@ function renderCustomers(data) {
   let current = { view: [], range: null, model: null };
   let openMode = null;
   let sheetCol = null;
+  const expanded = new Set();
 
   function ensureCustom() {
     if (state.from && state.to) return;
@@ -1827,6 +1824,7 @@ function renderCustomers(data) {
         q: state.q,
         cols: state.cols,
         due: state.due,
+        view: state.due ? "due" : "all",
         dueSort: state.dueSort,
         sortKey: state.sortKey,
         sortDir: state.sortDir,
@@ -1964,31 +1962,19 @@ function renderCustomers(data) {
       if (key === "follow" && state.due) continue;
       if (!rowPassesCol(row, key)) return false;
     }
+    if (exceptKey !== "tier" && !rowPassesCol(row, "tier")) return false;
     return true;
   }
 
   function colActive(key) {
-    if (key === "follow" && state.due) return true;
+    if (key === "follow" && state.due) return false;
     const v = state.cols[key];
     if (CUST_NUM_COLS.has(key)) return Boolean(v && (v.min !== "" || v.max !== ""));
     return Array.isArray(v);
   }
 
-  function countDueFrom(model) {
-    const ids = new Set(follow.dueThisWeek || []);
-    let n = 0;
-    for (const c of customers) {
-      if (!passesSearch(c)) continue;
-      if (!ids.has(c.fu?.status)) continue;
-      const row = model.byCust.get(c) || blankRow(c);
-      if (!rowPassesCols(row, "follow")) continue;
-      n++;
-    }
-    return n;
-  }
-
   function filtersOn() {
-    if (state.q || state.due) return true;
+    if (state.q || colActive("tier")) return true;
     return CUST_COLS.some(([key]) => colActive(key));
   }
 
@@ -2031,6 +2017,19 @@ function renderCustomers(data) {
     return { from: span[0], to: span[1] };
   }
 
+  const rev12Span = (() => {
+    const { y, m, d } = custParts(data.asOf);
+    const s = custAddMonths(y, m, -12);
+    const endDay = custParts(custMonthEnd(s.y, s.m)).d;
+    let from = custIso(s.y, s.m, Math.min(d, endDay));
+    if (from < data.dataStart) from = data.dataStart;
+    return [custDiffDays(data.dataStart, from), custDiffDays(data.dataStart, data.asOf)];
+  })();
+
+  function revenue12(c) {
+    return custRev(c.inv || [], rev12Span[0], rev12Span[1], null);
+  }
+
   function buildModel(range) {
     const prior = custPriorRange(range.from, range.to, state.preset, data.dataStart);
     const fromOff = custDiffDays(data.dataStart, range.from);
@@ -2050,6 +2049,7 @@ function renderCustomers(data) {
         prev,
         change: custChange(cur.rev, prev),
         tier: "C",
+        rev12: revenue12(c),
       });
     }
     rows.sort((a, b) => b.rev - a.rev || custCmpText(a.c.n, b.c.n));
@@ -2071,6 +2071,7 @@ function renderCustomers(data) {
       prev: null,
       change: { text: "—", cls: "", tip: "", pct: null },
       tier: "—",
+      rev12: revenue12(c),
     };
   }
 
@@ -2136,38 +2137,27 @@ function renderCustomers(data) {
     return list;
   }
 
-  function lastOrderTip(c) {
-    const when = custDayMon(c.last);
-    const ago = custAgo(c.fu?.since);
-    return ago ? `Last order ${when} · ${ago}` : `Last order ${when}`;
+  function followTip(c) {
+    const fu = c.fu || {};
+    const last = c.last ? fmt.date(c.last) : "—";
+    const since = fu.since == null ? "—" : fu.since === 1 ? "1 day since" : `${fu.since} days since`;
+    const every = fu.gap == null ? "—" : custGapText(fu.gap);
+    return `Last order ${last} · ${since} · orders every ${every}`;
   }
 
   function followHtml(c) {
     const fu = c.fu || {};
-    const last = lastOrderTip(c);
+    const tip = followTip(c);
+    let label = fuLabel[fu.status] || fu.status || "—";
+    let cls = "upcoming";
     if (fu.callNow) {
-      const tip = `Follow-up date was ${custDayMon(fu.next)}. ${last}`;
-      return `<span class="chip cust-callnow" title="${escapeHtml(tip)}">Call now</span>`;
-    }
-    const label = fuLabel[fu.status] || fu.status || "—";
-    const cls = fu.status === "overdue"
-      ? "flag cust-overdue"
-      : fu.status === "callThisWeek"
-        ? "flag"
-        : fu.status === "notEnoughHistory"
-          ? "chip cust-fu-thin"
-          : fu.status === "dormant"
-            ? "chip cust-fu-dormant"
-            : "chip";
-    return `<span title="${escapeHtml(last)}">${escapeHtml(custDayMon(fu.next))} <span class="${cls}">${escapeHtml(label)}</span></span>`;
-  }
-
-  function gapHtml(c) {
-    const fu = c.fu || {};
-    const tip = fu.gap != null && fu.gapEff != null && fu.gapEff > fu.gap
-      ? ` title="Follow-up uses a 7-day minimum"`
-      : "";
-    return `<span${tip}>${escapeHtml(custGapText(fu.gap))}</span>`;
+      label = "Call now";
+      cls = "soon";
+    } else if (fu.status === "overdue") cls = "overdue";
+    else if (fu.status === "callThisWeek") cls = "soon";
+    else if (fu.status === "dormant" || fu.status === "notEnoughHistory") cls = "quiet";
+    const date = fu.next ? `<span class="cust-fu-date">${escapeHtml(custDayMon(fu.next))}</span>` : "";
+    return `<span class="cust-fu"><span class="cust-badge ${cls}" title="${escapeHtml(tip)}">${escapeHtml(label)}</span>${date}</span>`;
   }
 
   function statusHtml(status) {
@@ -2187,23 +2177,26 @@ function renderCustomers(data) {
     return `<span class="chip">${escapeHtml(tier)}</span>`;
   }
 
-  function last3Html(c) {
-    const rows = c.last3 || [];
-    if (!rows.length) return "—";
-    const shown = rows.map((row) => custTrunc(row[1])).join("; ");
-    const full = rows.map((row) => `${custDayMon(row[0])} · ${row[1]}`).join("; ");
-    return `<span title="${escapeHtml(full)}">${escapeHtml(shown)}</span>`;
-  }
-
-  function last3Lines(c) {
-    const rows = c.last3 || [];
-    if (!rows.length) return "—";
-    const lines = rows.map((row) => {
-      const item = row[1] || "";
-      const tip = `${custDayMon(row[0])} · ${item}`;
-      return `<span class="cust-item" title="${escapeHtml(tip)}">${escapeHtml(custTrunc(item))}</span>`;
-    }).join("");
-    return `<span class="cust-item-list">${lines}</span>`;
+  function detailInner(r) {
+    const c = r.c;
+    const items = (c.last3 || []).map((row) => `<li>${escapeHtml(row[1] || "—")}</li>`).join("");
+    const gap = c.fu?.gap == null ? "—" : `orders every ${custGapText(c.fu.gap)}`;
+    const since = c.first
+      ? `<div><dt>Customer since</dt><dd>${escapeHtml(fmt.date(c.first))}</dd></div>`
+      : "";
+    return `<div class="cust-detail-grid">
+      <div>
+        <p class="cust-detail-k">Last 3 items</p>
+        ${items ? `<ul class="cust-detail-items">${items}</ul>` : `<p class="cust-detail-empty">—</p>`}
+      </div>
+      <dl class="cust-detail-facts">
+        <div><dt>Last order</dt><dd>${escapeHtml(c.last ? fmt.date(c.last) : "—")}</dd></div>
+        <div><dt>Typical gap</dt><dd>${escapeHtml(gap)}</dd></div>
+        ${since}
+        <div><dt>Tier</dt><dd>${tierHtml(r.tier)}</dd></div>
+        <div><dt>Revenue, last 12 months</dt><dd>${fmtINR(r.rev12)}</dd></div>
+      </dl>
+    </div>`;
   }
 
   function deltaHtml(change) {
@@ -2215,29 +2208,29 @@ function renderCustomers(data) {
 
   function rowHtml(r) {
     const c = r.c;
-    return `<tr>
-      <td class="cust-name"><span title="${escapeHtml(c.n)}">${escapeHtml(c.n)}</span></td>
+    const id = idByCust.get(c) || "";
+    const open = expanded.has(id);
+    const detail = open ? `<tr class="cust-detail"><td colspan="8">${detailInner(r)}</td></tr>` : "";
+    return `<tr class="cust-row${open ? " is-open" : ""}" data-id="${escapeHtml(id)}" tabindex="0" aria-expanded="${open ? "true" : "false"}">
+      <td class="cust-name"><span class="cust-name-line" title="${escapeHtml(c.n)}"><span class="cust-chevron" aria-hidden="true">${open ? "▾" : "▸"}</span><span class="cust-name-text">${escapeHtml(c.n)}</span></span></td>
       <td>${escapeHtml(persons[c.mp] || "—")}</td>
       <td>${sourceHtml(c)}</td>
       <td class="num">${fmtINR(r.rev)}</td>
       <td class="num">${fmtINR(r.aov, { lakhDigits: 2 })}</td>
       <td class="num">${deltaHtml(r.change)}</td>
-      <td class="cust-tier">${tierHtml(r.tier)}</td>
       <td class="cust-status">${statusHtml(c.status)}</td>
-      <td class="cust-items">${last3Lines(c)}</td>
       <td class="cust-follow">${followHtml(c)}</td>
-      <td class="num">${gapHtml(c)}</td>
-    </tr>`;
+    </tr>${detail}`;
   }
 
   function cardHtml(r) {
     const c = r.c;
-    return `<article class="cust-card">
-      <div class="cust-card-top"><strong>${escapeHtml(c.n)}</strong>${statusHtml(c.status)}${tierHtml(r.tier)}</div>
-      <div class="cust-card-line">${escapeHtml(persons[c.mp] || "—")} · ${sourceHtml(c)}</div>
-      <div class="cust-card-line">${fmtINR(r.rev)} · ${fmtINR(r.aov, { lakhDigits: 2 })} · ${deltaHtml(r.change)}</div>
-      <div class="cust-card-line">${followHtml(c)} · ${gapHtml(c)}</div>
-      <div class="cust-card-items">${last3Html(c)}</div>
+    const id = idByCust.get(c) || "";
+    const open = expanded.has(id);
+    return `<article class="cust-card${open ? " is-open" : ""}" data-id="${escapeHtml(id)}" tabindex="0" aria-expanded="${open ? "true" : "false"}">
+      <div class="cust-card-top"><strong>${escapeHtml(c.n)}</strong>${statusHtml(c.status)}</div>
+      <div class="cust-card-metrics"><span class="cust-card-rev">${fmtINR(r.rev)}</span>${followHtml(c)}</div>
+      ${open ? `<div class="cust-card-detail">${detailInner(r)}</div>` : ""}
     </article>`;
   }
 
@@ -2441,6 +2434,7 @@ function renderCustomers(data) {
     document.querySelectorAll('.cust-funnel[aria-expanded="true"]').forEach((btn) => {
       btn.setAttribute("aria-expanded", "false");
     });
+    document.getElementById("cust-more")?.setAttribute("aria-expanded", "false");
     if (openMode === "pop") openMode = null;
   }
 
@@ -2465,7 +2459,8 @@ function renderCustomers(data) {
     if (back) back.hidden = true;
     if (title) title.textContent = "Filters";
     if (!body) return;
-    body.innerHTML = CUST_COLS.map(([key, label]) => {
+    const sheetCols = CUST_COLS.concat([["tier", "Tier"]]);
+    body.innerHTML = sheetCols.map(([key, label]) => {
       const on = colActive(key);
       return `<button type="button" class="cust-sheet-col${on ? " is-on" : ""}" data-sheet-col="${escapeHtml(key)}"><span>${escapeHtml(label)}</span><span aria-hidden="true">${on ? "●" : ""}</span></button>`;
     }).join("");
@@ -2560,6 +2555,12 @@ function renderCustomers(data) {
         finishPanel();
       }
     });
+    if (key === "tier") {
+      const title = document.createElement("p");
+      title.className = "cust-pop-title";
+      title.textContent = "Tier";
+      container.prepend(title);
+    }
     return container;
   }
 
@@ -2568,7 +2569,7 @@ function renderCustomers(data) {
     const back = document.getElementById("cust-sheet-back");
     const title = document.getElementById("cust-sheet-title");
     const body = document.getElementById("cust-sheet-body");
-    const label = CUST_COLS.find((col) => col[0] === key)?.[1] || "Filter";
+    const label = CUST_COLS.find((col) => col[0] === key)?.[1] || (key === "tier" ? "Tier" : "Filter");
     if (back) back.hidden = false;
     if (title) title.textContent = label;
     if (body) mountPanel(key, body);
@@ -2621,14 +2622,46 @@ function renderCustomers(data) {
       btn.classList.toggle("is-on", colActive(btn.getAttribute("data-col")));
     });
     const filtersBtn = document.getElementById("cust-filters-btn");
-    if (filtersBtn) filtersBtn.classList.toggle("is-on", CUST_COLS.some(([key]) => colActive(key)));
+    if (filtersBtn) filtersBtn.classList.toggle("is-on", colActive("tier") || CUST_COLS.some(([key]) => colActive(key)));
     const dueBtn = document.getElementById("cust-due");
+    const allBtn = document.getElementById("cust-all");
     if (dueBtn) dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
+    if (allBtn) allBtn.setAttribute("aria-pressed", state.due ? "false" : "true");
+    const moreBtn = document.getElementById("cust-more");
+    if (moreBtn) moreBtn.classList.toggle("is-on", colActive("tier"));
     const sort = document.getElementById("cust-sort");
     if (sort) {
       const value = sortValue();
       if ([...sort.options].some((opt) => opt.value === value)) sort.value = value;
     }
+  }
+
+  let activeCount = 0;
+  let inactiveCount = 0;
+  for (const c of customers) {
+    if (c.status === "active") activeCount += 1;
+    else inactiveCount += 1;
+  }
+  const dueAll = customers.filter((c) => (follow.dueThisWeek || []).includes(c.fu?.status)).length;
+
+  function paintContext(revSum, orderSum) {
+    const ctx = document.getElementById("cust-context");
+    if (!ctx) return;
+    const aov = orderSum ? fmtINR(revSum / orderSum, { lakhDigits: 2 }) : "—";
+    ctx.textContent = `AOV ${aov} · ${fmt.num(activeCount)} active / ${fmt.num(inactiveCount)} inactive (45 days, as of ${fmt.date(data.asOf)})`;
+  }
+
+  function paintKpis(revText, custText) {
+    const kpis = document.getElementById("cust-kpis");
+    if (!kpis) return;
+    const cells = [
+      ["Revenue (in range)", revText],
+      ["Customers (in range)", custText],
+      ["Due this week", fmt.num(dueAll)],
+    ];
+    kpis.innerHTML = cells.map(([label, value]) =>
+      `<div class="kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`
+    ).join("");
   }
 
   function renderResults() {
@@ -2642,6 +2675,7 @@ function renderCustomers(data) {
     const hint = document.getElementById("cust-compare");
     if (hint) hint.innerHTML = rangeHint(range);
     const dueBtn = document.getElementById("cust-due");
+    const allBtn = document.getElementById("cust-all");
     const clearBtn = document.getElementById("cust-clear");
     if (clearBtn) clearBtn.hidden = !filtersOn();
     const csvBtn = document.getElementById("cust-csv");
@@ -2658,60 +2692,37 @@ function renderCustomers(data) {
     });
     const body = document.getElementById("cust-body");
     const cards = document.getElementById("cust-cards");
-    const kpis = document.getElementById("cust-kpis");
     const summary = document.getElementById("cust-summary");
+    if (dueBtn) {
+      dueBtn.textContent = `Due this week (${fmt.num(dueAll)})`;
+      dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
+    }
+    if (allBtn) allBtn.setAttribute("aria-pressed", state.due ? "false" : "true");
     if (range.error) {
       current.model = null;
       current.view = [];
-      if (dueBtn) {
-        dueBtn.textContent = "Due this week";
-        dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
-      }
       if (summary) summary.textContent = summaryText(null, 0);
-      if (kpis) kpis.innerHTML = "";
-      if (body) body.innerHTML = `<tr><td colspan="11">Choose a valid date range.</td></tr>`;
+      paintContext(0, 0);
+      paintKpis("—", "—");
+      if (body) body.innerHTML = `<tr><td colspan="8">Choose a valid date range.</td></tr>`;
       if (cards) cards.innerHTML = `<p class="empty">Choose a valid date range.</p>`;
       return;
     }
     const model = buildModel(range);
     current.model = model;
-    const dueN = countDueFrom(model);
-    if (dueBtn) {
-      dueBtn.textContent = `Due this week (${fmt.num(dueN)})`;
-      dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
-    }
     const view = buildView(model);
     current.view = view;
     if (summary) summary.textContent = summaryText(view.length, model.rows.length);
-    let revSum = 0;
-    let orderSum = 0;
-    for (const r of view) {
-      if (r.rev != null) revSum += r.rev;
-      if (r.orders) orderSum += r.orders;
+    let rangeRev = 0;
+    let rangeOrders = 0;
+    for (const r of model.rows) {
+      rangeRev += r.rev || 0;
+      if (r.orders) rangeOrders += r.orders;
     }
-    let allActive = 0;
-    let allInactive = 0;
-    for (const c of customers) {
-      if (c.status === "active") allActive += 1;
-      else allInactive += 1;
-    }
-    if (kpis) {
-      const aov = orderSum ? fmtINR(revSum / orderSum, { lakhDigits: 2 }) : "—";
-      const asOfNote = `as of ${fmt.date(data.asOf)}, all customers`;
-      const cells = [
-        ["Customers", fmt.num(view.length), ""],
-        ["Revenue", fmtINR(revSum), ""],
-        ["AOV", aov, ""],
-        ["Active (45 days)", fmt.num(allActive), asOfNote],
-        ["Inactive", fmt.num(allInactive), asOfNote],
-        ["Due this week", fmt.num(dueN), ""],
-      ];
-      kpis.innerHTML = cells.map(([label, value, note]) =>
-        `<div class="kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>${note ? `<small>${escapeHtml(note)}</small>` : ""}</div>`
-      ).join("");
-    }
+    paintContext(rangeRev, rangeOrders);
+    paintKpis(fmtINR(rangeRev), fmt.num(model.rows.length));
     if (!view.length) {
-      if (body) body.innerHTML = `<tr><td colspan="11">No customers match.</td></tr>`;
+      if (body) body.innerHTML = `<tr><td colspan="8">No customers match.</td></tr>`;
       if (cards) cards.innerHTML = `<p class="empty">No customers match.</p>`;
       return;
     }
@@ -2788,7 +2799,7 @@ function renderCustomers(data) {
   const statusNote = data.status?.rule || "";
 
   app.replaceChildren(el(`
-    ${pageChrome(data.title || "Customers", "Customers, AOV and follow-ups.", data.asOf)}
+    ${pageChrome(data.title || "Customers", "", data.asOf, "", "cust-context")}
     ${sampleBanner(data.sample)}
     <div class="attr-controls" id="cust-periods">
       <label class="cust-period-label">Period
@@ -2802,9 +2813,13 @@ function renderCustomers(data) {
     </div>
     <p class="hint cust-error" id="cust-range-error" hidden></p>
     <div class="cust-tools">
+      <div class="cust-view" role="group" aria-label="Customer list">
+        <button type="button" id="cust-due" aria-pressed="${state.due ? "true" : "false"}">Due this week (${fmt.num(dueAll)})</button>
+        <button type="button" id="cust-all" aria-pressed="${state.due ? "false" : "true"}">All customers</button>
+      </div>
       <button type="button" class="cust-filters-btn" id="cust-filters-btn">Filters</button>
       <input type="search" id="cust-search" placeholder="Search company…" aria-label="Search company" value="${escapeHtml(state.q)}">
-      <button type="button" class="chip cust-due" id="cust-due" aria-pressed="${state.due ? "true" : "false"}">Due this week</button>
+      <button type="button" class="cust-more${colActive("tier") ? " is-on" : ""}" id="cust-more" aria-expanded="false">More filters</button>
       <button type="button" id="cust-csv">Download CSV</button>
       <label class="cust-sort-mobile">Sort
         <select id="cust-sort" class="cust-select" aria-label="Sort">${sortOptions}</select>
@@ -2860,27 +2875,33 @@ function renderCustomers(data) {
     renderResults();
   });
   document.getElementById("cust-due")?.addEventListener("click", () => {
-    if (!state.due) {
-      state.dueSaved = {
-        follow: Array.isArray(state.cols.follow) ? state.cols.follow.slice() : null,
-        sortKey: state.sortKey,
-        sortDir: state.sortDir,
-        dueSort: state.dueSort,
-      };
-      state.due = true;
-      state.dueSort = true;
-    } else {
-      exitDue(true);
-    }
+    if (state.due) return;
+    state.dueSaved = {
+      follow: Array.isArray(state.cols.follow) ? state.cols.follow.slice() : null,
+      sortKey: state.sortKey,
+      sortDir: state.sortDir,
+      dueSort: state.dueSort,
+    };
+    state.due = true;
+    state.dueSort = true;
     persist();
     syncControls();
     renderResults();
   });
+  document.getElementById("cust-all")?.addEventListener("click", () => {
+    if (!state.due) return;
+    exitDue(true);
+    persist();
+    syncControls();
+    renderResults();
+  });
+  document.getElementById("cust-more")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const pop = document.getElementById("cust-popover");
+    if (openMode === "pop" && pop && !pop.hidden && pop.dataset.key === "tier") hidePopover();
+    else openPopover("tier", event.currentTarget);
+  });
   document.getElementById("cust-clear")?.addEventListener("click", () => {
-    if (state.due && state.dueSaved) {
-      state.sortKey = state.dueSaved.sortKey;
-      state.sortDir = state.dueSaved.sortDir;
-    }
     state.q = "";
     state.cols = {
       company: null,
@@ -2895,9 +2916,7 @@ function renderCustomers(data) {
       delta: blankNum(),
       gap: blankNum(),
     };
-    state.due = false;
-    state.dueSort = false;
-    state.dueSaved = null;
+    if (state.dueSaved) state.dueSaved.follow = null;
     hidePopover();
     closeSheet();
     persist();
@@ -2959,11 +2978,50 @@ function renderCustomers(data) {
   });
   document.getElementById("cust-csv")?.addEventListener("click", downloadCsv);
 
+  function toggleExpanded(id) {
+    if (!id) return;
+    if (expanded.has(id)) expanded.delete(id);
+    else expanded.add(id);
+    renderResults();
+    const safe = window.CSS && CSS.escape ? CSS.escape(id) : id;
+    const row = document.querySelector(`#cust-body tr.cust-row[data-id="${safe}"]`);
+    const card = document.querySelector(`#cust-cards .cust-card[data-id="${safe}"]`);
+    const cardsEl = document.getElementById("cust-cards");
+    const cardsOpen = cardsEl && getComputedStyle(cardsEl).display !== "none";
+    (cardsOpen ? card : row)?.focus({ preventScroll: true });
+  }
+
+  document.getElementById("cust-body")?.addEventListener("click", (event) => {
+    const row = event.target.closest("tr.cust-row");
+    if (!row) return;
+    toggleExpanded(row.getAttribute("data-id"));
+  });
+  document.getElementById("cust-body")?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const row = event.target.closest("tr.cust-row");
+    if (!row || event.target !== row) return;
+    event.preventDefault();
+    toggleExpanded(row.getAttribute("data-id"));
+  });
+  document.getElementById("cust-cards")?.addEventListener("click", (event) => {
+    if (event.target.closest(".cust-card-detail")) return;
+    const card = event.target.closest(".cust-card");
+    if (!card) return;
+    toggleExpanded(card.getAttribute("data-id"));
+  });
+  document.getElementById("cust-cards")?.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const card = event.target.closest(".cust-card");
+    if (!card || event.target !== card) return;
+    event.preventDefault();
+    toggleExpanded(card.getAttribute("data-id"));
+  });
+
   const onDocClick = (event) => {
     if (openMode !== "pop") return;
     const pop = document.getElementById("cust-popover");
     if (!pop || pop.hidden || pop.contains(event.target)) return;
-    if (event.target.closest?.(".cust-funnel")) return;
+    if (event.target.closest?.(".cust-funnel") || event.target.closest?.("#cust-more")) return;
     hidePopover();
   };
   const onKey = (event) => {
