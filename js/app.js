@@ -2076,6 +2076,17 @@ function renderCustomers(data) {
     return `<span title="${escapeHtml(full)}">${escapeHtml(shown)}</span>`;
   }
 
+  function last3Lines(c) {
+    const rows = c.last3 || [];
+    if (!rows.length) return "—";
+    const lines = rows.map((row) => {
+      const item = row[1] || "";
+      const tip = `${custDayMon(row[0])} · ${item}`;
+      return `<span class="cust-item" title="${escapeHtml(tip)}">${escapeHtml(custTrunc(item))}</span>`;
+    }).join("");
+    return `<span class="cust-item-list">${lines}</span>`;
+  }
+
   function deltaHtml(change) {
     const ch = change || { text: "—", cls: "", tip: "" };
     const tip = ch.tip ? ` title="${escapeHtml(ch.tip)}"` : "";
@@ -2086,16 +2097,16 @@ function renderCustomers(data) {
   function rowHtml(r) {
     const c = r.c;
     return `<tr>
-      <td class="cust-name">${escapeHtml(c.n)}</td>
+      <td class="cust-name"><span title="${escapeHtml(c.n)}">${escapeHtml(c.n)}</span></td>
       <td>${escapeHtml(persons[c.mp] || "—")}</td>
       <td>${sourceHtml(c)}</td>
       <td class="num">${fmtINR(r.rev)}</td>
       <td class="num">${fmtINR(r.aov, { lakhDigits: 2 })}</td>
       <td class="num">${deltaHtml(r.change)}</td>
-      <td>${tierHtml(r.tier)}</td>
-      <td>${statusHtml(c.status)}</td>
-      <td class="cust-items">${last3Html(c)}</td>
-      <td>${followHtml(c)}</td>
+      <td class="cust-tier">${tierHtml(r.tier)}</td>
+      <td class="cust-status">${statusHtml(c.status)}</td>
+      <td class="cust-items">${last3Lines(c)}</td>
+      <td class="cust-follow">${followHtml(c)}</td>
       <td class="num">${gapHtml(c)}</td>
     </tr>`;
   }
@@ -2256,14 +2267,11 @@ function renderCustomers(data) {
     let orderSum = 0;
     let activeN = 0;
     let inactiveN = 0;
-    let dueN = 0;
-    const dueIds = new Set(follow.dueThisWeek || []);
     for (const r of view) {
       if (r.rev != null) revSum += r.rev;
       if (r.orders) orderSum += r.orders;
       if (r.c.status === "active") activeN += 1;
       else inactiveN += 1;
-      if (dueIds.has(r.c.fu?.status)) dueN += 1;
     }
     if (kpis) {
       const aov = orderSum ? fmtINR(revSum / orderSum, { lakhDigits: 2 }) : "—";
@@ -2273,7 +2281,7 @@ function renderCustomers(data) {
         ["AOV", aov],
         ["Active", fmt.num(activeN)],
         ["Inactive", fmt.num(inactiveN)],
-        ["Due this week", fmt.num(dueN)],
+        ["Due this week", fmt.num(countDue())],
       ];
       kpis.innerHTML = cells.map(([label, value]) =>
         `<div class="kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`
