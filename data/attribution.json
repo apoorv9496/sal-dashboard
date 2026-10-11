@@ -40,7 +40,7 @@
           "sources": [
             {
               "source": "other",
-              "label": "Other (as recorded)",
+              "label": "Other",
               "amountLakh": 101.38,
               "sharePct": 85.0,
               "changePct": -11.4,
@@ -121,7 +121,7 @@
           "sources": [
             {
               "source": "other",
-              "label": "Other (as recorded)",
+              "label": "Other",
               "amountLakh": 575.65,
               "sharePct": 76.7,
               "changePct": 60.7,
@@ -202,7 +202,7 @@
           "sources": [
             {
               "source": "other",
-              "label": "Other (as recorded)",
+              "label": "Other",
               "amountLakh": 1423.37,
               "sharePct": 75.7,
               "changePct": 13.1,
@@ -300,7 +300,7 @@
           "sources": [
             {
               "source": "other",
-              "label": "Other (as recorded)",
+              "label": "Other",
               "amountLakh": 5487.75,
               "sharePct": 74.5,
               "changePct": null,
@@ -382,7 +382,7 @@
           "sources": [
             {
               "source": "other",
-              "label": "Other (as recorded)",
+              "label": "Other",
               "amountLakh": 7789.7,
               "sharePct": 78.6,
               "changePct": null,
@@ -584,7 +584,7 @@
         },
         {
           "source": "other",
-          "label": "Other (as recorded)",
+          "label": "Other",
           "totalLakh": 101.38,
           "cells": {
             "label": {
@@ -752,7 +752,7 @@
         },
         {
           "source": "other",
-          "label": "Other (as recorded)",
+          "label": "Other",
           "totalLakh": 575.65,
           "cells": {
             "label": {
@@ -947,7 +947,7 @@
         },
         {
           "source": "other",
-          "label": "Other (as recorded)",
+          "label": "Other",
           "totalLakh": 1423.37,
           "cells": {
             "label": {
@@ -1169,7 +1169,7 @@
         },
         {
           "source": "other",
-          "label": "Other (as recorded)",
+          "label": "Other",
           "totalLakh": 5487.75,
           "cells": {
             "label": {
@@ -1418,7 +1418,7 @@
         },
         {
           "source": "other",
-          "label": "Other (as recorded)",
+          "label": "Other",
           "totalLakh": 7789.7,
           "cells": {
             "label": {
