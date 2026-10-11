@@ -1552,6 +1552,9 @@ const CUST_SORTS = [
   ["items:desc", "Last 3 items (Z–A)"],
   ["due", "Due this week (overdue first)"],
 ];
+const CUST_TEXT_COLS = new Set(["company", "mp", "source", "tier", "status", "items", "follow"]);
+const CUST_NUM_COLS = new Set(["revenue", "aov", "delta", "gap"]);
+let detachCustUi = null;
 
 function custIso(y, m, d) {
   return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
@@ -1754,7 +1757,6 @@ function renderCustomers(data) {
   const customers = data.customers || [];
   const persons = data.marketingPersons || [];
   const sources = data.sources || [];
-  const categories = data.categories || [];
   const follow = data.followUp || { statuses: [], dueThisWeek: [] };
   const fuLabel = Object.fromEntries((follow.statuses || []).map((s) => [s.id, s.label]));
   const fuAllowed = new Set((follow.statuses || []).map((s) => s.id));
@@ -1784,23 +1786,20 @@ function renderCustomers(data) {
     from: clampDate(fromStored),
     to: clampDate(toStored),
     q: typeof storedFilters.q === "string" ? storedFilters.q : "",
-    status: storedFilters.status === "active" || storedFilters.status === "inactive" ? storedFilters.status : "all",
-    mp: custNumList(storedFilters.mp, persons.length),
-    src: custNumList(storedFilters.src, sources.length),
-    cat: custNumList(storedFilters.cat, categories.length),
-    tier: custStrList(storedFilters.tier, tierAllowed),
-    fu: custStrList(storedFilters.fu, fuAllowed),
+    cols: initialCols(),
     due: Boolean(storedFilters.due),
     dueSort: Boolean(storedFilters.dueSort),
     sortKey: CUST_DEFAULT_DIR[storedFilters.sortKey] ? storedFilters.sortKey : "revenue",
     sortDir: storedFilters.sortDir === "asc" || storedFilters.sortDir === "desc" ? storedFilters.sortDir : "desc",
     dueSaved: null,
   };
-  if (state.due) state.fu = (follow.dueThisWeek || []).slice();
   if (storedFilters.dueSaved && typeof storedFilters.dueSaved === "object") {
     const saved = storedFilters.dueSaved;
+    const savedFollow = Array.isArray(saved.follow)
+      ? saved.follow
+      : custStrList(saved.fu, fuAllowed);
     state.dueSaved = {
-      fu: custStrList(saved.fu, fuAllowed),
+      follow: savedFollow.length || Array.isArray(saved.follow) ? savedFollow : null,
       sortKey: CUST_DEFAULT_DIR[saved.sortKey] ? saved.sortKey : "revenue",
       sortDir: saved.sortDir === "asc" ? "asc" : "desc",
       dueSort: Boolean(saved.dueSort),
@@ -1808,7 +1807,9 @@ function renderCustomers(data) {
   }
   if (state.preset === "custom") ensureCustom();
 
-  let current = { view: [], range: null };
+  let current = { view: [], range: null, model: null };
+  let openMode = null;
+  let sheetCol = null;
 
   function ensureCustom() {
     if (state.from && state.to) return;
@@ -1824,12 +1825,7 @@ function renderCustomers(data) {
     try {
       sessionStorage.setItem(CUST_FILTER_KEY, JSON.stringify({
         q: state.q,
-        status: state.status,
-        mp: state.mp,
-        src: state.src,
-        cat: state.cat,
-        tier: state.tier,
-        fu: state.fu,
+        cols: state.cols,
         due: state.due,
         dueSort: state.dueSort,
         sortKey: state.sortKey,
@@ -1841,35 +1837,159 @@ function renderCustomers(data) {
     }
   }
 
-  function passesBase(c) {
-    if (state.q && !String(c.n || "").toLowerCase().includes(state.q.toLowerCase())) return false;
-    if (state.status !== "all" && c.status !== state.status) return false;
-    if (state.mp.length && !state.mp.includes(c.mp)) return false;
-    if (state.src.length && !state.src.includes(c.src)) return false;
+  function blankNum() {
+    return { min: "", max: "" };
+  }
+
+  function loadNum(raw) {
+    const read = (value) => {
+      const s = typeof value === "number" && Number.isFinite(value) ? String(value) : typeof value === "string" ? value.trim() : "";
+      return /^-?\d+(\.\d+)?$/.test(s) ? s : "";
+    };
+    return { min: read(raw?.min), max: read(raw?.max) };
+  }
+
+  function loadText(raw, allowed) {
+    if (!Array.isArray(raw)) return null;
+    const out = [];
+    for (const item of raw) {
+      const s = String(item);
+      if (allowed && !allowed.has(s)) continue;
+      if (!out.includes(s)) out.push(s);
+    }
+    return out;
+  }
+
+  function initialCols() {
+    const cols = {
+      company: null,
+      mp: null,
+      source: null,
+      tier: null,
+      status: null,
+      items: null,
+      follow: null,
+      revenue: blankNum(),
+      aov: blankNum(),
+      delta: blankNum(),
+      gap: blankNum(),
+    };
+    const raw = storedFilters.cols;
+    if (raw && typeof raw === "object") {
+      cols.company = loadText(raw.company);
+      cols.mp = loadText(raw.mp, new Set(persons.map((_, i) => String(i))));
+      cols.source = loadText(raw.source, new Set(sources.map((_, i) => String(i))));
+      cols.tier = loadText(raw.tier, new Set(["A", "B", "C", "—"]));
+      cols.status = loadText(raw.status, new Set(["active", "inactive"]));
+      cols.items = loadText(raw.items);
+      cols.follow = loadText(raw.follow, new Set(["callNow", "—", ...fuAllowed]));
+      cols.revenue = loadNum(raw.revenue);
+      cols.aov = loadNum(raw.aov);
+      cols.delta = loadNum(raw.delta);
+      cols.gap = loadNum(raw.gap);
+      return cols;
+    }
+    if (storedFilters.status === "active" || storedFilters.status === "inactive") cols.status = [storedFilters.status];
+    const mp = custNumList(storedFilters.mp, persons.length);
+    if (mp.length) cols.mp = mp.map(String);
+    const src = custNumList(storedFilters.src, sources.length);
+    if (src.length) cols.source = src.map(String);
+    const tier = custStrList(storedFilters.tier, tierAllowed);
+    if (tier.length) cols.tier = tier;
+    let fuSource = storedFilters.fu;
+    if (storedFilters.due && storedFilters.dueSaved && Array.isArray(storedFilters.dueSaved.fu)) {
+      fuSource = storedFilters.dueSaved.fu;
+    }
+    const fu = custStrList(fuSource, fuAllowed);
+    if (fu.length) cols.follow = fu;
+    return cols;
+  }
+
+  function passesSearch(c) {
+    if (!state.q) return true;
+    return String(c.n || "").toLowerCase().includes(state.q.toLowerCase());
+  }
+
+  function followKey(c) {
+    const fu = c.fu || {};
+    if (fu.callNow) return "callNow";
+    return fu.status || "—";
+  }
+
+  function textValue(row, key) {
+    const c = row.c;
+    if (key === "company") return [c.n || "—"];
+    if (key === "mp") return [String(c.mp)];
+    if (key === "source") return [String(c.src)];
+    if (key === "tier") return [row.tier || "—"];
+    if (key === "status") return [c.status === "active" ? "active" : "inactive"];
+    if (key === "items") {
+      const names = [];
+      for (const item of c.last3 || []) {
+        const name = item[1] || "—";
+        if (!names.includes(name)) names.push(name);
+      }
+      return names.length ? names : ["—"];
+    }
+    if (key === "follow") return [followKey(c)];
+    return ["—"];
+  }
+
+  function numValue(row, key) {
+    if (key === "revenue") return row.rev;
+    if (key === "aov") return row.aov;
+    if (key === "delta") return row.change ? row.change.pct : null;
+    if (key === "gap") return row.c.fu ? row.c.fu.gap : null;
+    return null;
+  }
+
+  function rowPassesCol(row, key) {
+    const v = state.cols[key];
+    if (CUST_NUM_COLS.has(key)) {
+      if (!v || (v.min === "" && v.max === "")) return true;
+      const n = numValue(row, key);
+      if (n == null || !Number.isFinite(n)) return false;
+      if (v.min !== "" && n < Number(v.min)) return false;
+      if (v.max !== "" && n > Number(v.max)) return false;
+      return true;
+    }
+    if (!Array.isArray(v)) return true;
+    const allow = new Set(v);
+    return textValue(row, key).some((x) => allow.has(x));
+  }
+
+  function rowPassesCols(row, exceptKey) {
+    for (const [key] of CUST_COLS) {
+      if (key === exceptKey) continue;
+      if (key === "follow" && state.due) continue;
+      if (!rowPassesCol(row, key)) return false;
+    }
     return true;
   }
 
-  function countDue() {
+  function colActive(key) {
+    if (key === "follow" && state.due) return true;
+    const v = state.cols[key];
+    if (CUST_NUM_COLS.has(key)) return Boolean(v && (v.min !== "" || v.max !== ""));
+    return Array.isArray(v);
+  }
+
+  function countDueFrom(model) {
     const ids = new Set(follow.dueThisWeek || []);
     let n = 0;
     for (const c of customers) {
-      if (!passesBase(c)) continue;
-      if (ids.has(c.fu?.status)) n++;
+      if (!passesSearch(c)) continue;
+      if (!ids.has(c.fu?.status)) continue;
+      const row = model.byCust.get(c) || blankRow(c);
+      if (!rowPassesCols(row, "follow")) continue;
+      n++;
     }
     return n;
   }
 
   function filtersOn() {
-    return Boolean(
-      state.q ||
-      state.status !== "all" ||
-      state.mp.length ||
-      state.src.length ||
-      state.cat.length ||
-      state.tier.length ||
-      state.fu.length ||
-      state.due
-    );
+    if (state.q || state.due) return true;
+    return CUST_COLS.some(([key]) => colActive(key));
   }
 
   function custSum(inv, fromOff, toOff, catSet) {
@@ -1915,13 +2035,12 @@ function renderCustomers(data) {
     const prior = custPriorRange(range.from, range.to, state.preset, data.dataStart);
     const fromOff = custDiffDays(data.dataStart, range.from);
     const toOff = custDiffDays(data.dataStart, range.to);
-    const catSet = state.cat.length ? new Set(state.cat) : null;
     const rows = [];
     for (const c of customers) {
-      const cur = custSum(c.inv || [], fromOff, toOff, catSet);
+      const cur = custSum(c.inv || [], fromOff, toOff, null);
       if (!cur) continue;
       const prev = prior
-        ? custRev(c.inv || [], custDiffDays(data.dataStart, prior[0]), custDiffDays(data.dataStart, prior[1]), catSet)
+        ? custRev(c.inv || [], custDiffDays(data.dataStart, prior[0]), custDiffDays(data.dataStart, prior[1]), null)
         : null;
       rows.push({
         c,
@@ -1997,20 +2116,20 @@ function renderCustomers(data) {
 
   function buildView(model) {
     const list = [];
-    const passFu = (c) => !state.fu.length || state.fu.includes(c.fu?.status);
-    const passTier = (tier) => !state.tier.length || state.tier.includes(tier);
+    const ok = (row) => {
+      if (!passesSearch(row.c)) return false;
+      if (!rowPassesCols(row)) return false;
+      if (state.due && !(follow.dueThisWeek || []).includes(row.c.fu?.status)) return false;
+      return true;
+    };
     if (state.due) {
       for (const c of customers) {
-        if (!passesBase(c) || !passFu(c)) continue;
-        const row = model.byCust.get(c);
-        const tier = row ? row.tier : "—";
-        if (!passTier(tier)) continue;
-        list.push(row || blankRow(c));
+        const row = model.byCust.get(c) || blankRow(c);
+        if (ok(row)) list.push(row);
       }
     } else {
       for (const row of model.rows) {
-        if (!passesBase(row.c) || !passFu(row.c) || !passTier(row.tier)) continue;
-        list.push(row);
+        if (ok(row)) list.push(row);
       }
     }
     list.sort(compareRows);
@@ -2136,20 +2255,9 @@ function renderCustomers(data) {
   }
 
   function summaryText(shown, inRange) {
-    const parts = [];
-    if (shown == null) parts.push("Choose a valid date range");
-    else if (state.due) parts.push(`Showing ${fmt.num(shown)} customers`);
-    else parts.push(`Showing ${fmt.num(shown)} of ${fmt.num(inRange)} in this range`);
-    if (state.q) parts.push(`Search: ${state.q}`);
-    if (state.status === "active") parts.push("Active");
-    if (state.status === "inactive") parts.push("Inactive");
-    if (state.mp.length) parts.push(state.mp.map((i) => persons[i]).filter(Boolean).join(", "));
-    if (state.src.length) parts.push(state.src.map((i) => sources[i]?.label).filter(Boolean).join(", "));
-    if (state.cat.length) parts.push(state.cat.map((i) => categories[i]?.label).filter(Boolean).join(", "));
-    if (state.tier.length) parts.push(`Tier ${state.tier.join(", ")}`);
-    if (state.due) parts.push("Due this week");
-    else if (state.fu.length) parts.push(state.fu.map((id) => fuLabel[id] || id).join(", "));
-    return parts.join(" · ");
+    if (shown == null) return "Choose a valid date range";
+    if (state.due) return `Showing ${fmt.num(shown)} customers`;
+    return `Showing ${fmt.num(shown)} of ${fmt.num(inRange)} in this range`;
   }
 
   function rangeHint(range) {
@@ -2167,30 +2275,340 @@ function renderCustomers(data) {
     return bits.join(" · ");
   }
 
-  function checkGroup(key, label, options) {
-    const selected = new Set((state[key] || []).map(String));
-    const boxes = options.map((opt) => {
-      const value = String(opt.value);
-      return `<label><input type="checkbox" value="${escapeHtml(value)}"${selected.has(value) ? " checked" : ""}> ${escapeHtml(opt.label)}</label>`;
-    }).join("");
-    const n = state[key].length;
-    const summary = n ? `${label} (${n})` : label;
-    return `<details class="cust-drop${n ? " is-on" : ""}" data-filter="${key}">
-      <summary data-label="${escapeHtml(label)}">${escapeHtml(summary)}</summary>
-      <div class="cust-drop-panel">${boxes}</div>
-    </details>`;
-  }
-
   function sortValue() {
     return state.dueSort ? "due" : `${state.sortKey}:${state.sortDir}`;
   }
 
-  function syncControls() {
-    document.querySelectorAll("[data-cust-preset]").forEach((btn) => {
-      const on = btn.getAttribute("data-cust-preset") === state.preset;
-      btn.classList.toggle("pill-active", on);
-      btn.setAttribute("aria-selected", on ? "true" : "false");
+  function valueLabel(key, value) {
+    if (key === "mp") return persons[Number(value)] || "—";
+    if (key === "source") return sources[Number(value)]?.label || "—";
+    if (key === "status") return value === "active" ? "Active" : "Inactive";
+    if (key === "follow") {
+      if (value === "callNow") return "Call now";
+      return fuLabel[value] || value || "—";
+    }
+    return value || "—";
+  }
+
+  function candidateRows(exceptKey) {
+    const model = current.model;
+    if (!model) return [];
+    const list = [];
+    const take = (row) => {
+      if (!passesSearch(row.c)) return;
+      if (state.due && exceptKey !== "follow" && !(follow.dueThisWeek || []).includes(row.c.fu?.status)) return;
+      if (!rowPassesCols(row, exceptKey)) return;
+      list.push(row);
+    };
+    if (state.due) {
+      for (const c of customers) take(model.byCust.get(c) || blankRow(c));
+    } else {
+      for (const row of model.rows) take(row);
+    }
+    return list;
+  }
+
+  function distinctEntries(key) {
+    const counts = new Map();
+    for (const row of candidateRows(key)) {
+      for (const v of new Set(textValue(row, key))) counts.set(v, (counts.get(v) || 0) + 1);
+    }
+    const entries = [...counts.entries()].map(([value, count]) => ({
+      value,
+      count,
+      label: valueLabel(key, value),
+    }));
+    const tierOrder = { A: 0, B: 1, C: 2, "—": 3 };
+    entries.sort((a, b) => {
+      if (key === "tier") return (tierOrder[a.value] ?? 9) - (tierOrder[b.value] ?? 9);
+      if (key === "status") return a.value === b.value ? 0 : a.value === "active" ? -1 : 1;
+      return custCmpText(a.label, b.label);
     });
+    return entries;
+  }
+
+  function initialChecked(key, entries) {
+    const currentSel = state.cols[key];
+    const due = key === "follow" && state.due;
+    const dueKeys = new Set(["callNow", "callThisWeek", "overdue"]);
+    const checked = new Set();
+    for (const e of entries) {
+      if (due) {
+        if (dueKeys.has(e.value)) checked.add(e.value);
+      } else if (!Array.isArray(currentSel) || currentSel.includes(e.value)) {
+        checked.add(e.value);
+      }
+    }
+    return checked;
+  }
+
+  function selectionIsDue(checked, allValues) {
+    const dueKeys = new Set(["callNow", "callThisWeek", "overdue"]);
+    for (const v of allValues) {
+      if (dueKeys.has(v) !== checked.has(v)) return false;
+    }
+    return true;
+  }
+
+  function exitDue(restoreFollow) {
+    const saved = state.dueSaved;
+    state.due = false;
+    state.dueSort = false;
+    if (saved) {
+      state.sortKey = saved.sortKey;
+      state.sortDir = saved.sortDir;
+      state.dueSort = Boolean(saved.dueSort);
+      if (restoreFollow) state.cols.follow = Array.isArray(saved.follow) ? saved.follow.slice() : null;
+    }
+    state.dueSaved = null;
+  }
+
+  function commitText(key, checked, allValues) {
+    const allOn = allValues.length > 0 && allValues.every((v) => checked.has(v));
+    if (key === "follow" && state.due) {
+      if (!allOn && selectionIsDue(checked, allValues)) return;
+      exitDue(false);
+    }
+    state.cols[key] = allOn ? null : [...checked];
+  }
+
+  function parseBound(raw) {
+    const s = String(raw ?? "").trim().replace(/,/g, "").replace(/₹/g, "").trim();
+    if (s === "") return "";
+    if (!/^-?\d+(\.\d+)?$/.test(s)) return null;
+    return s;
+  }
+
+  function commitNum(key, minRaw, maxRaw) {
+    const min = parseBound(minRaw);
+    const max = parseBound(maxRaw);
+    if (min == null || max == null) return false;
+    state.cols[key] = { min, max };
+    return true;
+  }
+
+  function showNumError(container) {
+    const err = container.querySelector(".cust-pop-err");
+    if (!err) return;
+    err.hidden = false;
+    err.textContent = "Enter a number";
+  }
+
+  function textPanelHtml(entries, checked) {
+    const rows = entries.map((e) => `<label data-value="${escapeHtml(e.value)}" data-label="${escapeHtml(e.label)}">
+        <input type="checkbox"${checked.has(e.value) ? " checked" : ""}>
+        <span>${escapeHtml(e.label)}</span>
+        <span class="cust-pop-count">${fmt.num(e.count)}</span>
+      </label>`).join("");
+    return `<div class="cust-pop-tools">
+        <button type="button" data-act="all">Select all</button>
+        <button type="button" data-act="clear">Clear</button>
+      </div>
+      <input type="search" class="cust-pop-search" placeholder="Search" aria-label="Search values">
+      <div class="cust-pop-list">${rows || `<p class="empty">No values</p>`}</div>
+      <div class="cust-pop-footer">
+        <button type="button" data-act="ok">OK</button>
+        <button type="button" data-act="cancel">Cancel</button>
+      </div>`;
+  }
+
+  function numPanelHtml(key) {
+    const v = state.cols[key] || blankNum();
+    const ascOn = !state.dueSort && state.sortKey === key && state.sortDir === "asc";
+    const descOn = !state.dueSort && state.sortKey === key && state.sortDir === "desc";
+    return `<div class="cust-pop-num">
+        <label>Min <input id="cust-f-min" inputmode="decimal" value="${escapeHtml(v.min)}" aria-label="Minimum"></label>
+        <label>Max <input id="cust-f-max" inputmode="decimal" value="${escapeHtml(v.max)}" aria-label="Maximum"></label>
+      </div>
+      <p class="cust-pop-err" hidden></p>
+      <div class="cust-pop-sort">
+        <button type="button" data-num-sort="asc"${ascOn ? ` class="is-on"` : ""}>A → Z</button>
+        <button type="button" data-num-sort="desc"${descOn ? ` class="is-on"` : ""}>Z → A</button>
+      </div>
+      <div class="cust-pop-footer">
+        <button type="button" data-act="ok">OK</button>
+        <button type="button" data-act="cancel">Cancel</button>
+      </div>`;
+  }
+
+  function hidePopover() {
+    const pop = document.getElementById("cust-popover");
+    if (pop) {
+      pop.hidden = true;
+      pop.innerHTML = "";
+      delete pop.dataset.key;
+    }
+    document.querySelectorAll('.cust-funnel[aria-expanded="true"]').forEach((btn) => {
+      btn.setAttribute("aria-expanded", "false");
+    });
+    if (openMode === "pop") openMode = null;
+  }
+
+  function closeSheet() {
+    const sheet = document.getElementById("cust-sheet");
+    if (sheet) sheet.hidden = true;
+    sheetCol = null;
+    if (openMode === "sheet") openMode = null;
+    document.body.classList.remove("cust-sheet-open");
+  }
+
+  function finishPanel() {
+    if (openMode === "pop") hidePopover();
+    else showSheetList();
+  }
+
+  function showSheetList() {
+    sheetCol = null;
+    const back = document.getElementById("cust-sheet-back");
+    const title = document.getElementById("cust-sheet-title");
+    const body = document.getElementById("cust-sheet-body");
+    if (back) back.hidden = true;
+    if (title) title.textContent = "Filters";
+    if (!body) return;
+    body.innerHTML = CUST_COLS.map(([key, label]) => {
+      const on = colActive(key);
+      return `<button type="button" class="cust-sheet-col${on ? " is-on" : ""}" data-sheet-col="${escapeHtml(key)}"><span>${escapeHtml(label)}</span><span aria-hidden="true">${on ? "●" : ""}</span></button>`;
+    }).join("");
+  }
+
+  function mountPanel(key, container) {
+    const host = container.cloneNode(false);
+    container.replaceWith(host);
+    container = host;
+    if (CUST_NUM_COLS.has(key)) {
+      container.innerHTML = numPanelHtml(key);
+      container.addEventListener("click", (event) => {
+        const dir = event.target.closest("[data-num-sort]")?.getAttribute("data-num-sort");
+        const act = event.target.closest("[data-act]")?.getAttribute("data-act");
+        if (dir === "asc" || dir === "desc") {
+          const minEl = container.querySelector("#cust-f-min");
+          const maxEl = container.querySelector("#cust-f-max");
+          if (!commitNum(key, minEl?.value, maxEl?.value)) {
+            showNumError(container);
+            return;
+          }
+          state.sortKey = key;
+          state.sortDir = dir;
+          state.dueSort = false;
+          persist();
+          syncControls();
+          renderResults();
+          finishPanel();
+          return;
+        }
+        if (act === "cancel") {
+          finishPanel();
+          return;
+        }
+        if (act === "ok") {
+          const minEl = container.querySelector("#cust-f-min");
+          const maxEl = container.querySelector("#cust-f-max");
+          if (!commitNum(key, minEl?.value, maxEl?.value)) {
+            showNumError(container);
+            return;
+          }
+          persist();
+          syncControls();
+          renderResults();
+          finishPanel();
+        }
+      });
+      return container;
+    }
+    const entries = distinctEntries(key);
+    const checked = initialChecked(key, entries);
+    container.innerHTML = textPanelHtml(entries, checked);
+    container.querySelector(".cust-pop-search")?.addEventListener("input", (event) => {
+      const q = event.target.value.trim().toLowerCase();
+      container.querySelectorAll(".cust-pop-list label").forEach((lab) => {
+        const name = (lab.getAttribute("data-label") || "").toLowerCase();
+        lab.hidden = Boolean(q) && !name.includes(q);
+      });
+    });
+    container.addEventListener("change", (event) => {
+      const input = event.target.closest('input[type="checkbox"]');
+      if (!input) return;
+      const value = input.closest("label")?.getAttribute("data-value");
+      if (value == null) return;
+      if (input.checked) checked.add(value);
+      else checked.delete(value);
+    });
+    container.addEventListener("click", (event) => {
+      const act = event.target.closest("[data-act]")?.getAttribute("data-act");
+      if (!act) return;
+      if (act === "all" || act === "clear") {
+        container.querySelectorAll(".cust-pop-list label").forEach((lab) => {
+          if (lab.hidden) return;
+          const value = lab.getAttribute("data-value");
+          if (value == null) return;
+          const input = lab.querySelector("input");
+          if (act === "all") checked.add(value);
+          else checked.delete(value);
+          if (input) input.checked = act === "all";
+        });
+        return;
+      }
+      if (act === "cancel") {
+        finishPanel();
+        return;
+      }
+      if (act === "ok") {
+        commitText(key, checked, entries.map((e) => e.value));
+        persist();
+        syncControls();
+        renderResults();
+        finishPanel();
+      }
+    });
+    return container;
+  }
+
+  function showSheetCol(key) {
+    sheetCol = key;
+    const back = document.getElementById("cust-sheet-back");
+    const title = document.getElementById("cust-sheet-title");
+    const body = document.getElementById("cust-sheet-body");
+    const label = CUST_COLS.find((col) => col[0] === key)?.[1] || "Filter";
+    if (back) back.hidden = false;
+    if (title) title.textContent = label;
+    if (body) mountPanel(key, body);
+  }
+
+  function openPopover(key, anchor) {
+    closeSheet();
+    hidePopover();
+    openMode = "pop";
+    let pop = document.getElementById("cust-popover");
+    if (!pop) return;
+    pop.hidden = false;
+    pop = mountPanel(key, pop);
+    pop.hidden = false;
+    pop.dataset.key = key;
+    anchor.setAttribute("aria-expanded", "true");
+    const rect = anchor.getBoundingClientRect();
+    const width = pop.offsetWidth || 280;
+    let left = Math.min(rect.left, window.innerWidth - width - 8);
+    if (left < 8) left = 8;
+    let top = rect.bottom + 4;
+    const height = pop.offsetHeight;
+    if (top + height > window.innerHeight - 8) top = Math.max(8, rect.top - height - 4);
+    pop.style.left = `${left}px`;
+    pop.style.top = `${top}px`;
+  }
+
+  function openSheet() {
+    hidePopover();
+    openMode = "sheet";
+    const sheet = document.getElementById("cust-sheet");
+    if (!sheet) return;
+    sheet.hidden = false;
+    document.body.classList.add("cust-sheet-open");
+    showSheetList();
+  }
+
+  function syncControls() {
+    const period = document.getElementById("cust-period");
+    if (period && period.value !== state.preset) period.value = state.preset;
     const custom = document.getElementById("cust-custom");
     if (custom) custom.hidden = state.preset !== "custom";
     const from = document.getElementById("cust-from");
@@ -2199,19 +2617,11 @@ function renderCustomers(data) {
     if (to && to.value !== state.to) to.value = state.to || "";
     const search = document.getElementById("cust-search");
     if (search && search.value !== state.q) search.value = state.q;
-    const status = document.getElementById("cust-status");
-    if (status) status.value = state.status;
-    document.querySelectorAll(".cust-drop").forEach((drop) => {
-      const key = drop.getAttribute("data-filter");
-      const summary = drop.querySelector("summary");
-      const label = summary?.getAttribute("data-label") || "";
-      const selected = new Set((state[key] || []).map(String));
-      drop.classList.toggle("is-on", selected.size > 0);
-      if (summary) summary.textContent = selected.size ? `${label} (${selected.size})` : label;
-      drop.querySelectorAll("input").forEach((input) => {
-        input.checked = selected.has(input.value);
-      });
+    document.querySelectorAll(".cust-funnel").forEach((btn) => {
+      btn.classList.toggle("is-on", colActive(btn.getAttribute("data-col")));
     });
+    const filtersBtn = document.getElementById("cust-filters-btn");
+    if (filtersBtn) filtersBtn.classList.toggle("is-on", CUST_COLS.some(([key]) => colActive(key)));
     const dueBtn = document.getElementById("cust-due");
     if (dueBtn) dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
     const sort = document.getElementById("cust-sort");
@@ -2232,27 +2642,31 @@ function renderCustomers(data) {
     const hint = document.getElementById("cust-compare");
     if (hint) hint.innerHTML = rangeHint(range);
     const dueBtn = document.getElementById("cust-due");
-    if (dueBtn) {
-      dueBtn.textContent = `Due this week (${fmt.num(countDue())})`;
-      dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
-    }
     const clearBtn = document.getElementById("cust-clear");
     if (clearBtn) clearBtn.hidden = !filtersOn();
     const csvBtn = document.getElementById("cust-csv");
     if (csvBtn) csvBtn.disabled = Boolean(range.error);
     document.querySelectorAll("#cust-table th").forEach((th) => {
-      const key = th.querySelector("button")?.getAttribute("data-sort");
+      const key = th.querySelector("button[data-sort]")?.getAttribute("data-sort");
       const sort = !state.dueSort && key === state.sortKey
         ? (state.sortDir === "asc" ? "ascending" : "descending")
         : "none";
       th.setAttribute("aria-sort", sort);
+    });
+    document.querySelectorAll(".cust-funnel").forEach((btn) => {
+      btn.classList.toggle("is-on", colActive(btn.getAttribute("data-col")));
     });
     const body = document.getElementById("cust-body");
     const cards = document.getElementById("cust-cards");
     const kpis = document.getElementById("cust-kpis");
     const summary = document.getElementById("cust-summary");
     if (range.error) {
+      current.model = null;
       current.view = [];
+      if (dueBtn) {
+        dueBtn.textContent = "Due this week";
+        dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
+      }
       if (summary) summary.textContent = summaryText(null, 0);
       if (kpis) kpis.innerHTML = "";
       if (body) body.innerHTML = `<tr><td colspan="11">Choose a valid date range.</td></tr>`;
@@ -2260,31 +2674,40 @@ function renderCustomers(data) {
       return;
     }
     const model = buildModel(range);
+    current.model = model;
+    const dueN = countDueFrom(model);
+    if (dueBtn) {
+      dueBtn.textContent = `Due this week (${fmt.num(dueN)})`;
+      dueBtn.setAttribute("aria-pressed", state.due ? "true" : "false");
+    }
     const view = buildView(model);
     current.view = view;
     if (summary) summary.textContent = summaryText(view.length, model.rows.length);
     let revSum = 0;
     let orderSum = 0;
-    let activeN = 0;
-    let inactiveN = 0;
     for (const r of view) {
       if (r.rev != null) revSum += r.rev;
       if (r.orders) orderSum += r.orders;
-      if (r.c.status === "active") activeN += 1;
-      else inactiveN += 1;
+    }
+    let allActive = 0;
+    let allInactive = 0;
+    for (const c of customers) {
+      if (c.status === "active") allActive += 1;
+      else allInactive += 1;
     }
     if (kpis) {
       const aov = orderSum ? fmtINR(revSum / orderSum, { lakhDigits: 2 }) : "—";
+      const asOfNote = `as of ${fmt.date(data.asOf)}, all customers`;
       const cells = [
-        ["Customers", fmt.num(view.length)],
-        ["Revenue", fmtINR(revSum)],
-        ["AOV", aov],
-        ["Active", fmt.num(activeN)],
-        ["Inactive", fmt.num(inactiveN)],
-        ["Due this week", fmt.num(countDue())],
+        ["Customers", fmt.num(view.length), ""],
+        ["Revenue", fmtINR(revSum), ""],
+        ["AOV", aov, ""],
+        ["Active (45 days)", fmt.num(allActive), asOfNote],
+        ["Inactive", fmt.num(allInactive), asOfNote],
+        ["Due this week", fmt.num(dueN), ""],
       ];
-      kpis.innerHTML = cells.map(([label, value]) =>
-        `<div class="kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`
+      kpis.innerHTML = cells.map(([label, value, note]) =>
+        `<div class="kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>${note ? `<small>${escapeHtml(note)}</small>` : ""}</div>`
       ).join("");
     }
     if (!view.length) {
@@ -2347,16 +2770,16 @@ function renderCustomers(data) {
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   }
 
+  const funnelSvg = `<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M1.5 2.5h13l-5 6.1V13l-3 1.2V8.6l-5-6.1z"/></svg>`;
   const head = CUST_COLS.map(([key, label, cls]) => {
     const sort = !state.dueSort && state.sortKey === key
       ? (state.sortDir === "asc" ? "ascending" : "descending")
       : "none";
-    return `<th class="${cls}" aria-sort="${sort}"><button type="button" class="cust-sort" data-sort="${key}">${escapeHtml(label)}</button></th>`;
+    return `<th class="${cls}" aria-sort="${sort}"><span class="cust-th"><button type="button" class="cust-sort" data-sort="${key}">${escapeHtml(label)}</button><button type="button" class="cust-funnel${colActive(key) ? " is-on" : ""}" data-col="${key}" aria-label="Filter ${escapeHtml(label)}" aria-expanded="false">${funnelSvg}</button></span></th>`;
   }).join("");
-  const periods = (data.presets || []).map((p) => {
-    const on = p.id === state.preset;
-    return `<button type="button" class="pill${on ? " pill-active" : ""}" role="tab" aria-selected="${on ? "true" : "false"}" data-cust-preset="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>`;
-  }).join("");
+  const periods = (data.presets || []).map((p) =>
+    `<option value="${escapeHtml(p.id)}"${p.id === state.preset ? " selected" : ""}>${escapeHtml(p.label)}</option>`
+  ).join("");
   const sortOptions = CUST_SORTS.map(([value, label]) =>
     `<option value="${value}"${value === sortValue() ? " selected" : ""}>${escapeHtml(label)}</option>`
   ).join("");
@@ -2368,7 +2791,9 @@ function renderCustomers(data) {
     ${pageChrome(data.title || "Customers", "Customers, AOV and follow-ups.", data.asOf)}
     ${sampleBanner(data.sample)}
     <div class="attr-controls" id="cust-periods">
-      <div class="pills attr-periods" role="tablist" aria-label="Period">${periods}</div>
+      <label class="cust-period-label">Period
+        <select id="cust-period" class="cust-select" aria-label="Period">${periods}</select>
+      </label>
       <p class="hint attr-compare" id="cust-compare"></p>
     </div>
     <div class="cust-custom" id="cust-custom"${state.preset === "custom" ? "" : " hidden"}>
@@ -2376,30 +2801,16 @@ function renderCustomers(data) {
       <label>To <input type="date" id="cust-to" min="${escapeHtml(data.dataStart)}" max="${escapeHtml(data.asOf)}" value="${escapeHtml(state.to)}"></label>
     </div>
     <p class="hint cust-error" id="cust-range-error" hidden></p>
-    <details class="cust-filters" id="cust-filters">
-      <summary>Filters</summary>
-      <div class="cust-filter-body">
-        <input type="search" id="cust-search" placeholder="Search company…" aria-label="Search company" value="${escapeHtml(state.q)}">
-        <select id="cust-status" class="cust-select" aria-label="Status">
-          <option value="all"${state.status === "all" ? " selected" : ""}>All statuses</option>
-          <option value="active"${state.status === "active" ? " selected" : ""}>Active</option>
-          <option value="inactive"${state.status === "inactive" ? " selected" : ""}>Inactive</option>
-        </select>
-        ${checkGroup("mp", "Marketing person", persons.map((name, i) => ({ value: i, label: name })))}
-        ${checkGroup("src", "Source", sources.map((s, i) => ({ value: i, label: s.label })))}
-        ${checkGroup("cat", "Category", categories.map((s, i) => ({ value: i, label: s.label })))}
-        ${checkGroup("tier", "Tier", ["A", "B", "C"].map((id) => ({ value: id, label: id })))}
-        ${checkGroup("fu", "Follow-up", (follow.statuses || []).map((s) => ({ value: s.id, label: s.label })))}
-      </div>
-    </details>
     <div class="cust-tools">
+      <button type="button" class="cust-filters-btn" id="cust-filters-btn">Filters</button>
+      <input type="search" id="cust-search" placeholder="Search company…" aria-label="Search company" value="${escapeHtml(state.q)}">
       <button type="button" class="chip cust-due" id="cust-due" aria-pressed="${state.due ? "true" : "false"}">Due this week</button>
       <button type="button" id="cust-csv">Download CSV</button>
       <label class="cust-sort-mobile">Sort
         <select id="cust-sort" class="cust-select" aria-label="Sort">${sortOptions}</select>
       </label>
     </div>
-    <p class="hint cust-summary-line"><span id="cust-summary"></span><button type="button" id="cust-clear" hidden>Clear filters</button></p>
+    <p class="hint cust-summary-line"><span id="cust-summary"></span><button type="button" id="cust-clear" class="cust-clear" hidden>Clear all filters</button></p>
     <section class="kpis cust" id="cust-kpis" aria-label="Summary"></section>
     <div class="table-wrap cust-table-wrap">
       <table class="cust-table" id="cust-table">
@@ -2408,14 +2819,24 @@ function renderCustomers(data) {
       </table>
     </div>
     <div class="cust-cards" id="cust-cards"></div>
+    <div id="cust-popover" class="cust-popover" hidden></div>
+    <div id="cust-sheet" class="cust-sheet" hidden>
+      <div class="cust-sheet-backdrop" data-sheet-close></div>
+      <div class="cust-sheet-panel" role="dialog" aria-modal="true" aria-label="Filters">
+        <div class="cust-sheet-head">
+          <button type="button" id="cust-sheet-back" hidden>Back</button>
+          <strong id="cust-sheet-title">Filters</strong>
+          <button type="button" data-sheet-close>Done</button>
+        </div>
+        <div id="cust-sheet-body"></div>
+      </div>
+    </div>
     ${sourceLine ? `<p class="source">${escapeHtml(sourceLine)}</p>` : ""}
     ${statusNote ? `<p class="hint">${escapeHtml(statusNote)}</p>` : ""}
   `));
 
-  document.getElementById("cust-periods")?.addEventListener("click", (event) => {
-    const btn = event.target.closest("[data-cust-preset]");
-    if (!btn) return;
-    const id = btn.getAttribute("data-cust-preset");
+  document.getElementById("cust-period")?.addEventListener("change", (event) => {
+    const id = event.target.value;
     if (!id || id === state.preset) return;
     state.preset = id;
     if (id === "custom") ensureCustom();
@@ -2433,32 +2854,6 @@ function renderCustomers(data) {
     persist();
     renderResults();
   });
-  document.getElementById("cust-filters")?.addEventListener("change", (event) => {
-    const t = event.target;
-    if (t.id === "cust-search") return;
-    if (t.id === "cust-status") {
-      state.status = t.value === "active" || t.value === "inactive" ? t.value : "all";
-    } else {
-      const group = t.closest("[data-filter]");
-      if (!group) return;
-      const key = group.getAttribute("data-filter");
-      state[key] = [...group.querySelectorAll("input:checked")].map((input) =>
-        key === "tier" || key === "fu" ? input.value : Number(input.value)
-      );
-      if (key === "fu" && state.due) {
-        const dueIds = follow.dueThisWeek || [];
-        const same = state.fu.length === dueIds.length && dueIds.every((id) => state.fu.includes(id));
-        if (!same) {
-          state.due = false;
-          state.dueSort = false;
-          state.dueSaved = null;
-        }
-      }
-    }
-    persist();
-    syncControls();
-    renderResults();
-  });
   document.getElementById("cust-search")?.addEventListener("input", (event) => {
     state.q = event.target.value;
     persist();
@@ -2467,25 +2862,15 @@ function renderCustomers(data) {
   document.getElementById("cust-due")?.addEventListener("click", () => {
     if (!state.due) {
       state.dueSaved = {
-        fu: state.fu.slice(),
+        follow: Array.isArray(state.cols.follow) ? state.cols.follow.slice() : null,
         sortKey: state.sortKey,
         sortDir: state.sortDir,
         dueSort: state.dueSort,
       };
       state.due = true;
-      state.fu = (follow.dueThisWeek || []).slice();
       state.dueSort = true;
     } else {
-      const saved = state.dueSaved;
-      state.due = false;
-      state.dueSort = false;
-      if (saved) {
-        state.fu = saved.fu.slice();
-        state.sortKey = saved.sortKey;
-        state.sortDir = saved.sortDir;
-        state.dueSort = Boolean(saved.dueSort);
-      }
-      state.dueSaved = null;
+      exitDue(true);
     }
     persist();
     syncControls();
@@ -2497,20 +2882,54 @@ function renderCustomers(data) {
       state.sortDir = state.dueSaved.sortDir;
     }
     state.q = "";
-    state.status = "all";
-    state.mp = [];
-    state.src = [];
-    state.cat = [];
-    state.tier = [];
-    state.fu = [];
+    state.cols = {
+      company: null,
+      mp: null,
+      source: null,
+      tier: null,
+      status: null,
+      items: null,
+      follow: null,
+      revenue: blankNum(),
+      aov: blankNum(),
+      delta: blankNum(),
+      gap: blankNum(),
+    };
     state.due = false;
     state.dueSort = false;
     state.dueSaved = null;
+    hidePopover();
+    closeSheet();
     persist();
     syncControls();
     renderResults();
   });
+  document.getElementById("cust-filters-btn")?.addEventListener("click", () => {
+    if (openMode === "sheet" && !document.getElementById("cust-sheet")?.hidden) closeSheet();
+    else openSheet();
+  });
+  document.getElementById("cust-sheet")?.addEventListener("click", (event) => {
+    if (event.target.closest("[data-sheet-close]")) {
+      closeSheet();
+      return;
+    }
+    if (event.target.closest("#cust-sheet-back")) {
+      showSheetList();
+      return;
+    }
+    const colBtn = event.target.closest("[data-sheet-col]");
+    if (colBtn) showSheetCol(colBtn.getAttribute("data-sheet-col"));
+  });
   document.querySelector("#cust-table thead")?.addEventListener("click", (event) => {
+    const funnel = event.target.closest(".cust-funnel");
+    if (funnel) {
+      event.stopPropagation();
+      const key = funnel.getAttribute("data-col");
+      const pop = document.getElementById("cust-popover");
+      if (openMode === "pop" && pop && !pop.hidden && pop.dataset.key === key) hidePopover();
+      else openPopover(key, funnel);
+      return;
+    }
     const btn = event.target.closest("button[data-sort]");
     if (!btn) return;
     const key = btn.getAttribute("data-sort");
@@ -2540,6 +2959,30 @@ function renderCustomers(data) {
   });
   document.getElementById("cust-csv")?.addEventListener("click", downloadCsv);
 
+  const onDocClick = (event) => {
+    if (openMode !== "pop") return;
+    const pop = document.getElementById("cust-popover");
+    if (!pop || pop.hidden || pop.contains(event.target)) return;
+    if (event.target.closest?.(".cust-funnel")) return;
+    hidePopover();
+  };
+  const onKey = (event) => {
+    if (event.key !== "Escape") return;
+    if (openMode === "pop") hidePopover();
+    else if (openMode === "sheet") {
+      if (sheetCol) showSheetList();
+      else closeSheet();
+    }
+  };
+  document.addEventListener("click", onDocClick);
+  document.addEventListener("keydown", onKey);
+  detachCustUi = () => {
+    document.removeEventListener("click", onDocClick);
+    document.removeEventListener("keydown", onKey);
+    document.body.classList.remove("cust-sheet-open");
+    detachCustUi = null;
+  };
+
   persist();
   renderResults();
 }
@@ -2561,6 +3004,7 @@ function renderError(err) {
 }
 
 async function route() {
+  if (detachCustUi) detachCustUi();
   const raw = (location.hash || "#home").replace("#", "") || "home";
   const routeId = raw === "" ? "home" : raw;
   setNav(routeId === "home" ? "home" : routeId);
