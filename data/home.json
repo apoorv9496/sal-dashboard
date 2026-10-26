@@ -1,9 +1,9 @@
 {
-  "asOf": "2026-10-09",
+  "asOf": "2026-10-26",
   "sample": false,
   "title": "Sales overview",
   "source": "Sales Analysis · ERP_Sales_Data · Total Bill Amount (col 81, GST-inclusive)",
-  "lastInvoiceDate": "2026-10-08",
+  "lastInvoiceDate": "2026-10-24",
   "definition": {
     "all": "All Sales Analysis categories (BarCode, Sheet Form, Roll Form, Other, blank, Label Sheet) EXCLUDING billing to own group companies. PFW is included.",
     "excludedBuyers": [
@@ -16,11 +16,11 @@
   "periods": {
     "mtd": [
       "2026-10-01",
-      "2026-10-08"
+      "2026-10-24"
     ],
     "prevSamePeriod": [
       "2026-09-01",
-      "2026-09-08"
+      "2026-09-24"
     ],
     "prevFullMonth": [
       "2026-09-01",
@@ -28,7 +28,7 @@
     ],
     "lastYearSamePeriod": [
       "2025-10-01",
-      "2025-10-08"
+      "2025-10-24"
     ],
     "avgMonths": [
       "2026-04",
@@ -38,7 +38,7 @@
       "2026-08",
       "2026-09"
     ],
-    "activeCutoffExclusive": "2026-08-25"
+    "activeCutoffExclusive": "2026-09-11"
   },
   "defaultTab": "all",
   "tabs": [
@@ -49,7 +49,7 @@
       "hash": null,
       "salesCategory": "All Sales Analysis categories, excl. own-company billing",
       "shareOfMtdPct": 100.0,
-      "excludedOwnCompanyMtdLakh": 7.25,
+      "excludedOwnCompanyMtdLakh": 14.51,
       "monthlyTrend": [
         {
           "month": "2025-10",
@@ -114,77 +114,77 @@
         {
           "month": "2026-10",
           "label": "Oct'26",
-          "amountLakh": 119.22,
+          "amountLakh": 379.53,
           "partial": true,
-          "throughDay": 8
+          "throughDay": 24
         }
       ],
       "mtd": {
-        "amountLakh": 119.22,
-        "invoices": 36,
-        "customers": 35,
-        "pctOfAvg": 20.1,
+        "amountLakh": 379.53,
+        "invoices": 121,
+        "customers": 73,
+        "pctOfAvg": 63.9,
         "avgMonthlyLakh": 594.21
       },
       "prevSamePeriod": {
-        "amountLakh": 167.35,
-        "invoices": 38,
-        "customers": 34,
-        "changePct": -28.8,
-        "changeLakh": -48.13
+        "amountLakh": 499.49,
+        "invoices": 122,
+        "customers": 73,
+        "changePct": -24.0,
+        "changeLakh": -119.96
       },
       "prevFullMonth": {
         "amountLakh": 750.97,
         "invoices": 163,
         "customers": 81,
-        "mtdPctOfPrevFull": 15.9
+        "mtdPctOfPrevFull": 50.5
       },
       "lastYearSamePeriod": {
-        "amountLakh": 77.84,
-        "changePct": 53.2
+        "amountLakh": 292.55,
+        "changePct": 29.7
       },
       "customers45d": {
-        "activeBilled": 97,
-        "everBilled": 282
+        "activeBilled": 100,
+        "everBilled": 287
       },
       "avgInvoiceValue": {
-        "mtdLakh": 3.31,
-        "prevSamePeriodLakh": 4.4
+        "mtdLakh": 3.14,
+        "prevSamePeriodLakh": 4.09
       },
       "topCustomersMtd": [
         {
-          "customer": "VARUN MEDIMPEX INC",
-          "amountLakh": 21.02,
-          "sharePct": 17.6,
-          "prevSamePeriodLakh": 22.34
-        },
-        {
           "customer": "S L TRADING COMPANY",
-          "amountLakh": 15.97,
-          "sharePct": 13.4,
+          "amountLakh": 44.6,
+          "sharePct": 11.8,
           "prevSamePeriodLakh": 12.75
         },
         {
-          "customer": "PARMESHTHI ENTERPRISES (UNIT 1ST)",
-          "amountLakh": 11.52,
-          "sharePct": 9.7,
-          "prevSamePeriodLakh": 10.55
+          "customer": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
+          "amountLakh": 39.97,
+          "sharePct": 10.5,
+          "prevSamePeriodLakh": 54.87
         },
         {
-          "customer": "PAPER POINT",
-          "amountLakh": 11.18,
-          "sharePct": 9.4,
-          "prevSamePeriodLakh": 7.58
-        },
-        {
-          "customer": "MAHALAXMI PAPER AGENCY",
-          "amountLakh": 7.12,
-          "sharePct": 6.0,
+          "customer": "ALLIED LABELS PVT LTD",
+          "amountLakh": 28.9,
+          "sharePct": 7.6,
           "prevSamePeriodLakh": 0.0
+        },
+        {
+          "customer": "VARUN MEDIMPEX INC",
+          "amountLakh": 21.02,
+          "sharePct": 5.5,
+          "prevSamePeriodLakh": 22.34
+        },
+        {
+          "customer": "PARMESHTHI ENTERPRISES (UNIT 1ST)",
+          "amountLakh": 20.4,
+          "sharePct": 5.4,
+          "prevSamePeriodLakh": 18.83
         }
       ],
       "concentration": {
-        "top5SharePctMtd": 56.0,
+        "top5SharePctMtd": 40.8,
         "top5SharePct12m": 38.7,
         "top10SharePct12m": 56.1,
         "customers12m": 234,
@@ -194,7 +194,7 @@
         ]
       },
       "footnotes": [
-        "Excludes own group companies M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES: Oct MTD ₹7.25 L, Sep 1–8 ₹65.78 L, Sep full ₹66.49 L (all SAL PAPERS; SHREE ARIHANT last billed Mar 2026). PFW included."
+        "Excludes own group companies M/S SAL PAPERS PVT LTD and M/S SHREE ARIHANT LAMINATES: Oct MTD ₹14.51 L, Sep 1–24 ₹65.78 L, Sep full ₹66.49 L (all SAL PAPERS; SHREE ARIHANT last billed Mar 2026). PFW included."
       ]
     },
     {
@@ -203,7 +203,7 @@
       "onDashboard": true,
       "hash": "#label",
       "salesCategory": "BarCode",
-      "shareOfMtdPct": 1.4,
+      "shareOfMtdPct": 4.3,
       "excludedOwnCompanyMtdLakh": 0.0,
       "monthlyTrend": [
         {
@@ -269,59 +269,77 @@
         {
           "month": "2026-10",
           "label": "Oct'26",
-          "amountLakh": 1.64,
+          "amountLakh": 16.19,
           "partial": true,
-          "throughDay": 8
+          "throughDay": 24
         }
       ],
       "mtd": {
-        "amountLakh": 1.64,
-        "invoices": 2,
-        "customers": 2,
-        "pctOfAvg": 11.8,
+        "amountLakh": 16.19,
+        "invoices": 13,
+        "customers": 11,
+        "pctOfAvg": 116.9,
         "avgMonthlyLakh": 13.85
       },
       "prevSamePeriod": {
-        "amountLakh": 7.74,
-        "invoices": 6,
-        "customers": 6,
-        "changePct": -78.8,
-        "changeLakh": -6.1
+        "amountLakh": 17.75,
+        "invoices": 17,
+        "customers": 15,
+        "changePct": -8.8,
+        "changeLakh": -1.56
       },
       "prevFullMonth": {
         "amountLakh": 30.5,
         "invoices": 21,
         "customers": 16,
-        "mtdPctOfPrevFull": 5.4
+        "mtdPctOfPrevFull": 53.1
       },
       "lastYearSamePeriod": {
-        "amountLakh": 4.88,
-        "changePct": -66.4
+        "amountLakh": 7.02,
+        "changePct": 130.7
       },
       "customers45d": {
         "activeBilled": 17,
-        "everBilled": 51
+        "everBilled": 52
       },
       "avgInvoiceValue": {
-        "mtdLakh": 0.82,
-        "prevSamePeriodLakh": 1.29
+        "mtdLakh": 1.25,
+        "prevSamePeriodLakh": 1.04
       },
       "topCustomersMtd": [
         {
-          "customer": "KRIVIA CORPORATION",
-          "amountLakh": 1.19,
-          "sharePct": 72.8,
+          "customer": "KANVI TRADERS",
+          "amountLakh": 4.42,
+          "sharePct": 27.3,
+          "prevSamePeriodLakh": 2.24
+        },
+        {
+          "customer": "VAMIKA LABELS",
+          "amountLakh": 4.38,
+          "sharePct": 27.0,
+          "prevSamePeriodLakh": 2.26
+        },
+        {
+          "customer": "BHAGIRATHI PRINT WAYS",
+          "amountLakh": 1.87,
+          "sharePct": 11.5,
+          "prevSamePeriodLakh": 2.42
+        },
+        {
+          "customer": "EXL BUSINESS SOLUTIONS",
+          "amountLakh": 1.2,
+          "sharePct": 7.4,
           "prevSamePeriodLakh": 0.0
         },
         {
-          "customer": "SHREE RAM LABELS PVT LTD",
-          "amountLakh": 0.45,
-          "sharePct": 27.2,
-          "prevSamePeriodLakh": 0.0
+          "customer": "KRIVIA CORPORATION",
+          "amountLakh": 1.19,
+          "sharePct": 7.4,
+          "prevSamePeriodLakh": 1.45
         }
       ],
       "concentration": {
-        "top5SharePctMtd": 100.0,
+        "top5SharePctMtd": 80.7,
         "top5SharePct12m": 52.5,
         "top10SharePct12m": 73.5,
         "customers12m": 46,
@@ -340,7 +358,7 @@
       "onDashboard": true,
       "hash": "#gumming",
       "salesCategory": "Sheet Form",
-      "shareOfMtdPct": 55.1,
+      "shareOfMtdPct": 56.8,
       "excludedOwnCompanyMtdLakh": 0.0,
       "monthlyTrend": [
         {
@@ -406,77 +424,77 @@
         {
           "month": "2026-10",
           "label": "Oct'26",
-          "amountLakh": 65.64,
+          "amountLakh": 215.45,
           "partial": true,
-          "throughDay": 8
+          "throughDay": 24
         }
       ],
       "mtd": {
-        "amountLakh": 65.64,
-        "invoices": 17,
-        "customers": 17,
-        "pctOfAvg": 16.0,
+        "amountLakh": 215.45,
+        "invoices": 60,
+        "customers": 39,
+        "pctOfAvg": 52.5,
         "avgMonthlyLakh": 410.15
       },
       "prevSamePeriod": {
-        "amountLakh": 73.68,
-        "invoices": 13,
-        "customers": 12,
-        "changePct": -10.9,
-        "changeLakh": -8.04
+        "amountLakh": 300.99,
+        "invoices": 55,
+        "customers": 30,
+        "changePct": -28.4,
+        "changeLakh": -85.54
       },
       "prevFullMonth": {
         "amountLakh": 478.16,
         "invoices": 76,
         "customers": 35,
-        "mtdPctOfPrevFull": 13.7
+        "mtdPctOfPrevFull": 45.1
       },
       "lastYearSamePeriod": {
-        "amountLakh": 36.56,
-        "changePct": 79.5
+        "amountLakh": 220.9,
+        "changePct": -2.5
       },
       "customers45d": {
-        "activeBilled": 44,
-        "everBilled": 137
+        "activeBilled": 50,
+        "everBilled": 142
       },
       "avgInvoiceValue": {
-        "mtdLakh": 3.86,
-        "prevSamePeriodLakh": 5.67
+        "mtdLakh": 3.59,
+        "prevSamePeriodLakh": 5.47
       },
       "topCustomersMtd": [
         {
           "customer": "S L TRADING COMPANY",
-          "amountLakh": 15.97,
-          "sharePct": 24.3,
+          "amountLakh": 44.6,
+          "sharePct": 20.7,
           "prevSamePeriodLakh": 12.75
         },
         {
+          "customer": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
+          "amountLakh": 37.62,
+          "sharePct": 17.5,
+          "prevSamePeriodLakh": 54.87
+        },
+        {
           "customer": "PAPER POINT",
-          "amountLakh": 11.18,
-          "sharePct": 17.0,
-          "prevSamePeriodLakh": 7.58
-        },
-        {
-          "customer": "MAHALAXMI PAPER AGENCY",
-          "amountLakh": 7.12,
-          "sharePct": 10.8,
-          "prevSamePeriodLakh": 0.0
-        },
-        {
-          "customer": "MITRA TRADING CO.",
-          "amountLakh": 7.01,
-          "sharePct": 10.7,
-          "prevSamePeriodLakh": 6.94
+          "amountLakh": 17.45,
+          "sharePct": 8.1,
+          "prevSamePeriodLakh": 30.53
         },
         {
           "customer": "DEEPAK SALES CORPN.",
-          "amountLakh": 4.6,
-          "sharePct": 7.0,
-          "prevSamePeriodLakh": 0.0
+          "amountLakh": 16.7,
+          "sharePct": 7.8,
+          "prevSamePeriodLakh": 15.57
+        },
+        {
+          "customer": "SEEMA GRAPHICS",
+          "amountLakh": 10.44,
+          "sharePct": 4.8,
+          "prevSamePeriodLakh": 5.26
         }
       ],
       "concentration": {
-        "top5SharePctMtd": 69.9,
+        "top5SharePctMtd": 58.9,
         "top5SharePct12m": 51.5,
         "top10SharePct12m": 70.9,
         "customers12m": 107,
@@ -495,7 +513,7 @@
       "onDashboard": false,
       "hash": null,
       "salesCategory": "Roll Form",
-      "shareOfMtdPct": 40.6,
+      "shareOfMtdPct": 36.8,
       "excludedOwnCompanyMtdLakh": 0.0,
       "monthlyTrend": [
         {
@@ -561,77 +579,77 @@
         {
           "month": "2026-10",
           "label": "Oct'26",
-          "amountLakh": 48.35,
+          "amountLakh": 139.56,
           "partial": true,
-          "throughDay": 8
+          "throughDay": 24
         }
       ],
       "mtd": {
-        "amountLakh": 48.35,
-        "invoices": 15,
-        "customers": 15,
-        "pctOfAvg": 30.4,
+        "amountLakh": 139.56,
+        "invoices": 46,
+        "customers": 26,
+        "pctOfAvg": 87.6,
         "avgMonthlyLakh": 159.24
       },
       "prevSamePeriod": {
-        "amountLakh": 82.32,
-        "invoices": 18,
-        "customers": 16,
-        "changePct": -41.3,
-        "changeLakh": -33.97
+        "amountLakh": 157.4,
+        "invoices": 45,
+        "customers": 28,
+        "changePct": -11.3,
+        "changeLakh": -17.84
       },
       "prevFullMonth": {
         "amountLakh": 214.76,
         "invoices": 57,
         "customers": 31,
-        "mtdPctOfPrevFull": 22.5
+        "mtdPctOfPrevFull": 65.0
       },
       "lastYearSamePeriod": {
-        "amountLakh": 36.39,
-        "changePct": 32.8
+        "amountLakh": 64.44,
+        "changePct": 116.6
       },
       "customers45d": {
-        "activeBilled": 36,
-        "everBilled": 96
+        "activeBilled": 35,
+        "everBilled": 98
       },
       "avgInvoiceValue": {
-        "mtdLakh": 3.22,
-        "prevSamePeriodLakh": 4.57
+        "mtdLakh": 3.03,
+        "prevSamePeriodLakh": 3.5
       },
       "topCustomersMtd": [
         {
+          "customer": "ALLIED LABELS PVT LTD",
+          "amountLakh": 28.9,
+          "sharePct": 20.7,
+          "prevSamePeriodLakh": 0.0
+        },
+        {
           "customer": "VARUN MEDIMPEX INC",
           "amountLakh": 21.02,
-          "sharePct": 43.5,
+          "sharePct": 15.1,
           "prevSamePeriodLakh": 22.34
         },
         {
           "customer": "PARMESHTHI ENTERPRISES (UNIT 1ST)",
-          "amountLakh": 11.52,
-          "sharePct": 23.8,
-          "prevSamePeriodLakh": 10.55
-        },
-        {
-          "customer": "SHREE RAM LABELS PVT LTD",
-          "amountLakh": 3.65,
-          "sharePct": 7.6,
-          "prevSamePeriodLakh": 0.0
+          "amountLakh": 20.4,
+          "sharePct": 14.6,
+          "prevSamePeriodLakh": 18.83
         },
         {
           "customer": "C S BARCODE LABLES",
-          "amountLakh": 2.94,
-          "sharePct": 6.1,
-          "prevSamePeriodLakh": 6.93
+          "amountLakh": 10.61,
+          "sharePct": 7.6,
+          "prevSamePeriodLakh": 10.48
         },
         {
-          "customer": "JBS TECH SOLUTIONS PVT LTD",
-          "amountLakh": 1.4,
-          "sharePct": 2.9,
-          "prevSamePeriodLakh": 0.89
+          "customer": "ELBEST PROPACK PRIVATE LIMITED",
+          "amountLakh": 9.64,
+          "sharePct": 6.9,
+          "prevSamePeriodLakh": 10.77
         }
       ],
       "concentration": {
-        "top5SharePctMtd": 83.8,
+        "top5SharePctMtd": 64.9,
         "top5SharePct12m": 45.1,
         "top10SharePct12m": 64.4,
         "customers12m": 85,
@@ -650,8 +668,8 @@
       "onDashboard": false,
       "hash": null,
       "salesCategory": "(blank) + (blank) + Label Sheet + Other",
-      "shareOfMtdPct": 3.0,
-      "excludedOwnCompanyMtdLakh": 7.25,
+      "shareOfMtdPct": 2.2,
+      "excludedOwnCompanyMtdLakh": 14.51,
       "monthlyTrend": [
         {
           "month": "2025-10",
@@ -716,66 +734,66 @@
         {
           "month": "2026-10",
           "label": "Oct'26",
-          "amountLakh": 3.59,
+          "amountLakh": 8.32,
           "partial": true,
-          "throughDay": 8
+          "throughDay": 24
         }
       ],
       "mtd": {
-        "amountLakh": 3.59,
-        "invoices": 4,
+        "amountLakh": 8.32,
+        "invoices": 7,
         "customers": 4,
-        "pctOfAvg": 32.7,
+        "pctOfAvg": 75.8,
         "avgMonthlyLakh": 10.98
       },
       "prevSamePeriod": {
-        "amountLakh": 3.61,
-        "invoices": 3,
-        "customers": 2,
-        "changePct": -0.4,
-        "changeLakh": -0.01
+        "amountLakh": 23.34,
+        "invoices": 9,
+        "customers": 8,
+        "changePct": -64.3,
+        "changeLakh": -15.02
       },
       "prevFullMonth": {
         "amountLakh": 27.55,
         "invoices": 14,
         "customers": 10,
-        "mtdPctOfPrevFull": 13.0
+        "mtdPctOfPrevFull": 30.2
       },
       "lastYearSamePeriod": {
-        "amountLakh": 0.0,
-        "changePct": null
+        "amountLakh": 0.19,
+        "changePct": 4380.5
       },
       "customers45d": {
-        "activeBilled": 14,
+        "activeBilled": 11,
         "everBilled": 51
       },
       "avgInvoiceValue": {
-        "mtdLakh": 0.9,
-        "prevSamePeriodLakh": 1.2
+        "mtdLakh": 1.19,
+        "prevSamePeriodLakh": 2.59
       },
       "topCustomersMtd": [
         {
           "customer": "CHT INDIA PVT LTD",
-          "amountLakh": 1.64,
-          "sharePct": 45.6,
-          "prevSamePeriodLakh": 0.0
+          "amountLakh": 4.79,
+          "sharePct": 57.5,
+          "prevSamePeriodLakh": 3.32
         },
         {
           "customer": "POLYPLEX DIGIPRINT PRIVATE LIMITED",
-          "amountLakh": 0.77,
-          "sharePct": 21.6,
+          "amountLakh": 2.35,
+          "sharePct": 28.3,
           "prevSamePeriodLakh": 0.0
         },
         {
           "customer": "V R UDYOG",
           "amountLakh": 0.63,
-          "sharePct": 17.4,
+          "sharePct": 7.5,
           "prevSamePeriodLakh": 0.0
         },
         {
           "customer": "HORA ART CENTER PVT.LTD",
           "amountLakh": 0.55,
-          "sharePct": 15.4,
+          "sharePct": 6.6,
           "prevSamePeriodLakh": 0.0
         }
       ],
@@ -790,7 +808,7 @@
         ]
       },
       "footnotes": [
-        "Other + blank + Label Sheet (RM/paper trading, scrap, empty drums, factory rent, job work). Excludes own group companies: Oct MTD ₹7.25 L (M/S SAL PAPERS PVT LTD); SHREE ARIHANT Other billing ₹4.37 Cr lifetime, last Mar 2026."
+        "Other + blank + Label Sheet (RM/paper trading, scrap, empty drums, factory rent, job work). Excludes own group companies: Oct MTD ₹14.51 L (M/S SAL PAPERS PVT LTD); SHREE ARIHANT Other billing ₹4.37 Cr lifetime, last Mar 2026."
       ]
     }
   ],
@@ -804,9 +822,9 @@
     ],
     "excludedOwnCompany": {
       "label": "Billing to own group companies (excluded everywhere)",
-      "mtdLakh": 7.25,
+      "mtdLakh": 14.51,
       "prevSamePeriodLakh": 65.78,
-      "changePct": -89.0,
+      "changePct": -77.9,
       "prevFullMonthLakh": 66.49,
       "monthlyTrend": [
         [
@@ -859,16 +877,16 @@
         ],
         [
           "2026-10",
-          7.25
+          14.51
         ]
       ]
     },
     "excludedByBuyer": [
       {
         "label": "M/S SAL PAPERS PVT LTD",
-        "mtdLakh": 7.25,
+        "mtdLakh": 14.51,
         "prevSamePeriodLakh": 65.78,
-        "changePct": -89.0,
+        "changePct": -77.9,
         "prevFullMonthLakh": 66.49,
         "monthlyTrend": [
           [
@@ -921,7 +939,7 @@
           ],
           [
             "2026-10",
-            7.25
+            14.51
           ]
         ]
       },
@@ -990,9 +1008,9 @@
     "alternates": [
       {
         "label": "All incl. own group companies",
-        "mtdLakh": 126.47,
-        "prevSamePeriodLakh": 233.14,
-        "changePct": -45.8,
+        "mtdLakh": 394.03,
+        "prevSamePeriodLakh": 565.28,
+        "changePct": -30.3,
         "prevFullMonthLakh": 817.46,
         "monthlyTrend": [
           [
@@ -1045,15 +1063,15 @@
           ],
           [
             "2026-10",
-            126.47
+            394.03
           ]
         ]
       },
       {
         "label": "All excl. Other/misc (Labels + Gumming + Roll form)",
-        "mtdLakh": 115.63,
-        "prevSamePeriodLakh": 163.74,
-        "changePct": -29.4,
+        "mtdLakh": 371.2,
+        "prevSamePeriodLakh": 476.15,
+        "changePct": -22.0,
         "prevFullMonthLakh": 723.42,
         "monthlyTrend": [
           [
@@ -1106,15 +1124,15 @@
           ],
           [
             "2026-10",
-            115.63
+            371.2
           ]
         ]
       },
       {
         "label": "Labels + Gumming only (dashboard categories)",
-        "mtdLakh": 67.28,
-        "prevSamePeriodLakh": 81.42,
-        "changePct": -17.4,
+        "mtdLakh": 231.64,
+        "prevSamePeriodLakh": 318.75,
+        "changePct": -27.3,
         "prevFullMonthLakh": 508.66,
         "monthlyTrend": [
           [
@@ -1167,7 +1185,7 @@
           ],
           [
             "2026-10",
-            67.28
+            231.64
           ]
         ]
       }
